@@ -8,23 +8,18 @@ extra_css:
 extra_javascript:
 - //cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js
 pages:
-- ['index.md', 'Home', 'Welcome']
-- ['imprint.md', 'Home', 'Imprint']
+- ['index.md', 'Home']
 
-- ['articles/getting-started.md', 'Articles', 'Getting started']
-- ['articles/heroku.md', 'Articles', 'Heroku']
-- ['articles/express.md', 'Articles', 'Usage with Express.JS']
-
-- ['docs/installation.md', 'Docs', 'Installation']
-- ['docs/usage.md', 'Docs', 'Usage']
-- ['docs/promises.md', 'Docs', 'Promises']
-- ['docs/models.md', 'Docs', 'Models']
-- ['docs/instances.md', 'Docs', 'Instances']
-- ['docs/associations.md', 'Docs', 'Associations']
-- ['docs/hooks.md', 'Docs', 'Hooks']
-- ['docs/transactions.md', 'Docs', 'Transactions']
-- ['docs/migrations.md', 'Docs', 'Migrations']
-- ['docs/misc.md', 'Docs', 'Misc']
+- ['docs/installation.md', 'Documentation', 'Installation']
+- ['docs/schema.md', 'Documentation', 'Working with table schemas']
+- ['docs/usage.md', 'Documentation', 'Usage']
+- ['docs/models.md', 'Documentation', 'Models']
+- ['docs/instances.md', 'Documentation', 'Instances']
+- ['docs/associations.md', 'Documentation', 'Relations/Associations']
+- ['docs/hooks.md', 'Documentation', 'Hooks']
+- ['docs/transactions.md', 'Documentation', 'Transactions']
+- ['docs/legacy.md', 'Documentation', 'Working with legacy tables']
+- ['docs/migrations.md', 'Documentation', 'Migrations']
 
 - ['api/sequelize.md', 'API', 'Sequelize']
 - ['api/model.md', 'API', 'Model']
@@ -35,4 +30,3 @@ pages:
 - ['api/transaction.md', 'API', 'Transaction']
 - ['api/datatypes.md', 'API', 'Datatypes']
 - ['api/errors.md', 'API', 'Errors']
-

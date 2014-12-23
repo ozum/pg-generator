@@ -48,6 +48,7 @@ CLI Options
     -o, --output [output]       Output folder
     -c, --config [config]       Path of the configuration file
 
+* No Dependencies On Generated Files
 * Multi schema support,
 * One to many relation support, (hasMany and belongsTo)
 * Many to many relation support, (hasMany through and belongsToMany)
@@ -57,7 +58,9 @@ CLI Options
 * CLI support,
 * Smart naming of models and relations,
 * Very easy to override auto generated files
-* exclude tables
+* Exclude tables
+* Debug
+* Table Specific Configuration
 
 WARNING: belongsToMany
 ----------------------
@@ -65,6 +68,9 @@ For many to many relations Sequelize version 2.0 RC3 and older does not support 
 
 Features
 --------
+
+### No Dependencies On Generated Files
+Generated files have no dependencies besides core modules and Sequelize.
 
 ### Multi Schema Support
 Supports multi PostgreSQL schemas. It is possible to have other schemas than public. User can select which schemas to reverse engineer via CLI or config. If more than one schema is included, models may be prefixed with schema names. (Config: generate.useSchemaName: true, database.schema: ["public"]) to prevent tables with same name in different schemas try to have same model name.

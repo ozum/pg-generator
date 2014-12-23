@@ -1,7 +1,7 @@
 {
   "name": "sequelize-pg-generator",
   "version": "0.1.1",
-  "description": "Create Sequelize ORM Models from PostgreSQL Automatically",
+  "description": "Auto Create Sequelize ORM Models from PostgreSQL.",
   "main": "index.js",
   "bin": {
     "spgen": "lib/bin/spgen.js"
@@ -45,7 +45,7 @@
     "chai": "^1.9.2",
     "ink-docstrap": "^0.4.12",
     "mocha": "^2.0.1",
-    "sequelize": "^2.0.0-rc3"
+    "sequelize": "^2.0.0-rc4"
   },
   "dependencies": {
     "async": "^0.9.0",
