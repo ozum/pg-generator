@@ -48,6 +48,7 @@ CLI Options
     -o, --output [output]       Output folder
     -c, --config [config]       Path of the configuration file
 
+* No Dependencies On Generated Files
 * Multi schema support,
 * One to many relation support, (hasMany and belongsTo)
 * Many to many relation support, (hasMany through and belongsToMany)
@@ -57,7 +58,9 @@ CLI Options
 * CLI support,
 * Smart naming of models and relations,
 * Very easy to override auto generated files
-* exclude tables
+* Exclude tables
+* Debug
+* Table Specific Configuration
 
 WARNING: belongsToMany
 ----------------------
@@ -65,6 +68,9 @@ For many to many relations Sequelize version 2.0 RC3 and older does not support 
 
 Features
 --------
+
+### No Dependencies On Generated Files
+Generated files have no dependencies besides core modules and Sequelize.
 
 ### Multi Schema Support
 Supports multi PostgreSQL schemas. It is possible to have other schemas than public. User can select which schemas to reverse engineer via CLI or config. If more than one schema is included, models may be prefixed with schema names. (Config: generate.useSchemaName: true, database.schema: ["public"]) to prevent tables with same name in different schemas try to have same model name.
@@ -300,6 +306,27 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
-0.0.1 / 2014-12-23
+0.1.0 / 2014-12-23
 ==================
-Initial version
+Initial versionThe MIT License (MIT)
+
+Copyright (c) 2014 Ozum Eldogan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+

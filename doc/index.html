@@ -112,6 +112,7 @@ var contact = orm.model('public.contact'); // Can be configured without schema.<
 -s, --schema [schema]       Comma separated names of the database schemas
 -o, --output [output]       Output folder
 -c, --config [config]       Path of the configuration file</code></pre><ul>
+<li>No Dependencies On Generated Files</li>
 <li>Multi schema support,</li>
 <li>One to many relation support, (hasMany and belongsTo)</li>
 <li>Many to many relation support, (hasMany through and belongsToMany)</li>
@@ -121,10 +122,13 @@ var contact = orm.model('public.contact'); // Can be configured without schema.<
 <li>CLI support,</li>
 <li>Smart naming of models and relations,</li>
 <li>Very easy to override auto generated files</li>
-<li>exclude tables</li>
+<li>Exclude tables</li>
+<li>Debug</li>
+<li>Table Specific Configuration</li>
 </ul>
 <h2>WARNING: belongsToMany</h2><p>For many to many relations Sequelize version 2.0 RC3 and older does not support belongsToMany relation. After this version hasMany through relations are deprecated. Behaviour on this subject can be adjusted via configuration. (Config: generate.hasManyThrough:false and generate.belongsToMany:true)</p>
-<h2>Features</h2><h3>Multi Schema Support</h3><p>Supports multi PostgreSQL schemas. It is possible to have other schemas than public. User can select which schemas to reverse engineer via CLI or config. If more than one schema is included, models may be prefixed with schema names. (Config: generate.useSchemaName: true, database.schema: [&quot;public&quot;]) to prevent tables with same name in different schemas try to have same model name.</p>
+<h2>Features</h2><h3>No Dependencies On Generated Files</h3><p>Generated files have no dependencies besides core modules and Sequelize.</p>
+<h3>Multi Schema Support</h3><p>Supports multi PostgreSQL schemas. It is possible to have other schemas than public. User can select which schemas to reverse engineer via CLI or config. If more than one schema is included, models may be prefixed with schema names. (Config: generate.useSchemaName: true, database.schema: [&quot;public&quot;]) to prevent tables with same name in different schemas try to have same model name.</p>
 <pre class="prettyprint source"><code>contact = orm.model('public.contact'); // Returns sequelize model for contact table.</code></pre><h3>No Schema Prefix</h3><p>User can configure not to prefix model names with schema</p>
 <pre class="prettyprint source"><code>// In config
 {...
