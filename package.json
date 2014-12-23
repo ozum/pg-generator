@@ -1,0 +1,76 @@
+{
+  "name": "sequelize-pg-generator",
+  "version": "0.1.0",
+  "description": "Create Sequelize ORM Models from PostgreSQL Automatically",
+  "main": "index.js",
+  "bin": {
+    "spgen": "lib/bin/spgen.js"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "postgresql",
+    "pg",
+    "postgres",
+    "database",
+    "schema",
+    "model",
+    "schema",
+    "export",
+    "dump",
+    "etl",
+    "erd",
+    "migration",
+    "transform",
+    "extract",
+    "information_schema",
+    "sequelize",
+    "orm",
+    "model",
+    "structure",
+    "auto generate",
+    "meta"
+  ],
+  "author": {
+    "name": "Özüm Eldoğan",
+    "url": "http://www.fortibase.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozum/sequelize-pg-generator.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "ink-docstrap": "^0.4.12",
+    "mocha": "^2.0.1",
+    "sequelize": "^2.0.0-rc3"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "auto-generate": "0.0.5",
+    "commander": "^2.5.1",
+    "config": "^1.8.1",
+    "consolidate": "^0.10.0",
+    "ejs": "^1.0.0",
+    "fs-extra": "^0.13.0",
+    "inflection": "^1.5.1",
+    "js-beautify": "^1.5.4",
+    "lodash": "^2.4.1",
+    "path": "^0.4.9",
+    "pg": "^4.1.0",
+    "pg-native": "^1.7.1",
+    "pg-structure": "^1.10.0",
+    "swig": "^1.4.2"
+  },
+  "readme": "#Index\n\n**Modules**\n\n* [type-converter](#module_type-converter)\n  * [module.exports(options) ⏏](#exp_module_type-converter)\n    * [type-converter~objectInternal](#module_type-converter..objectInternal)\n    * [type-converter~internal(object)](#module_type-converter..internal)\n    * [type-converter~getSequelizeType()](#module_type-converter..getSequelizeType)\n    * [type-converter~predefinedType](#module_type-converter..predefinedType)\n    * [type: type-converter~internalValues](#module_type-converter..internalValues)\n    * [class: type-converter~TypeDef](#module_type-converter..TypeDef)\n      * [new type-converter~TypeDef(options)](#new_module_type-converter..TypeDef)\n\n**Functions**\n\n* [template(options, fn)](#template)\n\n**Typedefs**\n\n* [callback: templateCallback](#templateCallback)\n \n<a name=\"module_type-converter\"></a>\n#type-converter\nManages data type conversion from PostgreSQL to Sequelize\n\n**Author**: Özüm Eldoğan  \n<a name=\"exp_module_type-converter\"></a>\n##module.exports(options) ⏏\nCreates and returns TypeDef object for given PostgreSQL type.\n\n**Params**\n\n- options `object` - PostgreSQL column details object  \n  - type `string` - PostgreSQL type name this object contains  \n  - length `integer` - Length of the data  \n  - precision `integer` - Precision of the data  \n  - scale `integer` - Scale of data  \n  - arrayType `string` - If data type is array, what type of data this arrays contains.  \n  - arrayDimension `integer` - If data type is array, dimesion of the array  \n\n**Returns**: `TypeDef`  \n<a name=\"template\"></a>\n#template(options, fn)\nRead `path` with `options` with\ncallback `(err, str)`. When `options.cache`\nis true the template string will be cached.\n\n**Params**\n\n- options `String`  \n- fn `function`  \n\n<a name=\"templateCallback\"></a>\n#callback: templateCallback\n**Params**\n\n- err `object` - Error object  \n- output `string` - Output of the template  \n\n**Type**: `function`  \n* * *\n\n\n\n\n\n\n\n\n\n\n# Global\n\n\n\n\n\n* * *\n\n### template(options, fn) \n\nRead `path` with `options` with\ncallback `(err, str)`. When `options.cache`\nis true the template string will be cached.\n\n**Parameters**\n\n**options**: `String`, Read `path` with `options` with\ncallback `(err, str)`. When `options.cache`\nis true the template string will be cached.\n\n**fn**: `function`, Read `path` with `options` with\ncallback `(err, str)`. When `options.cache`\nis true the template string will be cached.\n\n\n\n\n* * *\n\n\n\n\n\n\n\n\n\n\n# type-converter\n\nManages data type conversion from PostgreSQL to Sequelize\n\n\n**Members:**\n\n+ objectInternal\n\n* * *\n\n### type-converter.internal(object) \n\nGets/sets internal properties of an object by storing each object's internal values to private variable.\nThis private variable uses object itself as key. (Similar to Perl).\n\n**Parameters**\n\n**object**: , Used as key of the storage array.\n\n**Returns**: `internalValues`\n\n\n## Class: TypeDef\nManages data type conversion from PostgreSQL to Sequelize\n\n### type-converter.TypeDef.getSequelizeType() \n\nManages data type conversion from PostgreSQL to Sequelize\n\n**Returns**: `String`, - Sequelize Data Type String\n\n### type-converter.TypeDef.module:type-converter(options, options.type, options.length, options.precision, options.scale, options.arrayType, options.arrayDimension) \n\nCreates and returns TypeDef object for given PostgreSQL type.\n\n**Parameters**\n\n**options**: `object`, PostgreSQL column details object\n\n**options.type**: `string`, PostgreSQL type name this object contains\n\n**options.length**: `integer`, Length of the data\n\n**options.precision**: `integer`, Precision of the data\n\n**options.scale**: `integer`, Scale of data\n\n**options.arrayType**: `string`, If data type is array, what type of data this arrays contains.\n\n**options.arrayDimension**: `integer`, If data type is array, dimesion of the array\n\n**Returns**: `TypeDef`\n\n\n\n* * *\n\n\n\n\n\n\n\n\n\n\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/ozum/sequelize-pg-generator/issues"
+  },
+  "homepage": "https://github.com/ozum/sequelize-pg-generator",
+  "_id": "sequelize-pg-generator@0.1.0",
+  "_shasum": "4a9deecd8712210defedf25a69548281547363d8",
+  "_from": "."
+}
