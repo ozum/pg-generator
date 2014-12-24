@@ -219,7 +219,7 @@ Configuration parameters and default values are described below. Configuration i
 
 <table>
     <tr>
-        <td colspan="3"><h4>database</h4></td>
+        <td colspan="3"><h4><strong>database</strong></h4></td>
     </tr>
     <tr>
         <td width="130">host</td>
@@ -252,7 +252,7 @@ Configuration parameters and default values are described below. Configuration i
         <td>Array of names of the database schemas to be parsed.</td>
     </tr>
     <tr>
-        <td colspan="3"><h4>template</h4></td>
+        <td colspan="3"><h4><strong>template</strong></h4></td>
     </tr>
     <tr>
         <td>engine</td>
@@ -270,7 +270,7 @@ Configuration parameters and default values are described below. Configuration i
         <td>Path of the template directory which contains template files.</td>
     </tr>
     <tr>
-        <td colspan="3"><h4>output</h4></td>
+        <td colspan="3"><h4><strong>output</strong></h4></td>
     </tr>
     <tr>
         <td>log</td>
@@ -303,7 +303,7 @@ Configuration parameters and default values are described below. Configuration i
         <td>If set true, generator includes informative warning text inside generated files. This text is about how to customize and override default models.</td>
     </tr>
     <tr>
-        <td colspan="3"><h4>generate</h4></td>
+        <td colspan="3"><h4><strong>generate</strong></h4></td>
     </tr>
     <tr>
         <td>stripFirstTableFromHasMany</td>
@@ -376,7 +376,7 @@ Configuration parameters and default values are described below. Configuration i
         <td>List of table names not to generate model files for.</td>
     </tr>
     <tr>
-        <td colspan="3"><h4>tableOptions</h4>User can include any Sequelize.define options here. See Sequelize docs. Some examples:</td>
+        <td colspan="3"><h4><strong>tableOptions</strong></h4>User can include any Sequelize.define options here. See Sequelize docs. Some examples:</td>
     </tr>
     <tr>
         <td>timestamps</td>
