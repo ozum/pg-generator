@@ -230,14 +230,9 @@ Configuration parameters and default values are described below. Configuration i
 **extension**: Extension of template files.
 **folder**: Path of the template directory which contains template files.
 
-<style>
-TABLE.config {}
-TABLE.config TD:first-child { font-weight:bold; }
-</style>
-
 <table class="config">
     <tr>
-        <td>host</td>
+        <td style="width:250px;">host</td>
         <td>IP address or host name of the database server.</td>
     </tr>
     <tr>
