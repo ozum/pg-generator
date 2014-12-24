@@ -230,29 +230,32 @@ Configuration parameters and default values are described below. Configuration i
 **extension**: Extension of template files.
 **folder**: Path of the template directory which contains template files.
 
-<table class="config">
+<table>
     <tr>
-        <td style="width:250px;">host</td>
+        <td colspan="2"><h4>database</h4></td>
+    </tr>
+    <tr>
+        <td width="250">**host**</td>
         <td>IP address or host name of the database server.</td>
     </tr>
     <tr>
-        <td>port</td>
+        <td>**port**</td>
         <td>Port of database server to connect.</td>
     </tr>
     <tr>
-        <td>database</td>
+        <td>**database**</td>
         <td>Database name.</td>
     </tr>
     <tr>
-        <td>user</td>
+        <td>**user**</td>
         <td>Username to connect to database.</td>
     </tr>
     <tr>
-        <td>password</td>
+        <td>**password**</td>
         <td>Password to connect to database.</td>
     </tr>
     <tr>
-        <td>schema</td>
+        <td>**schema**</td>
         <td>Array of names of the database schemas to be parsed.</td>
     </tr>
     <tr>
