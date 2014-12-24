@@ -48,6 +48,7 @@ CLI Options
     -o, --output [output]       Output folder
     -c, --config [config]       Path of the configuration file
 
+* Fully documented. (JSDoc HTML files are under doc directory)
 * No Dependencies On Generated Files
 * Multi schema support,
 * One to many relation support, (hasMany and belongsTo)
@@ -834,7 +835,9 @@ Important documentation changes are included anyway.
 
 0.1.0 / 2014-12-23
 ==================
-Initial versionThe MIT License (MIT)
+Initial version
+
+The MIT License (MIT)
 
 Copyright (c) 2014 Ozum Eldogan
 
