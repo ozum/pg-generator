@@ -145,7 +145,7 @@ pg-sequelize-generator uses table names or schema.table names for model naming. 
     For the example structure:
 
     Relation                as                          Details
-    --------                --                          --
+    --------                --                          -------
     product.hasMany         as:'cartLineItems'          (Plural) Table name 'product' is stripped from the beginning of
                                                         relation name 'product_cart_line_items'
     product.belongsToMany   as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
@@ -213,6 +213,98 @@ Sometimes for some tables it is needed to have different rules then other tables
     }
     ...
 
+Configuration
+=============
+Configuration parameters and default values are described below. Configuration is enclosed in "sequelize-pg-generator" key, because you may want to combine sequelize-pg-generator configuration with your main application configuration. This way generator's configuration does not clash with yours. [node-config](https://www.npmjs.com/package/node-config) allows this.
+
+#### database
+    **host**: IP address or host name of the database server.
+    **port**: Port of database server to connect.
+    **database**: Database name.
+    **user**: Username to connect to database.
+    **password**: Password to connect to database.
+    **schema**: Array of names of the database schemas to be parsed.
+
+#### template
+**engine**: Template engine to use for generating model files. Any [consolidate](https://www.npmjs.com/package/consolidate) compatible template engine can be used.
+**extension**: Extension of template files.
+**folder**: Path of the template directory which contains template files.
+
+<table>
+    <tr>
+        <td>Foo</td>
+        <td>Bar</td>
+    </tr>
+</table>
+
+    -h, --host [host]           IP address or host name of the database server
+    -pr, --port [port]          Port of database server to connect
+    -d, --database [database]   Database name
+    -u, --user [user]           Username to connect to database
+    -p, --password [password]   Password to connect to database
+    -s, --schema [schema]       Comma separated names of the database schemas
+    -o, --output [output]       Output folder
+    -c, --config [config]       Path of the configuration file
+
+
+
+    module.exports = {
+        "sequelize-pg-generator": {
+            "database": {
+                "host": "127.0.0.1",            // Host or IP of the database
+                "port": 5432,                   // Port of the database
+                "user": "user",
+                "password": "password",
+                "database": "",
+                "schema": ["public"]
+            },
+            "template": {
+                "engine": "swig",
+                "extension": "html",
+                "folder": path.join(__dirname, '..', 'template')
+            },
+            "output": {
+                "log": true,
+                "folder": "./model",
+                "beautify": true,
+                "indent": 4,
+                "preserveNewLines": false,
+                "warning": true
+            },
+            "generate": {
+                "stripFirstTableFromHasMany": true,
+                "hasManyThrough": false,
+                "belongsToMany": true,
+                "prefixForBelongsTo": "related",
+                "useSchemaName": true,
+                "modelCamelCase": true,
+                "relationAccessorCamelCase": true,
+                "columnAccessorCamelCase": true,
+                "columnDefault": true,
+                "columnDescription": true,
+                "columnAutoIncrement": true,
+                "tableDescription": true,
+                "dataTypeVariable": "Seq",
+                "skipTable": []
+            },
+            "generateOverride": {
+                "contact": {
+                    "tableDescription": false
+                }
+            },
+            "tableOptions": {
+                "timestamps": false,
+                "camelCase": true,
+                "paranoid": false
+            },
+            "tableOptionsOverride": {
+                "contact": {
+                    "paranoid": true
+                }
+            }
+        }
+    };
+
 API
 ===
 
@@ -222,6 +314,10 @@ API
 
 * [lib/index](#module_lib/index)
   * [module.exports(callback, options) ⏏](#exp_module_lib/index)
+* [path/to/model](#module_path/to/model)
+  * [path/to/model.setup(database, username, password, obj)](#module_path/to/model.setup)
+  * [path/to/model.model(name)](#module_path/to/model.model)
+  * [path/to/model.Sequelize()](#module_path/to/model.Sequelize)
 
 **Classes**
 
@@ -251,6 +347,51 @@ Generates model files for Sequelize ORM.
   - output `string` - Output folder  
   - config `string` - Path of the configuration file  
 
+<a name="module_path/to/model"></a>
+#path/to/model
+This file is auto generated by sequelize-pg-generator.
+
+**Author**: Özüm Eldoğan  
+**Members**
+
+* [path/to/model](#module_path/to/model)
+  * [path/to/model.setup(database, username, password, obj)](#module_path/to/model.setup)
+  * [path/to/model.model(name)](#module_path/to/model.model)
+  * [path/to/model.Sequelize()](#module_path/to/model.Sequelize)
+
+<a name="module_path/to/model.setup"></a>
+##path/to/model.setup(database, username, password, obj)
+Sets up sequelize models based on model files in given directory for given database details.
+
+**Params**
+
+- database `string` - Name of the database to connect  
+- username `string` - Username of the database  
+- password `string` - Password of the database  
+- obj `Object` - Object to pass new Sequelize() function. See Sequelize for details.  
+
+**Example**  
+var orm = require('../model');
+orm.setup('path/to/model', 'database', 'user', 'password', {
+    host: '127.0.0.1',
+    logging: false,
+    native: true
+});
+
+<a name="module_path/to/model.model"></a>
+##path/to/model.model(name)
+Returns requested model with given name.
+
+**Params**
+
+- name `string` - Model name  
+
+**Returns**: `object` - - Sequelize model  
+<a name="module_path/to/model.Sequelize"></a>
+##path/to/model.Sequelize()
+Returns Sequelize object.
+
+**Returns**: `Sequelize` - - Sequelize object  
 <a name="GeneratorUtil"></a>
 #class: GeneratorUtil
 **Members**

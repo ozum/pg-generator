@@ -175,7 +175,7 @@ hasMany({through:..})   Plural of the foreign key which refers other table in jo
 For the example structure:
 
 Relation                as                          Details
---------                --                          --
+--------                --                          -------
 product.hasMany         as:'cartLineItems'          (Plural) Table name 'product' is stripped from the beginning of
                                                     relation name 'product_cart_line_items'
 product.belongsToMany   as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
@@ -223,7 +223,89 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
         &quot;paranoid&quot;: true
     }
 }
-...</code></pre><h1>API</h1></article>
+...</code></pre><h1>Configuration</h1><p>Configuration parameters and default values are described below. Configuration is enclosed in &quot;sequelize-pg-generator&quot; key, because you may want to combine sequelize-pg-generator configuration with your main application configuration. This way generator's configuration does not clash with yours. <a href="https://www.npmjs.com/package/node-config">node-config</a> allows this.</p>
+<h4>database</h4><pre class="prettyprint source"><code>**host**: IP address or host name of the database server.
+**port**: Port of database server to connect.
+**database**: Database name.
+**user**: Username to connect to database.
+**password**: Password to connect to database.
+**schema**: Array of names of the database schemas to be parsed.</code></pre><h4>template</h4><p><strong>engine</strong>: Template engine to use for generating model files. Any <a href="https://www.npmjs.com/package/consolidate">consolidate</a> compatible template engine can be used.
+<strong>extension</strong>: Extension of template files.
+<strong>folder</strong>: Path of the template directory which contains template files.</p>
+<table>
+    <tr>
+        <td>Foo</td>
+        <td>Bar</td>
+    </tr>
+</table>
+
+<pre class="prettyprint source"><code>-h, --host [host]           IP address or host name of the database server
+-pr, --port [port]          Port of database server to connect
+-d, --database [database]   Database name
+-u, --user [user]           Username to connect to database
+-p, --password [password]   Password to connect to database
+-s, --schema [schema]       Comma separated names of the database schemas
+-o, --output [output]       Output folder
+-c, --config [config]       Path of the configuration file
+
+
+
+module.exports = {
+    &quot;sequelize-pg-generator&quot;: {
+        &quot;database&quot;: {
+            &quot;host&quot;: &quot;127.0.0.1&quot;,            // Host or IP of the database
+            &quot;port&quot;: 5432,                   // Port of the database
+            &quot;user&quot;: &quot;user&quot;,
+            &quot;password&quot;: &quot;password&quot;,
+            &quot;database&quot;: &quot;&quot;,
+            &quot;schema&quot;: [&quot;public&quot;]
+        },
+        &quot;template&quot;: {
+            &quot;engine&quot;: &quot;swig&quot;,
+            &quot;extension&quot;: &quot;html&quot;,
+            &quot;folder&quot;: path.join(__dirname, '..', 'template')
+        },
+        &quot;output&quot;: {
+            &quot;log&quot;: true,
+            &quot;folder&quot;: &quot;./model&quot;,
+            &quot;beautify&quot;: true,
+            &quot;indent&quot;: 4,
+            &quot;preserveNewLines&quot;: false,
+            &quot;warning&quot;: true
+        },
+        &quot;generate&quot;: {
+            &quot;stripFirstTableFromHasMany&quot;: true,
+            &quot;hasManyThrough&quot;: false,
+            &quot;belongsToMany&quot;: true,
+            &quot;prefixForBelongsTo&quot;: &quot;related&quot;,
+            &quot;useSchemaName&quot;: true,
+            &quot;modelCamelCase&quot;: true,
+            &quot;relationAccessorCamelCase&quot;: true,
+            &quot;columnAccessorCamelCase&quot;: true,
+            &quot;columnDefault&quot;: true,
+            &quot;columnDescription&quot;: true,
+            &quot;columnAutoIncrement&quot;: true,
+            &quot;tableDescription&quot;: true,
+            &quot;dataTypeVariable&quot;: &quot;Seq&quot;,
+            &quot;skipTable&quot;: []
+        },
+        &quot;generateOverride&quot;: {
+            &quot;contact&quot;: {
+                &quot;tableDescription&quot;: false
+            }
+        },
+        &quot;tableOptions&quot;: {
+            &quot;timestamps&quot;: false,
+            &quot;camelCase&quot;: true,
+            &quot;paranoid&quot;: false
+        },
+        &quot;tableOptionsOverride&quot;: {
+            &quot;contact&quot;: {
+                &quot;paranoid&quot;: true
+            }
+        }
+    }
+};</code></pre><h1>API</h1></article>
     </section>
 
 
@@ -245,7 +327,7 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
-		on Tue Dec 23rd 2014 using the <a
+		on Wed Dec 24th 2014 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
