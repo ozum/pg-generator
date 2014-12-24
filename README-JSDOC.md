@@ -217,81 +217,183 @@ Configuration
 =============
 Configuration parameters and default values are described below. Configuration is enclosed in "sequelize-pg-generator" key, because you may want to combine sequelize-pg-generator configuration with your main application configuration. This way generator's configuration does not clash with yours. [node-config](https://www.npmjs.com/package/node-config) allows this.
 
-#### database
-    **host**: IP address or host name of the database server.
-    **port**: Port of database server to connect.
-    **database**: Database name.
-    **user**: Username to connect to database.
-    **password**: Password to connect to database.
-    **schema**: Array of names of the database schemas to be parsed.
-
-#### template
-**engine**: Template engine to use for generating model files. Any [consolidate](https://www.npmjs.com/package/consolidate) compatible template engine can be used.
-**extension**: Extension of template files.
-**folder**: Path of the template directory which contains template files.
-
 <table>
     <tr>
-        <td colspan="2"><h4>database</h4></td>
+        <td colspan="3"><h4>database</h4></td>
     </tr>
     <tr>
-        <td width="250">**host**</td>
+        <td width="130">host</td>
+        <td width="85">string</td>
         <td>IP address or host name of the database server.</td>
     </tr>
     <tr>
-        <td>**port**</td>
+        <td>port</td>
+        <td>number</td>
         <td>Port of database server to connect.</td>
     </tr>
     <tr>
-        <td>**database**</td>
+        <td>database</td>
+        <td>string</td>
         <td>Database name.</td>
     </tr>
     <tr>
-        <td>**user**</td>
+        <td>user</td>
+        <td>string</td>
         <td>Username to connect to database.</td>
     </tr>
     <tr>
-        <td>**password**</td>
+        <td>password</td>
+        <td>string</td>
         <td>Password to connect to database.</td>
     </tr>
     <tr>
-        <td>**schema**</td>
+        <td>schema</td>
+        <td>Array(string)</td>
         <td>Array of names of the database schemas to be parsed.</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
+        <td colspan="3"><h4>template</h4></td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
+        <td>engine</td>
+        <td>string</td>
+        <td>Template engine to use for generating model files. Any [consolidate](https://www.npmjs.com/package/consolidate) compatible template engine can be used.</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
+        <td>extension</td>
+        <td>string</td>
+        <td>Extension of template files.</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
+        <td>folder</td>
+        <td>string</td>
+        <td>Path of the template directory which contains template files.</td>
+    </tr>
+    <tr>
+        <td colspan="3"><h4>output</h4></td>
+    </tr>
+    <tr>
+        <td>log</td>
+        <td>boolean</td>
+        <td>Generate log during auto-generation to console.</td>
+    </tr>
+    <tr>
+        <td>folder</td>
+        <td>string</td>
+        <td>Path to output directory for generated model files.</td>
+    </tr>
+    <tr>
+        <td>beautify</td>
+        <td>boolean</td>
+        <td>Format code nicely with [js-beautifier](http://jsbeautifier.org).</td>
+    </tr>
+    <tr>
+        <td>indent</td>
+        <td>number</td>
+        <td>Number of spaces used for each indentation level in generated files.</td>
+    </tr>
+    <tr>
+        <td>preserveNewLine</td>
+        <td>boolean</td>
+        <td>Preserve new lines coming from templates during generation.</td>
+    </tr>
+    <tr>
+        <td>warning</td>
+        <td>boolean</td>
+        <td>If set true, generator includes informative warning text inside generated files. This text is about how to customize and override default models.</td>
+    </tr>
+    <tr>
+        <td colspan="3"><h4>generate</h4></td>
+    </tr>
+    <tr>
+        <td>stripFirstTableFromHasMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example "product_cart_line_items" relations becomes "cart_line_items" for "product" table.</td>
+    </tr>
+    <tr>
+        <td>hasManyThrough</td>
+        <td>boolean</td>
+        <td>Tells generator to generate has many through relations like hasMany(modelName, { through: '..' }. After Sequelize version 2.0 RC3 has many through relations are DEPRECATED. Use belongToMany instead.</td>
+    </tr>
+    <tr>
+        <td>belongsToMany</td>
+        <td>boolean</td>
+        <td>Tells generator to generate belongsToMany relations which comes to Sequelize version 2.0 RC4. Prior Sequelize versions do not work if this option set true.</td>
+    </tr>
+    <tr>
+        <td>prefixForBelongsTo</td>
+        <td>string</td>
+        <td>belongsTo relations use foreign key name "_id" suffix stripped. If foreign key does not contain "_id" suffix, generator add this prefix to belongsTo relations to prevent column accessor and relation accessor clash. See "Smart Naming of Models and Relations" section above.</td>
+    </tr>
+    <tr>
+        <td>useSchemaName</td>
+        <td>boolean</td>
+        <td>If this is set true, generator adds schema name beginning of generated file names and model names. This is useful for multi schema databases for preventing same table name from clashing.</td>
+    </tr>
+    <tr>
+        <td>modelCamelCase</td>
+        <td>boolean</td>
+        <td>Use camel case (like schemaName) in schema names.</td>
+    </tr>
+    <tr>
+        <td>relationAccessorCamelCase</td>
+        <td>boolean</td>
+        <td>Use camel case (like relationName) in relation accessor names.</td>
+    </tr>
+    <tr>
+        <td>columnAccessorCamelCase</td>
+        <td>boolean</td>
+        <td>Use came case (like columnName) in column accessor names.</td>
+    </tr>
+    <tr>
+        <td>columnDefault</td>
+        <td>boolean</td>
+        <td>Generate default values to the model. WARNING: Does not support SQL functions yet. It is hard to implement this in Sequelize way. IMHO it is best to leave that to DBMS.</td>
+    </tr>
+    <tr>
+        <td>columnDescription</td>
+        <td>boolean</td>
+        <td>Include column description in generated model files.</td>
+    </tr>
+    <tr>
+        <td>columnAutoIncrement</td>
+        <td>boolean</td>
+        <td>Include auto increment option of attributes in generated model files.</td>
+    </tr>
+    <tr>
+        <td>tableDescription</td>
+        <td>boolean</td>
+        <td>Include table description in generated model files.</td>
+    </tr>
+    <tr>
+        <td>dataTypeVariable</td>
+        <td>string</td>
+        <td>Sequelize uses object variable to define data types like "Sequelize.BOOLEAN". This configuration parameter sets the name of the variable.</td>
+    </tr>
+    <tr>
+        <td>skipTable</td>
+        <td>Array(string)</td>
+        <td>List of table names not to generate model files for.</td>
+    </tr>
+    <tr>
+        <td colspan="3"><h4>tableOptions</h4>User can include any Sequelize.define options here. See Sequelize docs. Some examples:</td>
+    </tr>
+    <tr>
+        <td>timestamps</td>
+        <td>boolean</td>
+        <td>Adds createdAt and updatedAt timestamps to the model.</td>
     </tr>
 </table>
 
-    -h, --host [host]           IP address or host name of the database server
-    -pr, --port [port]          Port of database server to connect
-    -d, --database [database]   Database name
-    -u, --user [user]           Username to connect to database
-    -p, --password [password]   Password to connect to database
-    -s, --schema [schema]       Comma separated names of the database schemas
-    -o, --output [output]       Output folder
-    -c, --config [config]       Path of the configuration file
-
-
+Default Configuration Settings
+------------------------------
+Default configuration settings are listed below:
 
     module.exports = {
         "sequelize-pg-generator": {
             "database": {
-                "host": "127.0.0.1",            // Host or IP of the database
-                "port": 5432,                   // Port of the database
+                "host": "127.0.0.1",
+                "port": 5432,
                 "user": "user",
                 "password": "password",
                 "database": "",
@@ -319,27 +421,15 @@ Configuration parameters and default values are described below. Configuration i
                 "modelCamelCase": true,
                 "relationAccessorCamelCase": true,
                 "columnAccessorCamelCase": true,
-                "columnDefault": true,
+                "columnDefault": false,
                 "columnDescription": true,
                 "columnAutoIncrement": true,
                 "tableDescription": true,
                 "dataTypeVariable": "Seq",
                 "skipTable": []
             },
-            "generateOverride": {
-                "contact": {
-                    "tableDescription": false
-                }
-            },
             "tableOptions": {
-                "timestamps": false,
-                "camelCase": true,
-                "paranoid": false
-            },
-            "tableOptionsOverride": {
-                "contact": {
-                    "paranoid": true
-                }
+                "timestamps": false
             }
         }
     };

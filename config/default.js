@@ -35,27 +35,15 @@ module.exports = {
             "modelCamelCase": true,
             "relationAccessorCamelCase": true,
             "columnAccessorCamelCase": true,
-            "columnDefault": true,
+            "columnDefault": false,
             "columnDescription": true,
             "columnAutoIncrement": true,
             "tableDescription": true,
             "dataTypeVariable": "Seq",
             "skipTable": []
         },
-        "generateOverride": {
-            "contact": {
-                "tableDescription": false
-            }
-        },
         "tableOptions": {
-            "timestamps": false,
-            "camelCase": true,
-            "paranoid": false
-        },
-        "tableOptionsOverride": {
-            "contact": {
-                "paranoid": true
-            }
+            "timestamps": false
         }
     }
 };
