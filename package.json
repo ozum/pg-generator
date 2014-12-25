@@ -1,6 +1,6 @@
 {
   "name": "sequelize-pg-generator",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Auto Create Sequelize ORM Models from PostgreSQL.",
   "main": "index.js",
   "bin": {
