@@ -42,9 +42,9 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "chai": "^1.9.2",
+    "chai": "^1.10.0",
     "ink-docstrap": "^0.4.12",
-    "mocha": "^2.0.1",
+    "mocha": "^2.1.0",
     "sequelize": "^2.0.0-rc4"
   },
   "dependencies": {
@@ -59,9 +59,9 @@
     "js-beautify": "^1.5.4",
     "lodash": "^2.4.1",
     "path": "^0.4.9",
-    "pg": "^4.1.0",
+    "pg": "^4.1.1",
     "pg-native": "^1.7.1",
-    "pg-structure": "^1.10.0",
+    "pg-structure": "^1.10.2",
     "swig": "^1.4.2"
   },
   "readmeFilename": "README.md",

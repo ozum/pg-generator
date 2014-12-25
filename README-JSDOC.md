@@ -40,16 +40,19 @@ CLI Options
 -----------
     spgen [options]
     -h, --host [host]           IP address or host name of the database server
-    -pr, --port [port]          Port of database server to connect
+        --port [port]           Port of database server to connect
     -d, --database [database]   Database name
     -u, --user [user]           Username to connect to database
     -p, --password [password]   Password to connect to database
     -s, --schema [schema]       Comma separated names of the database schemas
     -o, --output [output]       Output folder
     -c, --config [config]       Path of the configuration file
+        --nolog                 No log output
+        --resetConfig           Reset configuration. (Side-step. Not for production.)
 
 * Fully documented. (JSDoc HTML files are under doc directory)
-* No Dependencies On Generated Files
+* Tested
+* No Dependencies on Generated Files
 * Multi schema support,
 * One to many relation support, (hasMany and belongsTo)
 * Many to many relation support, (hasMany through and belongsToMany)
@@ -434,6 +437,28 @@ Default configuration settings are listed below:
             }
         }
     };
+
+CAVEAT: Singleton Nature of Configuration
+-----------------------------------------
+This module uses node-config via require('config') for configuration. Node config is a singleton as of this writing, which returns created config object. As a result subsequent calls in the same process return same configuration even configuration file changed and/or sequelize-pg-generator constructor called with different config file.
+
+This is usually no problem since generator supposed to be called once. However if this behaviour prevents testing. Additionally you may want to avoid this behavior whatever reason. To side step this, it is added "resetConfig" option to constructor. If it is set to true it resets and rereads configuration. To do this we clear node-config from node cache. It is sub-optimal solution suggested by lorenwest in node-config issues.
+
+To activate this behavior just set resetConfig to true or from cli add --resetConfig:
+
+    var generator = require('sequelize-pg-generator');
+    generator(function (err) {
+        if (err) { callback(err); }
+    }, {
+        database: 'my_database',
+        resetConfig: true
+    );
+
+sequelize-pg-creator uses the code below:
+
+    global.NODE_CONFIG = null;
+    delete require.cache[require.resolve('config')];
+    config = require('config');
 
 Template Variables (Customizing Templates)
 ==========================================

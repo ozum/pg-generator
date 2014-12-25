@@ -1,6 +1,6 @@
 {% autoescape false %}
 var orm = require('../index.js'),
-Seq = orm.Sequelize();
+{{ dataTypeVariable }} = orm.Sequelize();
 
 module.exports = {
     modelName: {{ table.modelName }},

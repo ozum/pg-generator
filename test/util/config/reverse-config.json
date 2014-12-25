@@ -1,0 +1,23 @@
+{
+  "sequelize-pg-generator": {
+    "database": {
+      "schema": ["public"]
+    },
+    "generate": {
+      "stripFirstTableFromHasMany": false,
+      "hasManyThrough": true,
+      "belongsToMany": true,
+      "prefixForBelongsTo": "custom",
+      "useSchemaName": false,
+      "modelCamelCase": false,
+      "relationAccessorCamelCase": false,
+      "columnAccessorCamelCase": false,
+      "columnDefault": true,
+      "columnDescription": false,
+      "columnAutoIncrement": false,
+      "tableDescription": false,
+      "dataTypeVariable": "Sequelize",
+      "skipTable": ["type_table"]
+    }
+  }
+}
