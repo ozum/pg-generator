@@ -10,6 +10,11 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.1.17 / 2014-12-26
+===================
+* Fixed: CLI command does not work.
+* Added: Required parameters warning.
+
 0.1.15 / 2014-12-26
 ===================
 * Added: Turkish documentation added.
