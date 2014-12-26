@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>auto-generate Source: /Users/ozum/Documents/DATA/WORK/Projects/Node/auto-generate/lib/auto-generate.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">auto-generate</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="module-auto-generate.html">auto-generate</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: /Users/ozum/Documents/DATA/WORK/Projects/Node/auto-generate/lib/auto-generate.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * @module auto-generate
+ * @author Özüm Eldoğan
+ */
+
+var path            = require('path');
+var fs              = require('fs');
+var _               = require('lodash');
+var UglifyJS        = require("uglify-js");
+var md5             = require('MD5');
+
+
+/**
+ * Writes given content as an auto generated part to file considering options.
+ * @param {string} filePath - File which content is written into
+ * @param {string} name - Name of the part. This is used for differentiating it from other auto generated content.
+ * @param {string} content - Content to write
+ * @param {genOptions} options - Options how part is generated.
+ * @example
+ * var autogen = require('auto-generate');
+ * var content = 'var someCode = "Joe";' // etc. auto generated code
+ * autogen(path.join(__dirname, 'model', 'account.js'), 'model', content);
+ */
+module.exports = function (filePath, name, content, options) {
+    options = _.defaults(options || {}, {
+        overWrite               : true,         // If file already exists. Update the file.
+        overWriteEvenChanged    : false,        // Overwrite generated part even it is modified manually.
+        backup                  : true,         // Create backup if a file is overwritten.
+        ignoreWhitespaceChange  : true,         // Assume it is unmodified if whitespace is modified.
+        ignoreCommentChange     : false,        // Assume it is unmodified if comment is changed. This also enables ignoreWhitespaceChange too.
+        atStart                 : true          // Add text at the end of file. Otherwise it adds at the end. Either way replaces original text in place.
+    });
+
+    if (!filePath || !name ) { throw new Error('filePath and name are required.'); }
+
+    var oldFileContent = '';
+    var newFileContent = '';
+    var newPart = createPart(name, content, options);
+    var oldPart;
+    var error;
+
+    if (fileExists(filePath)) {
+        oldFileContent = fs.readFileSync(filePath).toString();
+        oldPart = getPart(name, oldFileContent, options);
+
+        if (oldPart) {
+            if (!oldPart.isChanged || (oldPart.isChanged &amp;&amp; options.overWriteEvenChanged)) {
+                newFileContent = oldFileContent.replace(getRegularExpression(name), newPart );
+            } else {
+                error = new Error('File is changed by hand. Use overWriteEvenChanged option to update. File is not updated: ' + filePath );
+            }
+        } else {
+            newFileContent = (options.atStart) ? newPart + oldFileContent : oldFileContent + newPart;
+        }
+        if (options.backup &amp;&amp; !error) {
+            makeBackup(filePath);
+        }
+    } else {  // New file
+        newFileContent = newPart;
+    }
+
+    if (error) { throw error; }
+
+    fs.writeFileSync(filePath, newFileContent);
+};
+
+var signature = '//!-AG';
+var template = {
+    warning         : _.template('// Do NOT edit text between auto start and auto end. It is auto generated.\n\n'),
+    md5             : _.template('\n\n// &lt;%= md5 %> You can edit safely after auto end.\n')
+};
+
+/**
+ * Options used to create auto generated part.
+ * @typedef {Object} genOptions
+ * @property {boolean} overWrite - If file already exists. Update the file.
+ * @property {boolean} overWriteEvenChanged - Overwrite generated part even it is modified manually.
+ * @property {boolean} backup - Create backup if a file is overwritten.
+ * @property {boolean} ignoreWhitespaceChange - Assume it is unmodified if whitespace is modified when calculating digest.
+ * @property {boolean} ignoreCommentChange - Assume it is unmodified if comment is changed when calculating digest. This also enables ignoreWhitespaceChange too.
+ * @property {boolean} atStart - Add text at the end of file. Otherwise it adds at the end. Either way replaces original text in place.
+ */
+
+/**
+ * Object which contains detailed info of an auto generated part.
+ * @typedef {Object} partInfo
+ * @property {string} startLine - Start line (opening tag / marker) of auto generated part.
+ * @property {string} warningLine - Warning message line of auto generated part.
+ * @property {string} content - Auto generated content.
+ * @property {string} md5Line - Line which contains md5 of the content.
+ * @property {string} oldDigest - MD5 which is written in the file.
+ * @property {string} newDigest - MD5 calculated freshly for the content.
+ * @property {boolean} isChanged - Indicates if part is modified by comparing MD5 written in file with new calculated MD5
+ * @property {string} endLine - End line (closing tag / marker) of auto generated part.
+ */
+
+
+/**
+ * Generates and returns start line (opening tag / marker) of auto generated part.
+ * @param {string} name - name of the auto generated part
+ * @returns {string} - first line of the auto generated part.
+ */
+function autoStartLine(name) {
+    var pre    = new Array(Math.floor((60 - name.length) / 2) - 3).join('-');
+    var post   = new Array(60 - pre.length - name.length).join('-');
+    return signature + 'S' + pre + ' Auto Start: ' + name + ' ' + post + '\n';
+}
+
+/**
+ * Generates and returns end line (closing tag / marker) of auto generated part.
+ * @param {string} name - name of the auto generated part.
+ * @returns {string} - last line of the auto generated part.
+ */
+function autoEndLine(name) {
+    var pre    = new Array(Math.floor((62 - name.length) / 2) - 3).join('-');
+    var post   = new Array(62 - pre.length - name.length).join('-');
+    return signature + 'E' + pre + ' Auto End: ' + name + ' ' + post + '\n\n';
+}
+
+/**
+ * Creates backup of a file. To do this, it creates a directory called BACKUP in the same directory where
+ * original file is located in. Backup file name has a suffix of ISO style date and time.
+ * ie. 'model.js' becomes '2014-01-12 22.02.23.345 model.js'
+ * @param {string} filePath - Absolute path of file
+ */
+function makeBackup(filePath) {
+    var dateString = new Date().toISOString().replace(/:/g, '.').replace('Z', '').replace('T', ' ');
+    try         { fs.mkdirSync(path.join(path.dirname(filePath), 'BACKUP')); }
+    catch(err)  { if (err.code != 'EEXIST') { throw err } }
+    fs.writeFileSync(path.join(path.dirname(filePath), 'BACKUP', dateString + ' ' + path.basename(filePath) ), fs.readFileSync(path.normalize(filePath)));
+}
+
+/**
+ * Generates and returns auto generated content wrapped by start line, end line, digest (such as md5)
+ * and other details.
+ * @param {string} name - Name of the auto generated part
+ * @param {string} content - Auto generated content
+ * @param {genOptions} options - Options how part is generated.
+ * @returns {string} - Generated part
+ */
+function createPart(name, content, options) {
+    if (!name || !options) { throw new Error('name and options are required.'); }
+
+    var digest = calculateMD5(content, options);
+    newContent     = autoStartLine(name);
+    newContent    += template.warning();
+    newContent    += content || '';
+    newContent    += template.md5({md5: digest});
+    newContent    += autoEndLine(name);
+    return newContent;
+}
+
+/**
+ * Returns regular expression object to find and/or replace auto generated part.
+ * @param {string} name - name of the auto generated part
+ * @returns {RegExp} - Regular expression object
+ */
+function getRegularExpression(name) {
+    // $1: Start Line, $2: Warning Line, $3: Content, $4: MD5 Line, $5: MD5, $6: End Line
+    var reAuto      = _.template('(&lt;%= startLine %>)(&lt;%= warningLine %>)((?:.|\n|\r)*?)(&lt;%= md5Line %>)(&lt;%= endLine %>?)');
+    var reString    = reAuto({ startLine: autoStartLine(name), warningLine: template.warning(), md5Line: template.md5({ md5: '([a-fA-F0-9]{32})' }), endLine: autoEndLine(name) });
+    return new RegExp(reString, 'm');
+}
+
+/**
+ * Finds auto generated part and returns an object which contains information about auto generated part.
+ * If auto part with requested name cannot be found, it returns null.
+ * @param name - Name of the auto generated part.
+ * @param fileContent - content of the file which part is searched in.
+ * @param {genOptions} options - Options how part is generated.
+ * @returns {partInfo|null} - Object which contains info about auto generated part.
+ */
+function getPart(name, fileContent, options) {
+    if (!name || !options) { throw new Error('name and options are required.'); }
+
+    var parts       = fileContent.match(getRegularExpression(name));
+
+    if ( parts ) {           // Aranan bölüm varsa
+        var fileContentDigest = calculateMD5(parts[3], options);
+        return {
+            all         : parts[0],
+            startLine   : parts[1],
+            warningLine : parts[2],
+            content     : parts[3],
+            md5Line     : parts[4],
+            oldDigest   : parts[5],
+            newDigest   : fileContentDigest,
+            isChanged   : fileContentDigest != parts[5],
+            endLine     : parts[6]
+        }
+    }
+    else {
+        return null;
+    }
+}
+
+/**
+ * Checks if the file exists at the given path. Returns true if it exists, false otherwise.
+ * @param {string} file - Path of the file to check
+ * @returns {boolean}
+ */
+function fileExists(file) {
+    try {
+        var targetStat = fs.statSync(file);
+        if (targetStat.isDirectory() ) {
+            throw new Error("File exists but it's a driectory: " + file);
+        }
+    }
+    catch(err) {
+        if (err.code == 'ENOENT') {         // No such file or directory
+            return false;
+        }
+        else {
+            throw err;
+        }
+    }
+    return true;
+}
+
+/**
+ * Claculates MD5 of the given text according to options. If ignoreWhitespaceChange and/or ignoreCommentChange options
+ * are true, MD5 is calculated after UglifyJS minified the source code according to given options.
+ * @param {string} text - Text to calculate MD5 from
+ * @param {genOptions} options - Options how MD5 is calculated
+ * @returns {string} - MD5 of the text
+ */
+function calculateMD5(text, options) {
+    // Calculates options based on options. It is possible to ignore whitespaces and comments. (Look write function)
+    // If comments are ignored, whitespaces are ignored automatically.
+    if (!options) { throw new Error('Options parameter is required'); }
+    if (options.ignoreWhitespaceChange || options.ignoreCommentChange) {
+        var outputOptions = options.ignoreCommentChange ? null : { comments:function() {return true}};
+        try         { text = UglifyJS.minify(text, {fromString: true, output: outputOptions }).code; }
+        catch(err)  { throw new Error( 'Cannot minify JS file: ' + err.message ) }
+    }
+    return md5(text);
+}
+
+</pre>
+	</article>
+</section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		auto-generate Copyright © 2014 Özüm Eldoğan.
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
+		on Wed Nov 5th 2014 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : true,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+
+</body>
+</html>
