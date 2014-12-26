@@ -1,4 +1,8 @@
 
+Other Languages
+---------------
+Türkçe: [Turkish Documentation is here](https://github.com/ozum/sequelize-pg-generator/blob/master/README-TR.md)
+
 Description
 -----------
 This module is for auto generating Sequelize model from PostgreSQL databases. It reverse engineers your database and generates separate model files for each table. Default configuration parameters are carefully selected and it is sane to use. However it is possible to change most behaviour via configuration. This document is based on default configuration. Configuration parameters and default values are written as (Config parameter:value) where appropriate.
