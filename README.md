@@ -51,7 +51,8 @@ CLI Options
         --resetConfig           Reset configuration. (Side-step. Not for production.)
 
 * Fully documented. (JSDoc HTML files are under doc directory)
-* No Dependencies On Generated Files
+* Tested
+* No Dependencies on Generated Files
 * Multi schema support,
 * One to many relation support, (hasMany and belongsTo)
 * Many to many relation support, (hasMany through and belongsToMany)
@@ -861,12 +862,12 @@ Important documentation changes are included anyway.
 
 0.1.12 / 2014-12-23
 ===================
+* Added: Tests added.
 * Added: --nolog option added to spgen command.
 * Added: --resetConfig option. Also details and caveat added to the document.
 * Fix: lib/index.js exported function expects different parameters than written in documentation.
 * Fix: Command line arguments fixed.
 * Fix: Data type variable name configuration is ignored.
-* Added: Tests added.
 * Document update.
 
 0.1.0 / 2014-12-23
@@ -875,7 +876,7 @@ Important documentation changes are included anyway.
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Ozum Eldogan
+Copyright (c) 2014 Özüm Eldoğan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
