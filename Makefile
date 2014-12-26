@@ -14,6 +14,7 @@ doc:
 	rm -f README.md
 	jsdoc2md --src lib/index.js template/utils.js template/index.js >>JSDOC.md
 	cat README-JSDOC.md JSDOC.md History.md LICENSE > README.md
+	cat README-JSDOC-TR.md JSDOC.md History.md LICENSE > README-TR.md
 	rm -r -f JSDOC.md
 
 .PHONY: test doc

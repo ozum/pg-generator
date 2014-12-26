@@ -10,6 +10,11 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.1.15 / 2014-12-26
+===================
+* Added: Turkish documentation added.
+* Fixed: Typos and mistakes in documents.
+
 0.1.12 / 2014-12-23
 ===================
 * Added: Tests added.

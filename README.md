@@ -28,7 +28,7 @@ Open terminal, go to your app.js root and create your models automatically into 
 Use Sequelize models provided by auto generated files in your application.
 
     var orm = require('../model');
-    orm.setup('template_sequelize', 'my_user', 'my_password', {
+    orm.setup('my_database', 'my_user', 'my_password', {
         host: '127.0.0.1',
         logging: false,
         native: true
@@ -77,7 +77,7 @@ Features
 Generated files have no dependencies besides core modules and Sequelize.
 
 ### Multi Schema Support
-Supports multi PostgreSQL schemas. It is possible to have other schemas than public. User can select which schemas to reverse engineer via CLI or config. If more than one schema is included, models may be prefixed with schema names. (Config: generate.useSchemaName: true, database.schema: ["public"]) to prevent tables with same name in different schemas try to have same model name.
+Supports multi PostgreSQL schemas. It is possible to have other schemas than public. User can select which schemas to reverse engineer via CLI or config. If more than one schema is included, models may be prefixed with schema names (Config: generate.useSchemaName: true, database.schema: ["public"]) to prevent tables with same name in different schemas try to have same model name.
 
     contact = orm.model('public.contact'); // Returns sequelize model for contact table.
     
@@ -97,12 +97,12 @@ User can configure not to prefix model names with schema
 This module automatically detects one to many relations and generates model.hasMany and model.belongsTo sequelize relations.
 
 ### Many To Many Relation Support
-If two tables are joined via a join table this module detects it automatically and generates many to many sequelize relations. Detection method is as follows: If a table has more than one foreign key, then it is considered
+If two tables are joined via a join table this module detects it automatically and generates many to many sequelize relations. If a table has more than one foreign key, then it is considered many to many relation join table.
 
                       hasMany              hasMany
     TABLE:   product --------< line_item >--------- cart
-    COLUMNS: id                cart_id              id
-             name              product_id           customer_id
+    COLUMNS: id                cart_id (FK)         id
+             name              product_id (FK)      customer_id (FK)
              color             quantity
 
 This module generates belongsToMany relation and hasMany relation with through option. As of this writing master branch of Sequelize deprecated hasMany through relations. According to version of Sequelize you use, it should be adjusted via config of this module.
@@ -111,26 +111,26 @@ This module generates belongsToMany relation and hasMany relation with through o
 Detects relations between tables in different schemas. For example relations between public.account table and other_schema.customer table.
 
 ### Highly configurable
-This module uses node-configure module. It is also possible to point a custom configuration file via CLI. See configuration parameters below in this document.
+This module uses [config](https://www.npmjs.com/package/config) module. It is also possible to point a custom configuration file via CLI. See configuration parameters below in this document.
 
 ### Fully Customizable
-This module uses [consolidate](https://www.npmjs.com/package/consolidate) compatible templates to generate model files. It uses [Swig](https://www.npmjs.com/package/swig) by default. User can use his/her custom templates without altering original one by pointing (COnfig: template.folder and template.engine:'swig') config values. Looking default templates in template folder of this module is highly recommended.
+This module uses [consolidate](https://www.npmjs.com/package/consolidate) compatible templates to generate model files. It uses [Swig](https://www.npmjs.com/package/swig) by default. User can use his/her custom templates without altering original one by pointing (Config: template.folder and template.engine:'swig') config values. Looking default templates in template folder of this module is highly recommended.
 
 There should at least be three files in custom template folder:
     index.ext  Default template file. ext is whatever extension is used for your template engine.
     index.js   This file is copied with generated files. It's purpose is use generated files
     utils.js   This file is copied with generated files. Contains helper functions.
 
-### CLI Supoport
-If this module is installed globally with npm -g then sqgen command would be available system wide to generate model files.
+### CLI Support
+If this module is installed as suggested globally with npm -g then spgen command would be available system wide to generate model files.
 
 ### Smart Naming of Models and Relations
-pg-sequelize-generator uses table names or schema.table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Both camel case (tableName) or untouched names (table_name) methods can be used via configuration. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter.
+sequelize-pg-generator uses table names or schema.table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Both camel case (tableName) or untouched names (table_name) methods can be used via configuration. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter.
 
                       product_cart_line_items              cart_cart_line_items
     TABLE:   product -------------------------< line_item >--------------------- cart
-    COLUMNS: id                                 cart_id                          id
-             name                               product                          customer_id
+    COLUMNS: id                                 cart_id (FK)                     id
+             name                               product (FK)                     customer_id (FK)
              color                              quantity
 
     NOTE: Beware line_item.cart_id has id suffix but line_item.product hasn't. This inconsistency is made purposefully for the sake of this example.
@@ -140,9 +140,9 @@ pg-sequelize-generator uses table names or schema.table names for model naming. 
     Model                   tableName or schema.tableName
     hasMany                 Plural of the relation name in database. Table name from beginning can be stripped.
                             (Config: generate.stripFirstTableFromHasMany:true)
-    belongsTo               Singular of foreign key. If kay name ends with _id it will be stripped. Otherwise
+    belongsTo               Singular of foreign key. If key name ends with _id it will be stripped. Otherwise
                             'related' is added at the beginning to prevent it gets clash with column name.
-                            (Config: generate.prefixForBelongsTo)
+                            (Config: generate.prefixForBelongsTo:'related')
     belongsToMany           Plural of the foreign key which refers other table in join table.
     hasMany({through:..})   Plural of the foreign key which refers other table in join table. (DEPRECATED in Sequelize)
 
@@ -156,19 +156,19 @@ pg-sequelize-generator uses table names or schema.table names for model naming. 
     product.hasMany Through as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
     cart.hasMany            as:'cartLineItems'          (Plural) Table name 'cart' is stripped from the beginning of
                                                         relation name 'cart_cart_line_items'
-    cart.belongsToMany      as:'relatedProducts'        (Plural) No _id suffix. related is added as prefix.
-    cart.hasMany Through    as:'relatedProducts'        (Plural) No _id suffix. related is added as prefix.
-    lineItem.belongsTo      as:'relatedProduct'         (Singular) No _id suffix. related is added as prefix.
-    lineItem.belongsTo      as:'cart'                   (Singular) No _id suffix. related is added as prefix.
+    cart.belongsToMany      as:'relatedProducts'        (Plural) No _id suffix. 'related' is added as prefix.
+    cart.hasMany Through    as:'relatedProducts'        (Plural) No _id suffix. 'related' is added as prefix.
+    lineItem.belongsTo      as:'relatedProduct'         (Singular) No _id suffix. 'related' is added as prefix.
+    lineItem.belongsTo      as:'cart'                   (Singular) _id suffix is stripped from foreign key name 'cart_id'.
 
-Of course as all attributes, you can modify names of generated files in a non-destructive way as explained below.
+Of course as all attributes, you can modify generated files in a non-destructive way as explained below.
 
 ### Very Easy to Override Auto Generated Files
 By default auto generated files are located path/to/model/definition-files directory. Also there is 'definition-files-custom' directory. Users can create files with same names as auto generated files to override its attributes. There is also utils module generated to make modifications easier.
 
 Those modifications are non destructive, because they override generated file in another file by inheriting it and default index.js file uses inherited files if it exists. Please bear in mind, those modifications occur before sequelize instances are generated.
 
-For example for product table 'definition-files/cart.js' is generated. User can create 'definition-files-custom/cart.js' and override necessary parts like example below. For all attributes you can look inside auto generated files.
+For example for cart table 'definition-files/cart.js' is generated. User can create 'definition-files-custom/cart.js' and override necessary parts like example below. For all attributes you can look inside auto generated files.
 
     "use strict";
     var orm     = require('../index.js'),
@@ -188,11 +188,13 @@ It is possible to exclude some table from auto generation. (Config generate.skip
 
 ### Debug
 
-Default index.js file creates a file called debug.js in the model directory. This file can be examined what type of code is used by index.js. It is same code that would be used if there is no index.js file exists. However if this type of static file would be used, it is harder to allow modifications in a non-destructive way.
+When required and executed first time from your app, default index.js file creates a file called debug.js in the model directory. This file can be examined what type of code is used by index.js. It is same code that would be used if there is no index.js file exists. However if this type of static file is used, it is harder to allow modifications in a non-destructive way.
 
 ### Table Specific Configuration
 
 Sometimes for some tables it is needed to have different rules then other tables have. In such situations configuration file allows table level overrides. All 'generate' and 'tableOptions' config parameters can be overridden with 'generateOverride' and 'tableOptionsOverride'.
+
+Below is an example for contact table have specific configuration overrides.
 
     "generate": {
         "columnDescription": true,
@@ -352,7 +354,7 @@ Configuration parameters and default values are described below. Configuration i
     <tr>
         <td>columnDefault</td>
         <td>boolean</td>
-        <td>Generate default values to the model. WARNING: Does not support SQL functions yet. It is hard to implement this in Sequelize way. IMHO it is best to leave that to DBMS.</td>
+        <td>Generate default values to the model. WARNING: Does not support SQL functions yet. It is hard to implement this in Sequelize way. IMHO it is best to leave that to DBMS. However you can set it true and override false generated SQL functions.</td>
     </tr>
     <tr>
         <td>columnDescription</td>
@@ -380,7 +382,7 @@ Configuration parameters and default values are described below. Configuration i
         <td>List of table names not to generate model files for.</td>
     </tr>
     <tr>
-        <td colspan="3"><h4><strong>tableOptions</strong></h4>User can include any Sequelize.define options here. See Sequelize docs. Some examples:</td>
+        <td colspan="3"><h4><strong>tableOptions</strong></h4>User can include any Sequelize.define options here. These options are directly passed to Sequelize.define. See Sequelize docs. Some examples:</td>
     </tr>
     <tr>
         <td>timestamps</td>
@@ -440,9 +442,9 @@ Default configuration settings are listed below:
 
 CAVEAT: Singleton Nature of Configuration
 -----------------------------------------
-This module uses node-config via require('config') for configuration. Node config is a singleton as of this writing, which returns created config object. As a result subsequent calls in the same process return same configuration even configuration file changed and/or sequelize-pg-generator constructor called with different config file.
+This module uses config module via require('config') for configuration. Config module is a singleton as of this writing, which returns same config object for each request. As a result subsequent calls in the same process return same configuration even configuration file changed and/or sequelize-pg-generator constructor called with different config file.
 
-This is usually no problem since generator supposed to be called once. However if this behaviour prevents testing. Additionally you may want to avoid this behavior whatever reason. To side step this, it is added "resetConfig" option to constructor. If it is set to true it resets and rereads configuration. To do this we clear node-config from node cache. It is sub-optimal solution suggested by lorenwest in node-config issues.
+This is usually no problem since generator supposed to be called once in the same process. However this behaviour prevents testing. Additionally you may want to avoid this behavior whatever reason. To side step this, it is added "resetConfig" option to constructor. If it is set to true it resets and rereads configuration. To do this we clear config module from node cache. It is sub-optimal solution suggested by lorenwest in github issues section.
 
 To activate this behavior just set resetConfig to true or from cli add --resetConfig:
 
@@ -659,7 +661,7 @@ Variables available to use in templates are listed below. Please note if a value
     </tr>
     <tr>
         <td><strong>table.belongsToManies</strong></td>
-        <td>Array which contains belongsTo relations of the table. belongsToMany relations are available in Sequelize 2.0 RC4 and newer versions. </td>
+        <td>Array which contains belongsToMany relations of the table. belongsToMany relations are available in Sequelize 2.0 RC4 and newer versions. </td>
     </tr>
     <tr>
         <td>table.belongsToManies[n].type</td>
@@ -711,7 +713,7 @@ Variables available to use in templates are listed below. Please note if a value
     </tr>
     <tr>
         <td>table.relations</td>
-        <td>Array which contains all relations combined of the table. This array contains hasMany relations, belongsTo relations, belongsToMany relations.</td>
+        <td>Array which contains all relations combined of the table. This array contains hasMany relations, hasMany through ilişkileri, belongsTo relations, belongsToMany relations.</td>
     </tr>
 </table>
 
@@ -859,6 +861,11 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.1.15 / 2014-12-26
+===================
+* Added: Turkish documentation added.
+* Fixed: Typos and mistakes in documents.
 
 0.1.12 / 2014-12-23
 ===================
