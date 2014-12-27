@@ -49,22 +49,24 @@ CLI Seçenekleri
     -c, --config [config]           Konfigürasyon dosyasının yeri.
         --nolog                     Log çıktısı yazmayı durdurur.
         --resetConfig               Konfigürasyonu resetler. (Yan yol. Yayında kullanılması önerilmez.)
+        --throwError                Hatayı konsola yazmak yerine error çıktısı üretir.
 
-* Tamamen dokümante edilmiştir. (JSDoc HTML dosyaları doc dizini altındadır.)
-* Test edilmiştir
-* Üretilen dosyalar başka bir modül gerektirmez.
+* Tamamen dokümante edilmiştir. (JSDoc HTML dosyaları doc dizini altındadır.),
+* Test edilmiştir,
+* Üretilen dosyalar başka bir modül gerektirmez,
 * Çoklu PostgreSQL şema (schema) detseği,
-* Tekten çoğa (One to many) ilişki desteği, (hasMany ve belongsTo)
-* Çoktan çoğan (Many to many) ilişki desteği, (hasMany through ve belongsToMany)
+* Tekten çoğa (One to many) ilişki desteği (hasMany ve belongsTo),
+* Çoktan çoğan (Many to many) ilişki desteği (hasMany through ve belongsToMany),
 * Şemalar arası ilişki desteği. (Örneğin public.firma tablosundan ozel_sema.musteri tablosuna),
 * Yüksek oranda konfigüre edilebilir,
 * Tamamen özelleştirilebilir,
 * CLI desteği,
 * Model ve ilişkiler için akıllı isimlendirme,
 * Otomatik üretilen dosyalara kolayca müdahale,
-* Hariç tutulan tablolar
-* Debug
-* Tabloya özel konfigürasyon
+* Hariç tutulan tablolar,
+* Debug,
+* Tabloya özel konfigürasyon,
+* İsimleri ve alias'leri kontrol ederek çakışmaları önler.
 
 UYARI: belongsToMany
 ----------------------
@@ -143,23 +145,27 @@ sequelize-pg-generator model isimlendirmesi için tablo veya şema.tablo isimlen
     belongsTo               Yabancı anahtarın tekil hali. Eğer dış anahtar ismi _id iel bitiyorsa silinir. Aksi durumda
                             alan ismi ile çakışmaması için başına 'related' ön eki eklenir.
                             (Config: generate.prefixForBelongsTo:'related')
-    belongsToMany           Birleşim tablosundaki diğer tabloya işaret eden yabancı anahtarın çoğul hali.
-    hasMany({through:..})   Birleşim tablosundaki diğer tabloya işaret eden yabancı anahtarın çoğul hali. (Sequelize'de kaldırılacak)
+    belongsToMany           Birleşim tablosu adı + birleşim tablosundaki diğer tabloya işaret eden yabancı anahtarın çoğul hali.
+    hasMany({through:..})   Birleşim tablosu adı + birleşim tablosundaki diğer tabloya işaret eden yabancı anahtarın çoğul hali. (Sequelize'de kaldırılacak)
 
     Örnek yapı için sonuçlar:
 
-    İlişki                  as                          Detaylar
-    ------                  --                          --------
-    product.hasMany         as:'cartLineItems'          (Çoğul) 'product' tablo ismi 'product_cart_line_items' ilişki
-                                                        isminin başından silinmiştir.
-    product.belongsToMany   as:'carts'                  (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan silinmiştir.
-    product.hasMany Through as:'carts'                  (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan silinmiştir.
-    cart.hasMany            as:'cartLineItems'          (Çoğul) 'cart' tablo ismi 'cart_cart_line_items' ilişki
-                                                        isminin başından silinmiştir.
-    cart.belongsToMany      as:'relatedProducts'        (Çoğul) _id eki olmadığından 'related' ön eki eklenmiştir.
-    cart.hasMany Through    as:'relatedProducts'        (Çoğul) _id eki olmadığından 'related' ön eki eklenmiştir.
-    lineItem.belongsTo      as:'relatedProduct'         (Tekil) _id eki olmadığından 'related' ön eki eklenmiştir.
-    lineItem.belongsTo      as:'cart'                   (Tekil) _id eki 'cart_id' yabancı anahtar isminin sonundan silinmiştir.
+    İlişki                  as                            Detaylar
+    ------                  --                            --------
+    product.hasMany         as:'cartLineItems'            (Çoğul) 'product' tablo ismi 'product_cart_line_items' ilişki
+                                                          isminin başından silinmiştir.
+    product.belongsToMany   as:'lineItemCarts'            (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan
+                                                          silinmiştir ve başına birleşim tablosu adı eklenmiştir.
+    product.hasMany Through as:'lineItemCarts'            (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan
+                                                          silinmiştir ve başına birleşim tablosu adı eklenmiştir.
+    cart.hasMany            as:'cartLineItems'            (Çoğul) 'cart' tablo ismi 'cart_cart_line_items' ilişki
+                                                          isminin başından silinmiştir.
+    cart.belongsToMany      as:'relatedLineItemProducts'  (Çoğul) _id eki olmadığından 'related' ön eki ve birleşim
+                                                          tablosu adı eklenmiştir.
+    cart.hasMany Through    as:'relatedLineItemProducts'  (Çoğul) _id eki olmadığından 'related' ön eki ve birleşim
+                                                          tablosu adı eklenmiştir.
+    lineItem.belongsTo      as:'relatedProduct'           (Tekil) _id eki olmadığından 'related' ön eki eklenmiştir.
+    lineItem.belongsTo      as:'cart'                     (Tekil) _id eki 'cart_id' yabancı anahtar isminin sonundan silinmiştir.
 
 Bir çok özellik gibi, oluşturulan dosyalara yıkıcı olmayan bir şekilde aşağıda açıklandığı şekilde müdahale edebilirsiniz.
 
@@ -189,6 +195,9 @@ Bazı tabloların otomatik üretimin dışında bırakılması mümkündür. Kon
 ### Debug
 
 Sizin yazdığınız uygulamadan ilk çağrılıp çalıştırıldığında, varsayılan index.js dosyası model dizininde debug.js isimli bir dosya oluşturur. Bu dosya incelenerek index.js'nin ne tip bir kod kullandığı anlaşılabilir. index.js dosyası yerine doğrudan modeller kullanılmak istenseydi bu şekilde bir kod kullanılıyor olacaktı. Ancak bu tip statik bir dosya kullanılsaydı, yıkıcı olmayan bir şekilde müdahalelere izin vermek çok zor olacaktı.
+
+### İsim çakışmalarını önler
+sequelize-pg-generator isim çakışmalarını önlemek için aynı tabloda aynı isim/alias sahibi başka bir alan veya ilişki var mı kontrol eder. Varsa uyarır.
 
 ### Tabloya Özel Konfigürasyon
 
@@ -317,14 +326,19 @@ Konfigürasyon parametreleri ve varsayılan değerleri aşağıda açıklanmış
         <td>Eğer true olrak ayarlanırsa has many ilişkilerinde ilişkinin isminde eğer varsa ilk baştaki tablo adı silinir. Örneğin: "product" tablosu için "product_cart_line_items" ilişki ismi "cart_line_items" olarak isimlendirilir.</td>
     </tr>
     <tr>
+        <td>addTableNameToManyToMany</td>
+        <td>boolean</td>
+        <td>Eğer true olarak ayarlanırsa çoktan çoğa olan ilişkilerde (many to many) ilişkinin ismi'nin (as parametresi) başına birleşim tablosunun ismi eklenir.</td>
+    </tr>
+    <tr>
         <td>hasManyThrough</td>
         <td>boolean</td>
-        <td>Has many through ilişkileri hasMany(modelName, { through: '..' } şeklinde yapılandırılır. Sequelize version 2.0 RC3 ve sonrasında has many through ilişkileri kaldırılacak (DEPRECATED) olarak işaretlenmiştir. Bu versiyondan sonra has many through yerine belongToMany kullanmalısınız.</td>
+        <td>Has many through ilişkileri hasMany(modelName, { through: '..' } şeklinde yapılandırılır. Sequelize version 2.0 RC3 ve sonrasında has many through ilişkileri kaldırılacak (DEPRECATED) olarak işaretlenmiştir. Bu versiyondan sonra has many through yerine belongToMany kullanmalısınız. hasManyThrough ve belongsToMany aynı tabloda aynı anda true olamaz.</td>
     </tr>
     <tr>
         <td>belongsToMany</td>
         <td>boolean</td>
-        <td>belongsToMany ilişkileri kullanılır. Bu ilişki türü Sequelize version 2.0 RC4 ve sonrasında gelmiştir. Önceki Sequelize versiyonları bu ayar true iken çalışmazlar.</td>
+        <td>belongsToMany ilişkileri kullanılır. Bu ilişki türü Sequelize version 2.0 RC4 ve sonrasında gelmiştir. Önceki Sequelize versiyonları bu ayar true iken çalışmazlar. hasManyThrough ve belongsToMany aynı tabloda aynı anda true olamaz.</td>
     </tr>
     <tr>
         <td>prefixForBelongsTo</td>
@@ -420,6 +434,7 @@ Varsayılan konfigürasyon ayarları aşağıda listelenmiştir.
             },
             "generate": {
                 "stripFirstTableFromHasMany": true,
+                "addTableNameToManyToMany": true,
                 "hasManyThrough": false,
                 "belongsToMany": true,
                 "prefixForBelongsTo": "related",
@@ -861,6 +876,16 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.2.0 / 2014-12-27
+==================
+* Added: Automatic alias and naming validations to prevent name clash.
+* Added: generate.addTableNameToManyToMany configuration to prefix relation aliases prevent name clash. Default: true.
+* Added: --throwError option added to CLI. This option decides wheter to throw error or simply log.
+* Added: Prevent hasMany through and belongsToMany true at the same time.
+* Fixed: generate.prefixForBelongsTo aliases are not properly camel cased.
+* Fixed: --resetConfig option does not work from CLI
+* Doc update
 
 0.1.17 / 2014-12-26
 ===================

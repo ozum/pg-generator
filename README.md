@@ -5,11 +5,11 @@ Türkçe: [Turkish Documentation is here](https://github.com/ozum/sequelize-pg-g
 
 Description
 -----------
-This module is for auto generating Sequelize model from PostgreSQL databases. It reverse engineers your database and generates separate model files for each table. Default configuration parameters are carefully selected and it is sane to use. However it is possible to change most behaviour via configuration. This document is based on default configuration. Configuration parameters and default values are written as (Config parameter:value) where appropriate.
+This module is for auto generating Sequelize model from PostgreSQL databases. It reverse engineers your database and generates separate model files for each table. Default configuration parameters are carefully selected and they are sane to use. However it is possible to change most of the behaviours via configuration. This document is based on default configuration. Configuration parameters and default values are written as (Config parameter:value) where appropriate.
 
 Special Thanks
 --------------
-This module is developed with sponsorship of Fortibase.
+This module is developed with the sponsorship of Fortibase.
 
 Usage
 -----
@@ -53,22 +53,24 @@ CLI Options
     -c, --config [config]       Path of the configuration file
         --nolog                 No log output
         --resetConfig           Reset configuration. (Side-step. Not for production.)
+        --throwError            Instead of logging errors to console, throws error.
 
-* Fully documented. (JSDoc HTML files are under doc directory)
-* Tested
-* No Dependencies on Generated Files
+* Fully documented. (JSDoc HTML files are under doc directory),
+* Tested,
+* No Dependencies on Generated Files,
 * Multi schema support,
-* One to many relation support, (hasMany and belongsTo)
-* Many to many relation support, (hasMany through and belongsToMany)
+* One to many relation support (hasMany and belongsTo),
+* Many to many relation support (hasMany through and belongsToMany),
 * Inter-schema relation support. (i.e. public.account table to other_schema.cutomer table),
 * Highly configurable,
 * Fully customizable,
 * CLI support,
 * Smart naming of models and relations,
-* Very easy to override auto generated files
-* Exclude tables
-* Debug
-* Table Specific Configuration
+* Very easy to override auto generated files,
+* Exclude tables,
+* Debug,
+* Table Specific Configuration,
+* Validates and prevents naming clash.
 
 WARNING: belongsToMany
 ----------------------
@@ -147,23 +149,28 @@ sequelize-pg-generator uses table names or schema.table names for model naming. 
     belongsTo               Singular of foreign key. If key name ends with _id it will be stripped. Otherwise
                             'related' is added at the beginning to prevent it gets clash with column name.
                             (Config: generate.prefixForBelongsTo:'related')
-    belongsToMany           Plural of the foreign key which refers other table in join table.
-    hasMany({through:..})   Plural of the foreign key which refers other table in join table. (DEPRECATED in Sequelize)
+    belongsToMany           Plural of the join table name + foreign key which refers other table in join table.
+    hasMany({through:..})   Plural of the join table name + foreign key which refers other table in join table. (DEPRECATED in Sequelize)
 
     For the example structure:
 
-    Relation                as                          Details
-    --------                --                          -------
-    product.hasMany         as:'cartLineItems'          (Plural) Table name 'product' is stripped from the beginning of
-                                                        relation name 'product_cart_line_items'
-    product.belongsToMany   as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
-    product.hasMany Through as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
-    cart.hasMany            as:'cartLineItems'          (Plural) Table name 'cart' is stripped from the beginning of
-                                                        relation name 'cart_cart_line_items'
-    cart.belongsToMany      as:'relatedProducts'        (Plural) No _id suffix. 'related' is added as prefix.
-    cart.hasMany Through    as:'relatedProducts'        (Plural) No _id suffix. 'related' is added as prefix.
-    lineItem.belongsTo      as:'relatedProduct'         (Singular) No _id suffix. 'related' is added as prefix.
-    lineItem.belongsTo      as:'cart'                   (Singular) _id suffix is stripped from foreign key name 'cart_id'.
+    Relation                as                            Details
+    --------                --                            -------
+    product.hasMany         as:'cartLineItems'            (Plural) Table name 'product' is stripped from the beginning
+                                                          of relation name 'product_cart_line_items'
+    product.belongsToMany   as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
+                                                          added to foreign key name 'cart_id'
+    product.hasMany Through as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
+                                                          added to foreign key name 'cart_id'
+    cart.hasMany            as:'cartLineItems'            (Plural) Table name 'cart' is stripped from the beginning of
+                                                          relation name 'cart_cart_line_items'
+    cart.belongsToMany      as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name are
+                                                          added as prefix.
+    cart.hasMany Through    as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name
+                                                          added as prefix.
+    lineItem.belongsTo      as:'relatedProduct'           (Singular) No _id suffix. 'related' is added as prefix.
+    lineItem.belongsTo      as:'cart'                     (Singular) _id suffix is stripped from foreign key name
+                                                          'cart_id'.
 
 Of course as all attributes, you can modify generated files in a non-destructive way as explained below.
 
@@ -193,6 +200,9 @@ It is possible to exclude some table from auto generation. (Config generate.skip
 ### Debug
 
 When required and executed first time from your app, default index.js file creates a file called debug.js in the model directory. This file can be examined what type of code is used by index.js. It is same code that would be used if there is no index.js file exists. However if this type of static file is used, it is harder to allow modifications in a non-destructive way.
+
+### Validates and Prevents Naming Clash
+sequelize-pg-generator prevents naming clas by validating all relation names if same name/alias exists on the same table.
 
 ### Table Specific Configuration
 
@@ -321,14 +331,19 @@ Configuration parameters and default values are described below. Configuration i
         <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example "product_cart_line_items" relations becomes "cart_line_items" for "product" table.</td>
     </tr>
     <tr>
+        <td>addTableNameToManyToMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator adds name of the join table to many to many relationships.</td>
+    </tr>
+    <tr>
         <td>hasManyThrough</td>
         <td>boolean</td>
-        <td>Tells generator to generate has many through relations like hasMany(modelName, { through: '..' }. After Sequelize version 2.0 RC3 has many through relations are DEPRECATED. Use belongToMany instead.</td>
+        <td>Tells generator to generate has many through relations like hasMany(modelName, { through: '..' }. After Sequelize version 2.0 RC3 has many through relations are DEPRECATED. Use belongToMany instead. hasMany through and belongsToMany cannot be true at the same time for the same table.</td>
     </tr>
     <tr>
         <td>belongsToMany</td>
         <td>boolean</td>
-        <td>Tells generator to generate belongsToMany relations which comes to Sequelize version 2.0 RC4. Prior Sequelize versions do not work if this option set true.</td>
+        <td>Tells generator to generate belongsToMany relations which comes to Sequelize version 2.0 RC4. Prior Sequelize versions do not work if this option set true. hasMany through and belongsToMany cannot be true at the same time for the same table.</td>
     </tr>
     <tr>
         <td>prefixForBelongsTo</td>
@@ -424,6 +439,7 @@ Default configuration settings are listed below:
             },
             "generate": {
                 "stripFirstTableFromHasMany": true,
+                "addTableNameToManyToMany": true,
                 "hasManyThrough": false,
                 "belongsToMany": true,
                 "prefixForBelongsTo": "related",
@@ -865,6 +881,16 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.2.0 / 2014-12-27
+==================
+* Added: Automatic alias and naming validations to prevent name clash.
+* Added: generate.addTableNameToManyToMany configuration to prefix relation aliases prevent name clash. Default: true.
+* Added: --throwError option added to CLI. This option decides wheter to throw error or simply log.
+* Added: Prevent hasMany through and belongsToMany true at the same time.
+* Fixed: generate.prefixForBelongsTo aliases are not properly camel cased.
+* Fixed: --resetConfig option does not work from CLI
+* Doc update
 
 0.1.17 / 2014-12-26
 ===================

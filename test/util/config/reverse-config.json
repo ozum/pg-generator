@@ -5,7 +5,8 @@
     },
     "generate": {
       "stripFirstTableFromHasMany": false,
-      "hasManyThrough": true,
+      "addTableNameToManyToMany": false,
+      "hasManyThrough": false,
       "belongsToMany": true,
       "prefixForBelongsTo": "custom",
       "useSchemaName": false,

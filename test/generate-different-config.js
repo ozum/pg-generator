@@ -34,7 +34,7 @@ describe('cart', function () {
         assert.equal(cart.attributes.created_at.field, 'created_at');
     });
     it('should have relations.', function () {
-        assert.equal(cart.relations.length, 4);
+        assert.equal(cart.relations.length, 3);
     });
 });
 

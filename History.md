@@ -10,6 +10,16 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.2.0 / 2014-12-27
+==================
+* Added: Automatic alias and naming validations to prevent name clash.
+* Added: generate.addTableNameToManyToMany configuration to prefix relation aliases prevent name clash. Default: true.
+* Added: --throwError option added to CLI. This option decides wheter to throw error or simply log.
+* Added: Prevent hasMany through and belongsToMany true at the same time.
+* Fixed: generate.prefixForBelongsTo aliases are not properly camel cased.
+* Fixed: --resetConfig option does not work from CLI
+* Doc update
+
 0.1.17 / 2014-12-26
 ===================
 * Fixed: CLI command does not work.

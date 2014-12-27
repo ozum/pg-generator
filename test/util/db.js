@@ -30,7 +30,7 @@ module.exports.dbConfig = dbConfig;
 module.exports.generate = function generate(sqlId, options, callback) {
     module.exports.resetDB(sqlId, function () {
         generator(function (err) {
-            if (err) { callback(err); }
+            if (err) { callback(err); return; }
             callback();
         }, lodash.defaults(options, {
             database: 'pg_generator_test_625393',

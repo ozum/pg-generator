@@ -91,8 +91,8 @@
 
     <section class="readme-section">
         <article><h2>Other Languages</h2><p>Türkçe: <a href="https://github.com/ozum/sequelize-pg-generator/blob/master/README-TR.md">Turkish Documentation is here</a></p>
-<h2>Description</h2><p>This module is for auto generating Sequelize model from PostgreSQL databases. It reverse engineers your database and generates separate model files for each table. Default configuration parameters are carefully selected and it is sane to use. However it is possible to change most behaviour via configuration. This document is based on default configuration. Configuration parameters and default values are written as (Config parameter:value) where appropriate.</p>
-<h2>Special Thanks</h2><p>This module is developed with sponsorship of Fortibase.</p>
+<h2>Description</h2><p>This module is for auto generating Sequelize model from PostgreSQL databases. It reverse engineers your database and generates separate model files for each table. Default configuration parameters are carefully selected and they are sane to use. However it is possible to change most of the behaviours via configuration. This document is based on default configuration. Configuration parameters and default values are written as (Config parameter:value) where appropriate.</p>
+<h2>Special Thanks</h2><p>This module is developed with the sponsorship of Fortibase.</p>
 <h2>Usage</h2><h3>Step 1: Install globally via npm -g</h3><p>This will install module and CLI command</p>
 <pre class="prettyprint source"><code>$ npm install -g sequelize-pg-generator</code></pre><h3>Step 2: Generate model files</h3><p>Open terminal, go to your app.js root and create your models automatically into 'model' directory.</p>
 <pre class="prettyprint source"><code>$ cd path/to/my/node-app.js
@@ -114,22 +114,24 @@ var contact = orm.model('public.contact'); // Can be configured without schema.<
 -o, --output [output]       Output folder
 -c, --config [config]       Path of the configuration file
     --nolog                 No log output
-    --resetConfig           Reset configuration. (Side-step. Not for production.)</code></pre><ul>
-<li>Fully documented. (JSDoc HTML files are under doc directory)</li>
-<li>Tested</li>
-<li>No Dependencies on Generated Files</li>
+    --resetConfig           Reset configuration. (Side-step. Not for production.)
+    --throwError            Instead of logging errors to console, throws error.</code></pre><ul>
+<li>Fully documented. (JSDoc HTML files are under doc directory),</li>
+<li>Tested,</li>
+<li>No Dependencies on Generated Files,</li>
 <li>Multi schema support,</li>
-<li>One to many relation support, (hasMany and belongsTo)</li>
-<li>Many to many relation support, (hasMany through and belongsToMany)</li>
+<li>One to many relation support (hasMany and belongsTo),</li>
+<li>Many to many relation support (hasMany through and belongsToMany),</li>
 <li>Inter-schema relation support. (i.e. public.account table to other_schema.cutomer table),</li>
 <li>Highly configurable,</li>
 <li>Fully customizable,</li>
 <li>CLI support,</li>
 <li>Smart naming of models and relations,</li>
-<li>Very easy to override auto generated files</li>
-<li>Exclude tables</li>
-<li>Debug</li>
-<li>Table Specific Configuration</li>
+<li>Very easy to override auto generated files,</li>
+<li>Exclude tables,</li>
+<li>Debug,</li>
+<li>Table Specific Configuration,</li>
+<li>Validates and prevents naming clash.</li>
 </ul>
 <h2>WARNING: belongsToMany</h2><p>For many to many relations Sequelize version 2.0 RC3 and older does not support belongsToMany relation. After this version hasMany through relations are deprecated. Behaviour on this subject can be adjusted via configuration. (Config: generate.hasManyThrough:false and generate.belongsToMany:true)</p>
 <h2>Features</h2><h3>No Dependencies On Generated Files</h3><p>Generated files have no dependencies besides core modules and Sequelize.</p>
@@ -174,23 +176,28 @@ hasMany                 Plural of the relation name in database. Table name from
 belongsTo               Singular of foreign key. If key name ends with _id it will be stripped. Otherwise
                         'related' is added at the beginning to prevent it gets clash with column name.
                         (Config: generate.prefixForBelongsTo:'related')
-belongsToMany           Plural of the foreign key which refers other table in join table.
-hasMany({through:..})   Plural of the foreign key which refers other table in join table. (DEPRECATED in Sequelize)
+belongsToMany           Plural of the join table name + foreign key which refers other table in join table.
+hasMany({through:..})   Plural of the join table name + foreign key which refers other table in join table. (DEPRECATED in Sequelize)
 
 For the example structure:
 
-Relation                as                          Details
---------                --                          -------
-product.hasMany         as:'cartLineItems'          (Plural) Table name 'product' is stripped from the beginning of
-                                                    relation name 'product_cart_line_items'
-product.belongsToMany   as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
-product.hasMany Through as:'carts'                  (Plural) _id suffix is stripped from foreign key name 'cart_id'
-cart.hasMany            as:'cartLineItems'          (Plural) Table name 'cart' is stripped from the beginning of
-                                                    relation name 'cart_cart_line_items'
-cart.belongsToMany      as:'relatedProducts'        (Plural) No _id suffix. 'related' is added as prefix.
-cart.hasMany Through    as:'relatedProducts'        (Plural) No _id suffix. 'related' is added as prefix.
-lineItem.belongsTo      as:'relatedProduct'         (Singular) No _id suffix. 'related' is added as prefix.
-lineItem.belongsTo      as:'cart'                   (Singular) _id suffix is stripped from foreign key name 'cart_id'.</code></pre><p>Of course as all attributes, you can modify generated files in a non-destructive way as explained below.</p>
+Relation                as                            Details
+--------                --                            -------
+product.hasMany         as:'cartLineItems'            (Plural) Table name 'product' is stripped from the beginning
+                                                      of relation name 'product_cart_line_items'
+product.belongsToMany   as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
+                                                      added to foreign key name 'cart_id'
+product.hasMany Through as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
+                                                      added to foreign key name 'cart_id'
+cart.hasMany            as:'cartLineItems'            (Plural) Table name 'cart' is stripped from the beginning of
+                                                      relation name 'cart_cart_line_items'
+cart.belongsToMany      as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name are
+                                                      added as prefix.
+cart.hasMany Through    as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name
+                                                      added as prefix.
+lineItem.belongsTo      as:'relatedProduct'           (Singular) No _id suffix. 'related' is added as prefix.
+lineItem.belongsTo      as:'cart'                     (Singular) _id suffix is stripped from foreign key name
+                                                      'cart_id'.</code></pre><p>Of course as all attributes, you can modify generated files in a non-destructive way as explained below.</p>
 <h3>Very Easy to Override Auto Generated Files</h3><p>By default auto generated files are located path/to/model/definition-files directory. Also there is 'definition-files-custom' directory. Users can create files with same names as auto generated files to override its attributes. There is also utils module generated to make modifications easier.</p>
 <p>Those modifications are non destructive, because they override generated file in another file by inheriting it and default index.js file uses inherited files if it exists. Please bear in mind, those modifications occur before sequelize instances are generated.</p>
 <p>For example for cart table 'definition-files/cart.js' is generated. User can create 'definition-files-custom/cart.js' and override necessary parts like example below. For all attributes you can look inside auto generated files.</p>
@@ -206,6 +213,7 @@ util.getAttribute('id').validate = {... Some Sequelize Validations}; // Add Sequ
 util.getRelation('relatedProducts').details.as = 'soldItems';        // Don't like default relation name? Change it.
 util.renameAttribute('customerId', 'clientId');                      // Change name of the attribute.</code></pre><h3>Exclude Tables</h3><p>It is possible to exclude some table from auto generation. (Config generate.skipTable:[]) array is used to define excluded tables. sequelize-pg-generator skips those tables and relations from and to those tables.</p>
 <h3>Debug</h3><p>When required and executed first time from your app, default index.js file creates a file called debug.js in the model directory. This file can be examined what type of code is used by index.js. It is same code that would be used if there is no index.js file exists. However if this type of static file is used, it is harder to allow modifications in a non-destructive way.</p>
+<h3>Validates and Prevents Naming Clash</h3><p>sequelize-pg-generator prevents naming clas by validating all relation names if same name/alias exists on the same table.</p>
 <h3>Table Specific Configuration</h3><p>Sometimes for some tables it is needed to have different rules then other tables have. In such situations configuration file allows table level overrides. All 'generate' and 'tableOptions' config parameters can be overridden with 'generateOverride' and 'tableOptionsOverride'.</p>
 <p>Below is an example for contact table have specific configuration overrides.</p>
 <pre class="prettyprint source"><code>&quot;generate&quot;: {
@@ -324,14 +332,19 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
         <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example &quot;product_cart_line_items&quot; relations becomes &quot;cart_line_items&quot; for &quot;product&quot; table.</td>
     </tr>
     <tr>
+        <td>addTableNameToManyToMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator adds name of the join table to many to many relationships.</td>
+    </tr>
+    <tr>
         <td>hasManyThrough</td>
         <td>boolean</td>
-        <td>Tells generator to generate has many through relations like hasMany(modelName, { through: '..' }. After Sequelize version 2.0 RC3 has many through relations are DEPRECATED. Use belongToMany instead.</td>
+        <td>Tells generator to generate has many through relations like hasMany(modelName, { through: '..' }. After Sequelize version 2.0 RC3 has many through relations are DEPRECATED. Use belongToMany instead. hasMany through and belongsToMany cannot be true at the same time for the same table.</td>
     </tr>
     <tr>
         <td>belongsToMany</td>
         <td>boolean</td>
-        <td>Tells generator to generate belongsToMany relations which comes to Sequelize version 2.0 RC4. Prior Sequelize versions do not work if this option set true.</td>
+        <td>Tells generator to generate belongsToMany relations which comes to Sequelize version 2.0 RC4. Prior Sequelize versions do not work if this option set true. hasMany through and belongsToMany cannot be true at the same time for the same table.</td>
     </tr>
     <tr>
         <td>prefixForBelongsTo</td>
@@ -424,6 +437,7 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
         },
         &quot;generate&quot;: {
             &quot;stripFirstTableFromHasMany&quot;: true,
+            &quot;addTableNameToManyToMany&quot;: true,
             &quot;hasManyThrough&quot;: false,
             &quot;belongsToMany&quot;: true,
             &quot;prefixForBelongsTo&quot;: &quot;related&quot;,
@@ -727,7 +741,7 @@ config = require('config');</code></pre><h1>Template Variables (Customizing Temp
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
-		on Fri Dec 26th 2014 using the <a
+		on Sat Dec 27th 2014 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
