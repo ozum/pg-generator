@@ -36,6 +36,17 @@ Kendi uygulamanızda otomatik olarak oluşturulmuş olan Sequelize modellerini k
     var sequelize = orm.sequelize;
     var contact = orm.model('public.contact'); // Şema kullanmayacak şekilde konfigüre edilebilir.
 
+Windows Kullanıcıları
+---------------------
+Windows işletim sisteminde kurulum yapmak için bazı ipuçları. Bu modül pg modülünü kullanır. Eğer Windows üzerinde pg-native modülünü kullanmak isterseniz aşağıdaki noktalara dikkat ederek kurabilirsiniz:
+
+* Python 2 kurulu olmalı. Bu yazı yazılırken Python 3 uyumluluğu yoktu.
+* Python'un kurulu olduğu klasörü çevresel değişkenlerden (environment variables) path ve PYTHONPATH içine eklemelisiniz.
+* PostgreSQL pg_config ve libpg.dll içeren klasörler'de path içine eklenmiş olmalı. Genellikle PostgreSQL bin ve lib klasörlerini eklemeniz yeterlidir. (Örneğin: C:\Program Files\PostgreSQL\9.3\bin C:\Program Files\PostgreSQL\9.3\lib)
+* Visual Studio Build Tools (C:\Program Files (x86)\MSBuild) sisteminizde kurulu olmalı. VS 2012 sonrasında otomatik olarak kurulmaktadır. Eğer bu modülün kurulumu sırasında npm farklı bir Visual Studio sürümü sorarse sizde kurulu versiyonu aşağıdaki gibi kullanabilirsiniz:
+
+    > npm install -g sequelize-pg-generator --msvs_version=2013
+
 CLI Seçenekleri
 ---------------
     spgen [seçenekler]
@@ -150,22 +161,22 @@ sequelize-pg-generator model isimlendirmesi için tablo veya şema.tablo isimlen
 
     Örnek yapı için sonuçlar:
 
-    İlişki                  as                            Detaylar
-    ------                  --                            --------
-    product.hasMany         as:'cartLineItems'            (Çoğul) 'product' tablo ismi 'product_cart_line_items' ilişki
-                                                          isminin başından silinmiştir.
-    product.belongsToMany   as:'lineItemCarts'            (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan
-                                                          silinmiştir ve başına birleşim tablosu adı eklenmiştir.
-    product.hasMany Through as:'lineItemCarts'            (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan
-                                                          silinmiştir ve başına birleşim tablosu adı eklenmiştir.
-    cart.hasMany            as:'cartLineItems'            (Çoğul) 'cart' tablo ismi 'cart_cart_line_items' ilişki
-                                                          isminin başından silinmiştir.
-    cart.belongsToMany      as:'relatedLineItemProducts'  (Çoğul) _id eki olmadığından 'related' ön eki ve birleşim
-                                                          tablosu adı eklenmiştir.
-    cart.hasMany Through    as:'relatedLineItemProducts'  (Çoğul) _id eki olmadığından 'related' ön eki ve birleşim
-                                                          tablosu adı eklenmiştir.
-    lineItem.belongsTo      as:'relatedProduct'           (Tekil) _id eki olmadığından 'related' ön eki eklenmiştir.
-    lineItem.belongsTo      as:'cart'                     (Tekil) _id eki 'cart_id' yabancı anahtar isminin sonundan silinmiştir.
+    İlişki                  as                                  Detaylar
+    ------                  --                                  --------
+    product.hasMany         as:'cartLineItems'                  (Çoğul) 'product' tablo ismi 'product_cart_line_items' ilişki
+                                                                isminin başından silinmiştir.
+    product.belongsToMany   as:'cartLineItemCarts'              (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan
+                                                                silinmiştir ve başına ilişki adı başındaki tablo adı olmadan eklenmiştir.
+    product.hasMany Through as:'cartLineItemCarts'              (Çoğul) _id eki 'cart_id' yabancı anahtar isminin sonundan
+                                                                silinmiştir ve başına ilişki adı başındaki tablo adı olmadan eklenmiştir.
+    cart.hasMany            as:'cartLineItems'                  (Çoğul) 'cart' tablo ismi 'cart_cart_line_items' ilişki
+                                                                isminin başından silinmiştir.
+    cart.belongsToMany      as:'relatedCartLineItemProducts'    (Çoğul) _id eki olmadığından 'related' ön eki ve başına ilişki adı
+                                                                başındaki tablo adı olmadan eklenmiştir.
+    cart.hasMany Through    as:'relatedCartLineItemProducts'    (Çoğul) _id eki olmadığından 'related' ön eki ve başına ilişki adı
+                                                                başındaki tablo adı olmadan  eklenmiştir.
+    lineItem.belongsTo      as:'relatedProduct'                 (Tekil) _id eki olmadığından 'related' ön eki eklenmiştir.
+    lineItem.belongsTo      as:'cart'                           (Tekil) _id eki 'cart_id' yabancı anahtar isminin sonundan silinmiştir.
 
 Bir çok özellik gibi, oluşturulan dosyalara yıkıcı olmayan bir şekilde aşağıda açıklandığı şekilde müdahale edebilirsiniz.
 
@@ -328,7 +339,17 @@ Konfigürasyon parametreleri ve varsayılan değerleri aşağıda açıklanmış
     <tr>
         <td>addTableNameToManyToMany</td>
         <td>boolean</td>
-        <td>Eğer true olarak ayarlanırsa çoktan çoğa olan ilişkilerde (many to many) ilişkinin ismi'nin (as parametresi) başına birleşim tablosunun ismi eklenir.</td>
+        <td>Eğer true olarak ayarlanırsa çoktan çoğa olan ilişkilerde (many to many) ilişkinin ismi'nin (as parametresi) başına birleşim tablosunun ismi eklenir. Bu isim çakışmalarını önlemekte yardımcı olur.</td>
+    </tr>
+    <tr>
+        <td>addRelationNameToManyToMany</td>
+        <td>boolean</td>
+        <td>Eğer true olarak ayarlanırsa çoktan çoğa olan ilişkilerde (many to many) ilişkinin ismi'nin (as parametresi) başına ilişki ismi eklenir. Bu isim çakışmasını addTableNameToManyToMany seçeneğine göre daha iyi önler, çünkü aynı birleşim tablosuna ikiden fazla tablo bağlı olabilir.</td>
+    </tr>
+    <tr>
+        <td>stripFirstTableNameFromManyToMany</td>
+        <td>boolean</td>
+        <td>Eğer true olrak ayarlanırsa çoktan çoğa (many to many) ilişkilerinde ilişkinin isminde eğer varsa ilk baştaki tablo adı silinir. Örneğin: "product" tablosu için "product_cart_line_items" ilişki ismi "cart_line_items" olarak isimlendirilir.</td>
     </tr>
     <tr>
         <td>hasManyThrough</td>
@@ -434,7 +455,9 @@ Varsayılan konfigürasyon ayarları aşağıda listelenmiştir.
             },
             "generate": {
                 "stripFirstTableFromHasMany": true,
-                "addTableNameToManyToMany": true,
+                "addTableNameToManyToMany": false,
+                "addRelationNameToManyToMany": true,
+                "stripFirstTableNameFromManyToMany": true,
                 "hasManyThrough": false,
                 "belongsToMany": true,
                 "prefixForBelongsTo": "related",

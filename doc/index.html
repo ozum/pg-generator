@@ -104,7 +104,17 @@ orm.setup('my_database', 'my_user', 'my_password', {
     native: true
 });
 var sequelize = orm.sequelize;
-var contact = orm.model('public.contact'); // Can be configured without schema.</code></pre><h2>CLI Options</h2><pre class="prettyprint source"><code>spgen [options]
+var contact = orm.model('public.contact'); // Can be configured without schema.</code></pre><h2>Windows Users</h2><p>Some tips to install on windows. This module uses pg. If you like to use pg-native, below are some tips for windows users for a successful install:</p>
+<ul>
+<li>Python 2 should be installed. As of this writing it is not compatible with Python 3.</li>
+<li>You should add Python to the path and set PYTHONPATH via environment variables.</li>
+<li>PostgreSQL pg_config and libpq.dll must be on path. Usually adding bin and lib folders is ok. (For eaxmple: C:\Program Files\PostgreSQL\9.3\bin C:\Program Files\PostgreSQL\9.3\lib)</li>
+<li>Visual Studio Build Tools (C:\Program Files (x86)\MSBuild) should be installed. Installed automatically after VS 2012. If during install npm asks for different version of Visual Studio you can set it from command line during installation:<blockquote>
+<p>npm install -g sequelize-pg-generator --msvs_version=2013</p>
+</blockquote>
+</li>
+</ul>
+<h2>CLI Options</h2><pre class="prettyprint source"><code>spgen [options]
 -h, --host [host]           IP address or host name of the database server
     --port [port]           Port of database server to connect
 -d, --database [database]   Database name
@@ -181,23 +191,23 @@ hasMany({through:..})   Plural of the join table name + foreign key which refers
 
 For the example structure:
 
-Relation                as                            Details
---------                --                            -------
-product.hasMany         as:'cartLineItems'            (Plural) Table name 'product' is stripped from the beginning
-                                                      of relation name 'product_cart_line_items'
-product.belongsToMany   as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
-                                                      added to foreign key name 'cart_id'
-product.hasMany Through as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
-                                                      added to foreign key name 'cart_id'
-cart.hasMany            as:'cartLineItems'            (Plural) Table name 'cart' is stripped from the beginning of
-                                                      relation name 'cart_cart_line_items'
-cart.belongsToMany      as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name are
-                                                      added as prefix.
-cart.hasMany Through    as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name
-                                                      added as prefix.
-lineItem.belongsTo      as:'relatedProduct'           (Singular) No _id suffix. 'related' is added as prefix.
-lineItem.belongsTo      as:'cart'                     (Singular) _id suffix is stripped from foreign key name
-                                                      'cart_id'.</code></pre><p>Of course as all attributes, you can modify generated files in a non-destructive way as explained below.</p>
+Relation                as                                  Details
+--------                --                                  -------
+product.hasMany         as:'cartLineItems'                  (Plural) Table name 'product' is stripped from the beginning
+                                                            of relation name 'product_cart_line_items'
+product.belongsToMany   as:'cartLineItemCarts'              (Plural) _id suffix is stripped from, relation name (table name striiped)
+                                                            added to foreign key name 'cart_id'
+product.hasMany Through as:'cartLineItemCarts'              (Plural) _id suffix is stripped from, relation name (table name striiped)
+                                                            added to foreign key name 'cart_id'
+cart.hasMany            as:'cartLineItems'                  (Plural) Table name 'cart' is stripped from the beginning of
+                                                            relation name 'cart_cart_line_items'
+cart.belongsToMany      as:'relatedCartLineItemProducts'    (Plural) No _id suffix. 'related' and relation name (table name striiped)
+                                                            are added as prefix.
+cart.hasMany Through    as:'relatedcartLineItemProducts'    (Plural) No _id suffix. 'related' and relation name (table name striiped)
+                                                            are added as prefix.
+lineItem.belongsTo      as:'relatedProduct'                 (Singular) No _id suffix. 'related' is added as prefix.
+lineItem.belongsTo      as:'cart'                           (Singular) _id suffix is stripped from foreign key name
+                                                            'cart_id'.</code></pre><p>Of course as all attributes, you can modify generated files in a non-destructive way as explained below.</p>
 <h3>Very Easy to Override Auto Generated Files</h3><p>By default auto generated files are located path/to/model/definition-files directory. Also there is 'definition-files-custom' directory. Users can create files with same names as auto generated files to override its attributes. There is also utils module generated to make modifications easier.</p>
 <p>Those modifications are non destructive, because they override generated file in another file by inheriting it and default index.js file uses inherited files if it exists. Please bear in mind, those modifications occur before sequelize instances are generated.</p>
 <p>For example for cart table 'definition-files/cart.js' is generated. User can create 'definition-files-custom/cart.js' and override necessary parts like example below. For all attributes you can look inside auto generated files.</p>
@@ -329,12 +339,22 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
     <tr>
         <td>stripFirstTableFromHasMany</td>
         <td>boolean</td>
-        <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example &quot;product_cart_line_items&quot; relations becomes &quot;cart_line_items&quot; for &quot;product&quot; table.</td>
+        <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example &quot;product_cart_line_items&quot; relation becomes &quot;cart_line_items&quot; for &quot;product&quot; table.</td>
     </tr>
     <tr>
         <td>addTableNameToManyToMany</td>
         <td>boolean</td>
-        <td>If this is set true. Generator adds name of the join table to many to many relationships.</td>
+        <td>If this is set true. Generator adds name of the join table to many to many relationships. This prevents name collision.</td>
+    </tr>
+    <tr>
+        <td>addRelationNameToManyToMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator adds name of the relation to many to many relationships. This prevents name collision further than addTableNameToManyToMany, because more than two table can be connected to join table.</td>
+    </tr>
+    <tr>
+        <td>stripFirstTableNameFromManyToMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator strips first table name from many to many relations' name if it begins with table name. For example &quot;product_cart_line_items&quot; relation becomes &quot;cart_line_items&quot; for &quot;product&quot; table.</td>
     </tr>
     <tr>
         <td>hasManyThrough</td>
@@ -437,7 +457,9 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
         },
         &quot;generate&quot;: {
             &quot;stripFirstTableFromHasMany&quot;: true,
-            &quot;addTableNameToManyToMany&quot;: true,
+            &quot;addTableNameToManyToMany&quot;: false,
+            &quot;addRelationNameToManyToMany&quot;: true,
+            &quot;stripFirstTableNameFromManyToMany&quot;: true,
             &quot;hasManyThrough&quot;: false,
             &quot;belongsToMany&quot;: true,
             &quot;prefixForBelongsTo&quot;: &quot;related&quot;,
@@ -451,7 +473,7 @@ util.renameAttribute('customerId', 'clientId');                      // Change n
             &quot;tableDescription&quot;: true,
             &quot;dataTypeVariable&quot;: &quot;Seq&quot;,
             &quot;skipTable&quot;: []
-        },
+    },
         &quot;tableOptions&quot;: {
             &quot;timestamps&quot;: false
         }
@@ -741,7 +763,7 @@ config = require('config');</code></pre><h1>Template Variables (Customizing Temp
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
-		on Sat Dec 27th 2014 using the <a
+		on Tue Dec 30th 2014 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

@@ -40,6 +40,16 @@ Use Sequelize models provided by auto generated files in your application.
     var sequelize = orm.sequelize;
     var contact = orm.model('public.contact'); // Can be configured without schema.
 
+Windows Users
+-------------
+Some tips to install on windows. This module uses pg. If you like to use pg-native, below are some tips for windows users for a successful install:
+
+* Python 2 should be installed. As of this writing it is not compatible with Python 3.
+* You should add Python to the path and set PYTHONPATH via environment variables.
+* PostgreSQL pg_config and libpq.dll must be on path. Usually adding bin and lib folders is ok. (For eaxmple: C:\Program Files\PostgreSQL\9.3\bin C:\Program Files\PostgreSQL\9.3\lib)
+* Visual Studio Build Tools (C:\Program Files (x86)\MSBuild) should be installed. Installed automatically after VS 2012. If during install npm asks for different version of Visual Studio you can set it from command line during installation:
+    > npm install -g sequelize-pg-generator --msvs_version=2013
+
 CLI Options
 -----------
     spgen [options]
@@ -154,23 +164,23 @@ sequelize-pg-generator uses table names or schema.table names for model naming. 
 
     For the example structure:
 
-    Relation                as                            Details
-    --------                --                            -------
-    product.hasMany         as:'cartLineItems'            (Plural) Table name 'product' is stripped from the beginning
-                                                          of relation name 'product_cart_line_items'
-    product.belongsToMany   as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
-                                                          added to foreign key name 'cart_id'
-    product.hasMany Through as:'lineItemCarts'            (Plural) _id suffix is stripped from, through table name
-                                                          added to foreign key name 'cart_id'
-    cart.hasMany            as:'cartLineItems'            (Plural) Table name 'cart' is stripped from the beginning of
-                                                          relation name 'cart_cart_line_items'
-    cart.belongsToMany      as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name are
-                                                          added as prefix.
-    cart.hasMany Through    as:'relatedLineItemProducts'  (Plural) No _id suffix. 'related' and through table name
-                                                          added as prefix.
-    lineItem.belongsTo      as:'relatedProduct'           (Singular) No _id suffix. 'related' is added as prefix.
-    lineItem.belongsTo      as:'cart'                     (Singular) _id suffix is stripped from foreign key name
-                                                          'cart_id'.
+    Relation                as                                  Details
+    --------                --                                  -------
+    product.hasMany         as:'cartLineItems'                  (Plural) Table name 'product' is stripped from the beginning
+                                                                of relation name 'product_cart_line_items'
+    product.belongsToMany   as:'cartLineItemCarts'              (Plural) _id suffix is stripped from, relation name (table name striiped)
+                                                                added to foreign key name 'cart_id'
+    product.hasMany Through as:'cartLineItemCarts'              (Plural) _id suffix is stripped from, relation name (table name striiped)
+                                                                added to foreign key name 'cart_id'
+    cart.hasMany            as:'cartLineItems'                  (Plural) Table name 'cart' is stripped from the beginning of
+                                                                relation name 'cart_cart_line_items'
+    cart.belongsToMany      as:'relatedCartLineItemProducts'    (Plural) No _id suffix. 'related' and relation name (table name striiped)
+                                                                are added as prefix.
+    cart.hasMany Through    as:'relatedcartLineItemProducts'    (Plural) No _id suffix. 'related' and relation name (table name striiped)
+                                                                are added as prefix.
+    lineItem.belongsTo      as:'relatedProduct'                 (Singular) No _id suffix. 'related' is added as prefix.
+    lineItem.belongsTo      as:'cart'                           (Singular) _id suffix is stripped from foreign key name
+                                                                'cart_id'.
 
 Of course as all attributes, you can modify generated files in a non-destructive way as explained below.
 
@@ -328,12 +338,22 @@ Configuration parameters and default values are described below. Configuration i
     <tr>
         <td>stripFirstTableFromHasMany</td>
         <td>boolean</td>
-        <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example "product_cart_line_items" relations becomes "cart_line_items" for "product" table.</td>
+        <td>If this is set true. Generator strips first table name from has many relations' name if it begins with table name. For example "product_cart_line_items" relation becomes "cart_line_items" for "product" table.</td>
     </tr>
     <tr>
         <td>addTableNameToManyToMany</td>
         <td>boolean</td>
-        <td>If this is set true. Generator adds name of the join table to many to many relationships.</td>
+        <td>If this is set true. Generator adds name of the join table to many to many relationships. This prevents name collision.</td>
+    </tr>
+    <tr>
+        <td>addRelationNameToManyToMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator adds name of the relation to many to many relationships. This prevents name collision further than addTableNameToManyToMany, because more than two table can be connected to join table.</td>
+    </tr>
+    <tr>
+        <td>stripFirstTableNameFromManyToMany</td>
+        <td>boolean</td>
+        <td>If this is set true. Generator strips first table name from many to many relations' name if it begins with table name. For example "product_cart_line_items" relation becomes "cart_line_items" for "product" table.</td>
     </tr>
     <tr>
         <td>hasManyThrough</td>
@@ -439,7 +459,9 @@ Default configuration settings are listed below:
             },
             "generate": {
                 "stripFirstTableFromHasMany": true,
-                "addTableNameToManyToMany": true,
+                "addTableNameToManyToMany": false,
+                "addRelationNameToManyToMany": true,
+                "stripFirstTableNameFromManyToMany": true,
                 "hasManyThrough": false,
                 "belongsToMany": true,
                 "prefixForBelongsTo": "related",
@@ -453,7 +475,7 @@ Default configuration settings are listed below:
                 "tableDescription": true,
                 "dataTypeVariable": "Seq",
                 "skipTable": []
-            },
+        },
             "tableOptions": {
                 "timestamps": false
             }

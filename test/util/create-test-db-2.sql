@@ -1,6 +1,6 @@
 /*
 Created: 02/10/2014
-Modified: 27/12/2014
+Modified: 29/12/2014
 Project: SequelizeTest
 Model: SequelizeTest
 Company: Fortibase
@@ -529,7 +529,54 @@ INSERT INTO cart_currency_statistic (cart_id, currency_id) VALUES (3, 3);
 ALTER TABLE "cart_currency_statistic" ADD CONSTRAINT "Key15" PRIMARY KEY ("cart_id","currency_id")
 ;
 
--- Create relationships section -------------------------------------------------
+-- Table empty_table
+
+CREATE TABLE "empty_table"(
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON TABLE "empty_table" IS 'Test table without columns.'
+;
+
+-- Table alternative_product
+
+CREATE TABLE "alternative_product"(
+ "product_id" Integer NOT NULL,
+ "alternative_product_id" Integer NOT NULL,
+ "suggestion_type_id" Integer
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON TABLE "alternative_product" IS 'Table for storing alternative products.'
+;
+
+-- Add keys for table alternative_product
+
+ALTER TABLE "alternative_product" ADD CONSTRAINT "Key17" PRIMARY KEY ("product_id","alternative_product_id")
+;
+
+-- Table suggestion_type
+
+CREATE TABLE "suggestion_type"(
+ "name" Character varying(20),
+ "id" Serial NOT NULL
+)
+WITH (OIDS=FALSE)
+;
+
+COMMENT ON TABLE "suggestion_type" IS 'Suggestion types for alternative products.'
+;
+COMMENT ON COLUMN "suggestion_type"."id" IS 'Kayıt no.'
+;
+
+-- Add keys for table suggestion_type
+
+ALTER TABLE "suggestion_type" ADD CONSTRAINT "Key18" PRIMARY KEY ("id")
+;
+
+-- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE "contact" ADD CONSTRAINT "primary_contacts" FOREIGN KEY ("company_id") REFERENCES "account" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
@@ -568,6 +615,15 @@ ALTER TABLE "cart_currency_statistic" ADD CONSTRAINT "cart_cart_currency_statist
 ;
 
 ALTER TABLE "cart_currency_statistic" ADD CONSTRAINT "currency_cart_currency_statistics" FOREIGN KEY ("currency_id") REFERENCES "currency" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE "alternative_product" ADD CONSTRAINT "source_alternative_products" FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE "alternative_product" ADD CONSTRAINT "destination_alternative_products" FOREIGN KEY ("alternative_product_id") REFERENCES "product" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE "alternative_product" ADD CONSTRAINT "suggestion_type_alternative_products" FOREIGN KEY ("suggestion_type_id") REFERENCES "suggestion_type" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
 

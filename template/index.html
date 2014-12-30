@@ -22,7 +22,7 @@ module.exports = model;
 
 // Some utility methods:
 {% if table.relations|first %}util.getRelation({{ table.relations|first.as }}).onDelete = 'CASCADE'; {% endif %}
-util.getAttribute({{table.columns|first.accessorName}}).comment = 'This is the comment';
+{% if table.columns|first %}util.getAttribute({{table.columns|first.accessorName}}).comment = 'This is the comment'; {% endif %}
 
 ------------------------------------------------------------------------------------*/
 {%- endif %}

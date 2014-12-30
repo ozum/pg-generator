@@ -28,7 +28,9 @@ module.exports = {
         },
         "generate": {
             "stripFirstTableFromHasMany": true,
-            "addTableNameToManyToMany": true,
+            "addTableNameToManyToMany": false,
+            "addRelationNameToManyToMany": true,
+            "stripFirstTableNameFromManyToMany": true,
             "hasManyThrough": false,
             "belongsToMany": true,
             "prefixForBelongsTo": "related",

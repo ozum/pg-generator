@@ -10,6 +10,17 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.3.0 / 2014-12-30
+==================
+* Removed: pg-native dependency removed. Some users experienced problems during install.
+* Added: generate.addRelationNameToManyToMany configuration to prefix relation aliases prevent further name clashes which cannot be prevented by generate.addTableNameToManyToMany. Default: true.
+* Added: generate.stripFirstTableNameFromManyToMany configuration added. Default: true
+* Changed: generate.addTableNameToManyToMany configuration default is false now.
+* Changed: Default naming rule for many to many relations.
+* Added: Logging uses Winston module now.
+* Added: Doc update for Windows OS users.
+* Fixed: Database tables without any column throws error when warning configuration is true.
+
 0.2.0 / 2014-12-27
 ==================
 * Added: Automatic alias and naming validations to prevent name clash.
