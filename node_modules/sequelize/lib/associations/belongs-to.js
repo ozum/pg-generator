@@ -121,12 +121,16 @@ module.exports = (function() {
     var association = this;
 
     instancePrototype[this.accessors.set] = function(associatedInstance, options) {
+      options = options || {};
+
       var value = associatedInstance;
       if (associatedInstance instanceof association.target.Instance) {
         value = associatedInstance[association.targetIdentifier];
       }
 
       this.set(association.identifier, value);
+
+      if (options.save === false) return;
 
       options = Utils._.extend({
         fields: [association.identifier],

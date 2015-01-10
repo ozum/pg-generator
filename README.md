@@ -904,6 +904,10 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.3.1 / 2015-01-10
+==================
+* Tested for Sequelize 2.0 RC7
+
 0.3.0 / 2014-12-30
 ==================
 * Removed: pg-native dependency removed. Some users experienced problems during install.

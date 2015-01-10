@@ -77,7 +77,7 @@ module.exports = (function() {
             if (!Utils._.isString(indexName)) {
               indexName = 'uniq_' + tableName + '_' + columns.fields.join('_');
             }
-            values.attributes += ', UNIQUE ' + indexName + ' (' + Utils._.map(columns.fields, self.quoteIdentifier).join(', ') + ')';
+            values.attributes += ', UNIQUE ' + self.quoteIdentifier(indexName) + ' (' + Utils._.map(columns.fields, self.quoteIdentifier).join(', ') + ')';
           }
         });
       }
@@ -97,22 +97,6 @@ module.exports = (function() {
 
     showTablesQuery: function() {
       return 'SHOW TABLES;';
-    },
-
-    uniqueConstraintMapping: {
-      code: 'ER_DUP_ENTRY',
-      map: function(str) {
-        // we're manually remvoving uniq_ here for a future capability of defining column names explicitly
-        var match = str.replace('uniq_', '').match(/Duplicate entry .* for key '(.*?)'$/);
-        if (match === null || match.length < 2) {
-          return false;
-        }
-
-        return {
-          indexName: match[1],
-          fields: match[1].split('_')
-        };
-      }
     },
 
     addColumnQuery: function(table, key, dataType) {
