@@ -58,7 +58,6 @@
     "inflection": "^1.5.1",
     "js-beautify": "^1.5.4",
     "lodash": "^2.4.1",
-    "path": "^0.4.9",
     "pg": "^4.1.1",
     "pg-structure": "^1.11.0",
     "sequelize": "^2.0.0-rc7",
