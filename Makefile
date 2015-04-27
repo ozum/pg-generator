@@ -3,7 +3,7 @@ REPORTER = list
 test:
 	clear
 	echo Starting test *********************************************************
-	./node_modules/mocha/bin/mocha --harmony-collections
+	./node_modules/mocha/bin/mocha
 	echo Ending test
 
 doc:

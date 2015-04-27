@@ -6,11 +6,11 @@ var path            = require('path');
 var pg              = require('pg');
 var async           = require('async');
 var lodash          = require('lodash');
-var dbConfig        = { host: 'localhost', port: 5432, user: 'user', password: 'password'  };
+var dbConfig        = { host: 'localhost', port: 5432, user: 'user', password: 'password', database: 'pg_generator_test_625393' };
 var generator       = require('../../lib/index.js');
 
 var conString           = 'postgres://' + dbConfig.user + ':' + dbConfig.password + '@' + dbConfig.host + ':' + dbConfig.port + '/'; //'postgres://user:pass@host:port/'
-var conStringTest       = conString + 'pg_generator_test_625393';                                                       //'postgres://user:pass@host:port/db'
+var conStringTest       = conString + dbConfig.database;                                                                //'postgres://user:pass@host:port/db'
 var conStringTemplate   = conString + 'template1';                                                                      //'postgres://user:pass@host:port/db'
 
 var sql = {
@@ -84,3 +84,4 @@ module.exports.dropDB = function dropDB(callback) {
     });
 };
 
+module.exports.dbConfig = dbConfig;

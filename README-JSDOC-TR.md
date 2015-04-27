@@ -21,17 +21,17 @@ Bu şekilde modülü ve CLI komutunu kurmuş olursunuz.
 Open terminal, go to your app.js root and create your models automatically into 'model' directory.
 
     $ cd path/to/my/node-app.js
-    $ spgen -database my_database -u my_user -p my_password
+    $ spgen -d my_database -u my_user -p my_password
 
 ### Adım 3: Kendi node.js uygulamanızda modelleri kullanın
 
 Kendi uygulamanızda otomatik olarak oluşturulmuş olan Sequelize modellerini kullanın.
 
-    var orm = require('../model');
-    orm.setup('veri_tabim', 'kullanıc', 'sifre', {
+    var orm = require('./model');
+    orm.setup('veri_tabanim', 'kullanıcı', 'sifre', {
         host: '127.0.0.1',
         logging: false,
-        native: true
+        native: false
     });
     var sequelize = orm.sequelize;
     var contact = orm.model('public.contact'); // Şema kullanmayacak şekilde konfigüre edilebilir.

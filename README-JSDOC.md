@@ -25,17 +25,17 @@ This will install module and CLI command
 Open terminal, go to your app.js root and create your models automatically into 'model' directory.
 
     $ cd path/to/my/node-app.js
-    $ spgen -database my_database -u my_user -p my_password
+    $ spgen -d my_database -u my_user -p my_password
 
 ### Step 3: Use it in your node.js app
 
 Use Sequelize models provided by auto generated files in your application.
 
-    var orm = require('../model');
+    var orm = require('./model');
     orm.setup('my_database', 'my_user', 'my_password', {
         host: '127.0.0.1',
         logging: false,
-        native: true
+        native: false
     });
     var sequelize = orm.sequelize;
     var contact = orm.model('public.contact'); // Can be configured without schema.

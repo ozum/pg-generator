@@ -25,7 +25,7 @@ This will install module and CLI command
 Open terminal, go to your app.js root and create your models automatically into 'model' directory.
 
     $ cd path/to/my/node-app.js
-    $ spgen -database my_database -u my_user -p my_password
+    $ spgen -d my_database -u my_user -p my_password
 
 ### Step 3: Use it in your node.js app
 
