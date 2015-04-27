@@ -755,6 +755,24 @@ Template içerisinde kullanılacak olan değişkenler ve açıklamaları aşağ�
     </tr>
 </table>
 
+Örnekler
+========
+
+Eager Loading
+-------------
+sequelize-pg-generator ilişkileri "as" kullanarak isimlendirir. Aksi takdirde aynı tablolar arasında tanımlanacak olan birden fazla ilişki çakışır. Örneğin:
+
+account has many contacts as primaryContacts (account -----< contact)
+
+account has many contacts as secondaryContacts (account ----< contact)
+
+Bu durumda sequelize.js "as" isminin eager loading sırasında "as" parametresi olarak verilmesini istiyor..
+
+    account = orm.model('public.account'); // Can be configured without schema.
+    contact = orm.model('public.contact'); // Can be configured without schema.
+    account.findAll({ include: [ { model: contact, as: "primaryContacts" } ] }).then(function(data) {
+        console.log(data[0].primaryContacts[0].name);
+    });
 
 API
 ===

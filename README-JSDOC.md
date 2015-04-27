@@ -759,6 +759,24 @@ Variables available to use in templates are listed below. Please note if a value
     </tr>
 </table>
 
+Examples
+========
+
+Eager Loading
+-------------
+sequelize-pg-generator sets up relations with an "as". Otherwise multiple relations between same two tables collides. For example:
+
+account has many contacts as primaryContacts (account -----< contact)
+
+account has many contacts as secondaryContacts (account ----< contact)
+
+In this case sequelize.js requires you to specify "as" alias in the "as" attribute during eager loading.
+
+    account = orm.model('public.account'); // Can be configured without schema.
+    contact = orm.model('public.contact'); // Can be configured without schema.
+    account.findAll({ include: [ { model: contact, as: "primaryContacts" } ] }).then(function(data) {
+        console.log(data[0].primaryContacts[0].name);
+    });
 
 API
 ===
