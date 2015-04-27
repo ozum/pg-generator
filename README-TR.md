@@ -25,13 +25,13 @@ Open terminal, go to your app.js root and create your models automatically into 
 
 ### Adım 3: Kendi node.js uygulamanızda modelleri kullanın
 
-Kendi uygulamanızda otomatik olarak oluşturulmuş olan Sequelize modellerini kullanın.
+Kendi uygulamanızda otomatik olarak oluşturulmuş olan Sequelize modellerini kullanın. Aşağıda örnekler bulabilirsiniz.
 
-    var orm = require('../model');
-    orm.setup('veri_tabim', 'kullanıc', 'sifre', {
+    var orm = require('./model');
+    orm.setup('veri_tabanim', 'kullanıcı', 'sifre', {
         host: '127.0.0.1',
         logging: false,
-        native: true
+        native: false
     });
     var sequelize = orm.sequelize;
     var contact = orm.model('public.contact'); // Şema kullanmayacak şekilde konfigüre edilebilir.
@@ -755,6 +755,24 @@ Template içerisinde kullanılacak olan değişkenler ve açıklamaları aşağ�
     </tr>
 </table>
 
+Örnekler
+========
+
+Eager Loading
+-------------
+sequelize-pg-generator ilişkileri "as" kullanarak isimlendirir. Aksi takdirde aynı tablolar arasında tanımlanacak olan birden fazla ilişki çakışır. Örneğin:
+
+account has many contacts as primaryContacts (account -----< contact)
+
+account has many contacts as secondaryContacts (account ----< contact)
+
+Bu durumda sequelize.js "as" isminin eager loading sırasında "as" parametresi olarak verilmesini istiyor..
+
+    account = orm.model('public.account'); // Can be configured without schema.
+    contact = orm.model('public.contact'); // Can be configured without schema.
+    account.findAll({ include: [ { model: contact, as: "primaryContacts" } ] }).then(function(data) {
+        console.log(data[0].primaryContacts[0].name);
+    });
 
 API
 ===
@@ -899,6 +917,10 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.4.2 / 2015-04-27
+==================
+* Added documentation and examples.
 
 0.3.1 / 2015-01-10
 ==================

@@ -96,12 +96,12 @@
 <h2>Usage</h2><h3>Step 1: Install globally via npm -g</h3><p>This will install module and CLI command</p>
 <pre class="prettyprint source"><code>$ npm install -g sequelize-pg-generator</code></pre><h3>Step 2: Generate model files</h3><p>Open terminal, go to your app.js root and create your models automatically into 'model' directory.</p>
 <pre class="prettyprint source"><code>$ cd path/to/my/node-app.js
-$ spgen -d my_database -u my_user -p my_password</code></pre><h3>Step 3: Use it in your node.js app</h3><p>Use Sequelize models provided by auto generated files in your application.</p>
-<pre class="prettyprint source"><code>var orm = require('../model');
+$ spgen -d my_database -u my_user -p my_password</code></pre><h3>Step 3: Use it in your node.js app</h3><p>Use Sequelize models provided by auto generated files in your application. See examples below.</p>
+<pre class="prettyprint source"><code>var orm = require('./model');
 orm.setup('my_database', 'my_user', 'my_password', {
     host: '127.0.0.1',
     logging: false,
-    native: true
+    native: false
 });
 var sequelize = orm.sequelize;
 var contact = orm.model('public.contact'); // Can be configured without schema.</code></pre><h2>Windows Users</h2><p>Some tips to install on windows. This module uses pg. If you like to use pg-native, below are some tips for windows users for a successful install:</p>
@@ -740,8 +740,15 @@ config = require('config');</code></pre><h1>Template Variables (Customizing Temp
     </tr>
 </table>
 
-
-<h1>API</h1></article>
+<h1>Examples</h1><h2>Eager Loading</h2><p>sequelize-pg-generator sets up relations with an &quot;as&quot;. Otherwise multiple relations between same two tables collides. For example:</p>
+<p>account has many contacts as primaryContacts (account -----&lt; contact)</p>
+<p>account has many contacts as secondaryContacts (account ----&lt; contact)</p>
+<p>In this case sequelize.js requires you to specify &quot;as&quot; alias in the &quot;as&quot; attribute during eager loading.</p>
+<pre class="prettyprint source"><code>account = orm.model('public.account'); // Can be configured without schema.
+contact = orm.model('public.contact'); // Can be configured without schema.
+account.findAll({ include: [ { model: contact, as: &quot;primaryContacts&quot; } ] }).then(function(data) {
+    console.log(data[0].primaryContacts[0].name);
+});</code></pre><h1>API</h1></article>
     </section>
 
 

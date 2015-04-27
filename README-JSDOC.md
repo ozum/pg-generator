@@ -29,7 +29,7 @@ Open terminal, go to your app.js root and create your models automatically into 
 
 ### Step 3: Use it in your node.js app
 
-Use Sequelize models provided by auto generated files in your application.
+Use Sequelize models provided by auto generated files in your application. See examples below.
 
     var orm = require('./model');
     orm.setup('my_database', 'my_user', 'my_password', {

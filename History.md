@@ -10,6 +10,10 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.4.2 / 2015-04-27
+==================
+* Added documentation and examples.
+
 0.3.1 / 2015-01-10
 ==================
 * Tested for Sequelize 2.0 RC7

@@ -45,6 +45,7 @@
     "chai": "^1.10.0",
     "ink-docstrap": "^0.4.12",
     "mocha": "^2.1.0",
+    "pg": "^4.1.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^2.1.0"
   },
@@ -59,7 +60,6 @@
     "inflection": "^1.5.1",
     "js-beautify": "^1.5.4",
     "lodash": "^2.4.1",
-    "pg": "^4.1.1",
     "pg-structure": "^1.11.0",
     "swig": "^1.4.2",
     "winston": "^0.8.3"

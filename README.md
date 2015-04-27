@@ -29,13 +29,13 @@ Open terminal, go to your app.js root and create your models automatically into 
 
 ### Step 3: Use it in your node.js app
 
-Use Sequelize models provided by auto generated files in your application.
+Use Sequelize models provided by auto generated files in your application. See examples below.
 
-    var orm = require('../model');
+    var orm = require('./model');
     orm.setup('my_database', 'my_user', 'my_password', {
         host: '127.0.0.1',
         logging: false,
-        native: true
+        native: false
     });
     var sequelize = orm.sequelize;
     var contact = orm.model('public.contact'); // Can be configured without schema.
@@ -759,6 +759,24 @@ Variables available to use in templates are listed below. Please note if a value
     </tr>
 </table>
 
+Examples
+========
+
+Eager Loading
+-------------
+sequelize-pg-generator sets up relations with an "as". Otherwise multiple relations between same two tables collides. For example:
+
+account has many contacts as primaryContacts (account -----< contact)
+
+account has many contacts as secondaryContacts (account ----< contact)
+
+In this case sequelize.js requires you to specify "as" alias in the "as" attribute during eager loading.
+
+    account = orm.model('public.account'); // Can be configured without schema.
+    contact = orm.model('public.contact'); // Can be configured without schema.
+    account.findAll({ include: [ { model: contact, as: "primaryContacts" } ] }).then(function(data) {
+        console.log(data[0].primaryContacts[0].name);
+    });
 
 API
 ===
@@ -903,6 +921,10 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.4.2 / 2015-04-27
+==================
+* Added documentation and examples.
 
 0.3.1 / 2015-01-10
 ==================

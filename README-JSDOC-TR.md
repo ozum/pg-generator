@@ -25,7 +25,7 @@ Open terminal, go to your app.js root and create your models automatically into 
 
 ### Adım 3: Kendi node.js uygulamanızda modelleri kullanın
 
-Kendi uygulamanızda otomatik olarak oluşturulmuş olan Sequelize modellerini kullanın.
+Kendi uygulamanızda otomatik olarak oluşturulmuş olan Sequelize modellerini kullanın. Aşağıda örnekler bulabilirsiniz.
 
     var orm = require('./model');
     orm.setup('veri_tabanim', 'kullanıcı', 'sifre', {
