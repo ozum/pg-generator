@@ -10,6 +10,10 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.4.3 / 2015-05-12
+==================
+* Added getter for sequelize instance.
+
 0.4.2 / 2015-04-27
 ==================
 * Added documentation and examples.
