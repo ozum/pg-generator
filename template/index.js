@@ -169,3 +169,11 @@ module.exports.model = function (name) {
 module.exports.Sequelize = function () {
     return Sequelize;
 };
+
+/**
+ * Returns sequelize instance.
+ * @returns {Sequelize} - sequelize instance
+ */
+module.exports.sequelize = function () {
+    return sequelize;
+};
