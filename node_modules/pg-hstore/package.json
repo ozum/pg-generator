@@ -1,0 +1,61 @@
+{
+  "author": {
+    "name": "Seth Carney",
+    "email": "scarney81@gmail.com",
+    "url": "https://github.com/scarney81"
+  },
+  "name": "pg-hstore",
+  "description": "An module for serializing and deserializing JSON data in to hstore format",
+  "private": false,
+  "keywords": [
+    "pg",
+    "postgres",
+    "hstore"
+  ],
+  "version": "2.3.2",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/scarney81/pg-hstore",
+  "bugs": {
+    "url": "https://github.com/scarney81/pg-hstore/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:scarney81/pg-hstore.git"
+  },
+  "dependencies": {
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "should": "^4.4.2"
+  },
+  "engines": {
+    "node": ">= 0.8.x"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec -u bdd --require should --recursive --timeout 10000"
+  },
+  "gitHead": "7347c348b2d76f5922369067f320a0e9e9e81743",
+  "_id": "pg-hstore@2.3.2",
+  "_shasum": "f7ef053e7b9b892ae986af2f7cbe86432dfcf24f",
+  "_from": "pg-hstore@*",
+  "_npmVersion": "2.1.17",
+  "_nodeVersion": "0.10.22",
+  "_npmUser": {
+    "name": "scarney",
+    "email": "scarney81@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "scarney",
+      "email": "scarney81@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "f7ef053e7b9b892ae986af2f7cbe86432dfcf24f",
+    "tarball": "http://registry.npmjs.org/pg-hstore/-/pg-hstore-2.3.2.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/pg-hstore/-/pg-hstore-2.3.2.tgz",
+  "readme": "ERROR: No README data found!"
+}
