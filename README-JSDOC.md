@@ -598,7 +598,7 @@ Variables available to use in templates are listed below. Please note if a value
         <td>If this column has a reference, this value is the name of table which this column references to.</td>
     </tr>
     <tr>
-        <td>table.columns[n].key</td>
+        <td>table.columns[n].referencesKey</td>
         <td>If this column has a reference, this value is the name of foreign key which this column references to.</td>
     </tr>
     <tr>
@@ -642,7 +642,7 @@ Variables available to use in templates are listed below. Please note if a value
         <td>Table name which this table refers to.</td>
     </tr>
     <tr>
-        <td>table.hasManies[n].key</td>
+        <td>table.hasManies[n].foreignKey</td>
         <td>Foreign key column name in the target table.</td>
     </tr>
     <tr>

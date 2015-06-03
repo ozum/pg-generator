@@ -10,7 +10,7 @@
     {{ ifTrue('unique', column.unique) }}
     {{ ifTrue('comment', column.comment) }}
     {{ ifTrue('references', column.references) }}
-    {{ ifTrue('key', column.key) }}
+    {{ ifTrue('referencesKey', column.referencesKey) }}
     {{ ifTrue('onUpdate', column.onUpdate) }}
     {{ ifTrue('onDelete', column.onDelete) }}
 }

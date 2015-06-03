@@ -10,15 +10,6 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
-0.5.0 / 2015-06-02
-==================
-* Updated to use Sequelize 3 (Contributed by mcouzinet, https://github.com/mcouzinet)
-* The references property of model attributes has been transformed to an object: {type: Sequelize.INTEGER, references: { model: SomeModel, key: 'some_key' }}. (Contributed by mcouzinet, https://github.com/mcouzinet)
-
-0.4.3 / 2015-05-12
-==================
-* Added getter for sequelize instance.
-
 0.4.2 / 2015-04-27
 ==================
 * Added documentation and examples.

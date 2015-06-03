@@ -638,7 +638,7 @@ Template içerisinde kullanılacak olan değişkenler ve açıklamaları aşağ�
         <td>İlişkinin referans ettiği tablonun ismi.</td>
     </tr>
     <tr>
-        <td>table.hasManies[n].key</td>
+        <td>table.hasManies[n].foreignKey</td>
         <td>İlişkinin referans ettiği tablodaki yabancı anahtar alanının ismi.</td>
     </tr>
     <tr>
@@ -686,7 +686,7 @@ Template içerisinde kullanılacak olan değişkenler ve açıklamaları aşağ�
         <td>İlişkinin referans ettiği tablonun ismi.</td>
     </tr>
     <tr>
-        <td>table.belongsTos[n].key</td>
+        <td>table.belongsTos[n].foreignKey</td>
         <td>Bu tablodaki bu ilişkiye ait olan yabancı anahtar alanının ismi.</td>
     </tr>
     <tr>
