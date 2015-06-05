@@ -6,7 +6,7 @@
     {{ ifTrue('primaryKey', column.primaryKey) }}
     {{ ifTrue('autoIncrement', column.autoIncrement) }}
     {{ ifFalse('allowNull', column.allowNull) }}
-    {{ ifTrue('defaultValue', column.defaultValue) }}
+    {{ ifNotUndefined('defaultValue', column.defaultValue) }}
     {{ ifTrue('unique', column.unique) }}
     {{ ifTrue('comment', column.comment) }}
     {{ ifTrue('references', column.references) }}

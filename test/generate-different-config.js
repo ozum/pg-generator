@@ -48,4 +48,10 @@ describe('account', function () {
             assert.isFalse(found);
         });
     });
+    it('should have true as default value for is_active', function() {
+        assert.equal(account.attributes.is_active.defaultValue, true);
+    });
+    it('should have false as default value for def_false', function() {
+        assert.equal(account.attributes.def_false.defaultValue, false);
+    });
 });

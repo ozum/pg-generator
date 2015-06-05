@@ -39,6 +39,12 @@ module.exports = model;
     {% endif %}
 {% endmacro %}
 
+{% macro ifNotUndefined(label, value) %}
+    {% if value !== undefined %}
+        ,{{ label }}: {{ value }}
+    {% endif %}
+{% endmacro %}
+
 {% include "./table.html" %}
 
 {% endautoescape %}
