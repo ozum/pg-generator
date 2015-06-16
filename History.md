@@ -10,6 +10,10 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.5.3 / 2015-06-16
+==================
+* Added: JSONB support and Boolean default value. Contributed by viniciuspinto (https://github.com/viniciuspinto)
+
 0.4.2 / 2015-04-27
 ==================
 * Added documentation and examples.
