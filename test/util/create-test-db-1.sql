@@ -199,6 +199,7 @@ CREATE TABLE account (
     updated_at timestamp(0) without time zone DEFAULT now() NOT NULL,
     owner_id integer,
     is_active boolean DEFAULT true NOT NULL,
+    def_false boolean DEFAULT false NOT NULL,
     name character varying(50) NOT NULL,
     field1 character varying(2)[],
     field2 numeric(3,2)[],
@@ -913,10 +914,10 @@ SET search_path = public, pg_catalog;
 -- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO account VALUES (1, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, 'Fortibase', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO account VALUES (2, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, 'FPS Production', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO account VALUES (3, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, 'Microsoft', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO account VALUES (4, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, 'Acme', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO account VALUES (1, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, false, 'Fortibase', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO account VALUES (2, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, false,'FPS Production', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO account VALUES (3, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, false,'Microsoft', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO account VALUES (4, '2014-12-12 14:41:40', '2014-12-12 14:41:40', NULL, true, false,'Acme', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 --
