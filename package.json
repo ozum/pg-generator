@@ -61,7 +61,7 @@
     "js-beautify": "^1.5.4",
     "lodash": "^2.4.1",
     "pg-hstore": "^2.3.2",
-    "pg-structure": "^1.11.0",
+    "pg-structure": "^1.11.2",
     "swig": "^1.4.2",
     "winston": "^0.8.3"
   },
