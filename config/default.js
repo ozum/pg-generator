@@ -16,7 +16,7 @@ module.exports = {
         "template": {
             "engine": "swig",
             "extension": "html",
-            "folder": path.join(__dirname, '..', 'template')
+            "folder": path.join(__dirname, '..', 'template', 'default')
         },
         "output": {
             "log": true,

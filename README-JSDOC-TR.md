@@ -58,6 +58,7 @@ CLI Seçenekleri
     -s, --schema [schema]           Virgülle ayrılmış veri tabanı şemaları ismi (boşluk olmamalı).
     -o, --output [output]           Dosyaların üretileceği yer.
     -c, --config [config]           Konfigürasyon dosyasının yeri.
+    -t, --templateName              Hazır template klasörlerinden verilen isimde olanı kullanılır.
         --nolog                     Log çıktısı yazmayı durdurur.
         --resetConfig               Konfigürasyonu resetler. (Yan yol. Yayında kullanılması önerilmez.)
         --throwError                Hatayı konsola yazmak yerine error çıktısı üretir.

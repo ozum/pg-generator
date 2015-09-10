@@ -1,0 +1,19 @@
+{% autoescape false %}
+
+{
+    type: {{ relation.type }},
+    model: {{ relation.model }},
+    schema: {{ relation.targetSchema }},
+    table: {{ relation.targetTable }},
+    source: {{ relation.source }},
+    details: {
+        as: {{ relation.as }},
+        foreignKey: {{ relation.foreignKey }}
+        {{ ifTrue('otherKey', relation.otherKey) }}
+        {{ ifTrue('through', relation.through) }}
+        {{ ifTrue('onDelete', relation.onDelete) }}
+        {{ ifTrue('onUpdate', relation.onUpdate) }}
+    }
+}
+
+{% endautoescape %}

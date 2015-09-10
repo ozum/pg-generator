@@ -10,6 +10,13 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.6.0 / 2015-09-10
+==================
+* -t --templateName parameter added to spgen. This name is used to choose one of the builtin template directories.
+* sequalize4 template added for protect backward compatibility.
+* sequalize4 template supports object references property. (references and referencesKey will be depreciated in Sequelize 4)
+
+
 0.5.4 / 2015-06-16
 ==================
 * pg-structure updated to latest version.

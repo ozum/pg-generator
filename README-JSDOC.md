@@ -61,6 +61,7 @@ CLI Options
     -s, --schema [schema]       Comma separated names of the database schemas
     -o, --output [output]       Output folder
     -c, --config [config]       Path of the configuration file
+    -t, --templateName          Use builtin template folder with given name
         --nolog                 No log output
         --resetConfig           Reset configuration. (Side-step. Not for production.)
         --throwError            Instead of logging errors to console, throws error.

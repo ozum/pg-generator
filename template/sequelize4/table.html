@@ -1,0 +1,35 @@
+{% autoescape false %}
+var orm = require('../index.js'),
+{{ dataTypeVariable }} = orm.Sequelize();
+
+module.exports = {
+    modelName: {{ table.modelName }},
+    options: {
+        tableName: {{ table.tableName }}
+        {{ ifTrue('schema',             table.schema) }}
+        {{ ifTrue('omitNull',           table.omitNull) }}
+        {{ ifFalse('timestamps',        table.timestamps) }}
+        {{ ifTrue('paranoid',           table.paranoid) }}
+        {{ ifTrue('underscored',        table.underscored) }}
+        {{ ifTrue('underscoredAll',     table.underscoredAll) }}
+        {{ ifTrue('freezeTableName',    table.freezeTableName) }}
+        {{ ifTrue('createdAt',          table.createdAt) }}
+        {{ ifTrue('updatedAt',          table.updatedAt) }}
+        {{ ifTrue('deletedAt',          table.deletedAt) }}
+        {{ ifTrue('charset',            table.charset) }}
+        {{ ifTrue('collate',            table.collate) }}
+        {{ ifTrue('comment',            table.comment) }}
+    },
+    attributes: {
+        {% for column in table.columns %}
+            {% include "./column.html" %}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    },
+    relations: [
+        {% for relation in table.relations %}
+            {% include "./relation.html" %}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+};
+
+{% endautoescape %}
