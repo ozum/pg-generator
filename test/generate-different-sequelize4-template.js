@@ -30,7 +30,7 @@ describe('cart', function () {
     });
     it('should have references object.', function () {
         assert.deepEqual(cart.attributes.contactId.references, {
-            model: "contact",
+            model: "public.contact",
             key: "contact_id"
         });
     });
