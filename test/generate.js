@@ -20,6 +20,7 @@ before(function(done) {
 
 after(function (done) {
     fs.removeSync(path.join(__dirname, 'model'));
+    fs.removeSync(path.join(__dirname, 'utils.js'));
     testDB.dropDB(done);
 });
 
