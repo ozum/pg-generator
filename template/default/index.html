@@ -15,7 +15,7 @@ To modify this model:
 "use strict";
 var orm     = require('{{mainScript}}'),
     model   = require('./{{ table.baseFileName }}.js'),
-    util    = require('../../utils.js')(model),
+    util    = require('../utils.js')(model),
     Seq     = orm.Sequelize();
 
 module.exports = model;

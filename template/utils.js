@@ -37,7 +37,7 @@ GeneratorUtil.prototype.getRelation = function (as) {
 
 
 /**
- * Searches and returns relation with the given attribute. Alias is defined in sequelize options with parameter 'as'
+ * Searches and returns attribute with the given alias. Alias is defined in sequelize options with parameter 'as'
  * @method
  * @param {string} name - Name of the attribute.
  * @returns {Object}
@@ -48,7 +48,7 @@ GeneratorUtil.prototype.getAttribute = function (name) {
 
 
 /**
- * Searches and returns relation with the given attribute. Alias is defined in sequelize options with parameter 'as'
+ * Searches and returns attribute with the given alias. Alias is defined in sequelize options with parameter 'as'
  * @method
  * @param {string} oldName - Name of the attribute which it's name to be changed.
  * @param {string} newName - New name of the attribute.

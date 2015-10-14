@@ -841,7 +841,7 @@ Searches and returns relation with the given alias. Alias is defined in sequeliz
 
 <a name="GeneratorUtil+getAttribute"></a>
 ### generatorUtil.getAttribute(name) ⇒ <code>Object</code>
-Searches and returns relation with the given attribute. Alias is defined in sequelize options with parameter 'as'
+Searches and returns attribute with the given alias. Alias is defined in sequelize options with parameter 'as'
 
 **Kind**: instance method of <code>[GeneratorUtil](#GeneratorUtil)</code>  
 
@@ -851,7 +851,7 @@ Searches and returns relation with the given attribute. Alias is defined in sequ
 
 <a name="GeneratorUtil+renameAttribute"></a>
 ### generatorUtil.renameAttribute(oldName, newName)
-Searches and returns relation with the given attribute. Alias is defined in sequelize options with parameter 'as'
+Searches and returns attribute with the given alias. Alias is defined in sequelize options with parameter 'as'
 
 **Kind**: instance method of <code>[GeneratorUtil](#GeneratorUtil)</code>  
 **Throws**:
@@ -875,6 +875,10 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.7.0 / 2015-10-14
+==================
+* Changed: Location of utils.js is changed to inside of model directory.
 
 0.6.0 / 2015-09-10
 ==================

@@ -20,7 +20,6 @@ before(function(done) {
 });
 after(function (done) {
     fs.removeSync(path.join(__dirname, 'model-sequelize4'));
-    fs.removeSync(path.join(__dirname, 'utils.js'));
     testDB.dropDB(done);
 });
 
