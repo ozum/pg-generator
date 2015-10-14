@@ -10,6 +10,10 @@ Note
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
 
+0.8.0 / 2015-10-14
+==================
+* Added: `alias.json` file is generated in target directory to let developer easily override relationship names.
+
 0.7.0 / 2015-10-14
 ==================
 * Changed: Location of utils.js is changed to inside of model directory.

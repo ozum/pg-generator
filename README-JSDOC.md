@@ -141,6 +141,9 @@ There should at least be three files in custom template folder:
 ### CLI Support
 If this module is installed as suggested globally with npm -g then spgen command would be available system wide to generate model files.
 
+### Easily Override Relationship Aliases and Smart Names
+If auto generated relationship names and aliases are not so smart for you, it is very easy to override aliases. After first use, a file called `alias.json` is generated in output folder. Every alias name generated is listed in this file. You can override any names/aliases. Future generated files will use overridden names from this file. If you are OK with some names, leave it as null. 
+
 ### Smart Naming of Models and Relations
 sequelize-pg-generator uses table names or schema.table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Both camel case (tableName) or untouched names (table_name) methods can be used via configuration. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter.
 

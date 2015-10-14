@@ -138,6 +138,9 @@ sequelize-pg-generator model dosyalarını üretmek için [consolidate](https://
 ### CLI Desteği
 Eğer bu modülü önerildiği gibi npm -g ile global olarak kurduysanız spgen komutu model dosyaları üretmek için sisteminizde her yerden kullanılabilir.
 
+### İlişki İsimlerini Kolayca Özelleştirebilirsiniz
+Eğer otomatik oluşturulan ilişki isimleri sizin için yeterince akıllı değilse, bu isimleri kolayca değiştirebilirsiniz. İlk kullanımdan sonra hedef klasörde `alias.json` isimli bir dosy oluşturulacaktır. Oluşturulan her ilişki ismi bu dosyada mevcuttur. Değiştirmek istediğiniz ismi burada tanımlarsanız, ileride model dosyaları oluşturulurken buradaki isimlere öncelik verilecektir. Bazı isimler sizin için uygunsa değerini null olarak bırakın. 
+
 ### Model ve İlişkiler İçin Akıllı İsimlendirme
 sequelize-pg-generator model isimlendirmesi için tablo veya şema.tablo isimlendirmesini kullanır. İlişkiler için yabancı anahtar isimlerini ve veri tabanında tanımlı ilişki isimlerini kullanır. (Veri tabanında ilişkileri düzgün isimlendiriyorsunuz değil mi?) Konfigürasyondan ayarlanarak camel case (tabloAdi) veya dokunulmamış (tablo_adi) şekilde isimlendirilmiş metodlar kullanılabilir. İsimlendirme teamülleri Sequelize modülü tavsiyelerine göre ayarlanmıştır ve 'as' parametresine atama yapılarak isimlendirme yapılır.
 
@@ -875,6 +878,10 @@ Note
 ----
 Version history for minimal documentation updates are not listed here to prevent cluttering.
 Important documentation changes are included anyway.
+
+0.8.0 / 2015-10-14
+==================
+* Added: `alias.json` file is generated in target directory to let developer easily override relationship names.
 
 0.7.0 / 2015-10-14
 ==================

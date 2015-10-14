@@ -90,6 +90,7 @@ var beautify        = require('js-beautify').js_beautify;
 var inflection      = require('inflection');
 var config          = require('config');
 var lodash          = require('lodash');
+var jsonStringfy    = require('json-stable-stringify');
 var winston         = require('winston');
 var logger          = new (winston.Logger)({
     transports: [
@@ -97,6 +98,9 @@ var logger          = new (winston.Logger)({
         new (winston.transports.File)({ level: 'error', filename: 'sequelize-pg-generator.log', timestamp: true })
     ]
 });
+var overriddenAliases   = {};
+var newAliases          = {};
+
 require('./_polyfill-quote.js');       // add String's prototype quote function.
 
 /**
@@ -380,6 +384,21 @@ function getColumnDetails(column) {
 }
 
 
+
+function getAlias(table, as, type) {
+    var model = getModelNameFor(table);
+    if (!newAliases[model]) newAliases[model] = {};
+    if (!newAliases[model][type]) newAliases[model][type] = {};
+
+    if (!overriddenAliases[model]) overriddenAliases[model] = {};
+    if (!overriddenAliases[model][type]) overriddenAliases[model][type] = {};
+
+    newAliases[model][type][as] = overriddenAliases[model][type][as] || null;       // If set by user, add it to new created file.
+    return newAliases[model][type][as] || as;
+}
+
+
+
 /**
  * Returns hasMany details as plain object to use in templates.
  * @private
@@ -388,12 +407,15 @@ function getColumnDetails(column) {
  */
 function getHasManyDetails(hasMany) {
     logger.debug('hasMany%s details are calculated for: %s', hasMany.through() ? 'through' : '', hasMany.name());
+    var model   = getModelNameFor(hasMany.referencesTable()),
+        as      = getHasManyName(hasMany);
+
     return filterAttributes({
         type                : 'hasMany',
         source              : 'generator',
         name                : hasMany.name(),
-        model               : getModelNameFor(hasMany.referencesTable()),
-        as                  : getHasManyName(hasMany),
+        model               : model,
+        as                  : getAlias(hasMany.table(), as, 'hasMany'),
         targetSchema        : hasMany.referencesTable().schema().name(),
         targetTable         : hasMany.referencesTable().name(),
         foreignKey          : hasMany.foreignKey(0).name(), // Sequelize support single key only
@@ -412,12 +434,15 @@ function getHasManyDetails(hasMany) {
  */
 function getBelongsToDetails(fkc) {
     logger.debug('belongsTo details are calculated for: %s', fkc.name());
+    var model   = getModelNameFor(fkc.referencesTable()),
+        as      = getBelongsToName(fkc);
+
     return filterAttributes({
         type                : 'belongsTo',
         source              : 'generator',
         name                : fkc.name(),
-        model               : getModelNameFor(fkc.referencesTable()),
-        as                  : getBelongsToName(fkc),
+        model               : model,
+        as                  : getAlias(fkc.table(), as, 'belongsTo'),
         targetSchema        : fkc.referencesTable().schema().name(),
         targetTable         : fkc.referencesTable().name(),
         foreignKey          : fkc.foreignKey(0).name(), // Sequelize support single key only
@@ -434,12 +459,15 @@ function getBelongsToDetails(fkc) {
  */
 function getBelongsToManyDetails(hasManyThrough) {
     logger.debug('belongsToMany details are calculated for: %s', hasManyThrough.name());
+    var model   = getModelNameFor(hasManyThrough.referencesTable()),
+        as      = getBelongsToManyName(hasManyThrough);
+
     return filterAttributes({
         type                : 'belongsToMany',
         source              : 'generator',
         name                : hasManyThrough.name(),
-        model               : getModelNameFor(hasManyThrough.referencesTable()),
-        as                  : getBelongsToManyName(hasManyThrough),
+        model               : model,
+        as                  : getAlias(hasManyThrough.table(), as, 'belongsToMany'),
         targetSchema        : hasManyThrough.referencesTable().schema().name(),
         targetTable         : hasManyThrough.referencesTable().name(),
         foreignKey          : hasManyThrough.foreignKey(0).name(),      // Sequelize support single key only
@@ -647,8 +675,18 @@ function generateUtilityFiles(next) {
             next(null);
         });
     });
+    try {
+        overriddenAliases = require(path.join(process.cwd(), getConfig('output.folder'), 'alias.json'));
+    } catch (ignore) {}
 }
 
+
+function generateAliasFile(next) {
+    fs.writeFile(path.join(getConfig('output.folder'), 'alias.json'), beautify(jsonStringfy(newAliases), { indent_size: getConfig('output.indent') }), function (err) {
+        if (err) { console.log(err); }
+        next();
+    });
+}
 
 /**
  * Combines default configuration, custom config file and command line options by overriding lower priority ones.
@@ -760,7 +798,8 @@ module.exports = function (callback, options) {
         createOutputFolder,
         generateUtilityFiles,
         parseDB,
-        generateModelFiles
+        generateModelFiles,
+        generateAliasFile
     ], function (err) {
         if (err) {
             callback(err);
