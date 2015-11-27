@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>http://www.pg-generator.com/Template/Template/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/Template/Directories & Files/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/Template/Filters/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.pg-generator.com/Builtin Templates/Tutorial/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/Builtin Templates/Base/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/Builtin Templates/Sequelize/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.pg-generator.com/API/Template Module API/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+</urlset>
