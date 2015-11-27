@@ -5,18 +5,19 @@ repo_url: 'https://github.com/ozum/pg-generator.git'
 site_description: Template Based Scaffolding Tool for PostgreSQL.
 site_author: Özüm Eldoğan
 google_analytics:
-  - UA-45732546-4
+  - UA-45732546-5
   - auto
 docs_dir: docs
 pages:
   - Home: index.md
   - Template:
-    - Template/Template.md
-    - Template/Directories & Files.md
-    - Template/Filters.md
+    - Template: template/template.md
+    - Directories & Files: template/directories-files.md
+    - Filters: template/filters.md
   - Builtin Templates:
-    - Builtin Templates/Tutorial.md
-    - Builtin Templates/Base.md
-    - Builtin Templates/Sequelize.md
+    - Tutorial: builtin-templates/tutorial.md
+    - Base: builtin-templates/base.md
+    - Sequelize: builtin-templates/sequelize.md
   - API:
-    - API/Template Module API.md
+    - Template Module API: api/template-module-api.md
+  - License: license.md
