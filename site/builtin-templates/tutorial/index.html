@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Template - pg-generator</title>
+  <title>Tutorial - pg-generator</title>
   
 
   <link rel="shortcut icon" href="../../img/favicon.ico">
@@ -20,7 +20,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Template";
+    var mkdocs_page_name = "Tutorial";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -72,29 +72,22 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Template</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#templates">Templates</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../../template/template/">Template</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../directories-files/">Directories & Files</a>
+        <a class="" href="../../template/directories-files/">Directories & Files</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../filters/">Filters</a>
+        <a class="" href="../../template/filters/">Filters</a>
         
     </li>
 
@@ -108,22 +101,29 @@
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/tutorial/">Tutorial</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Tutorial</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#usage">Usage</a></li>
+                
+            
+            </ul>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/base/">Base</a>
+        <a class="" href="../base/">Base</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/sequelize/">Sequelize</a>
+        <a class="" href="../sequelize/">Sequelize</a>
         
     </li>
 
@@ -175,11 +175,11 @@
     
       
         
-          <li>Template &raquo;</li>
+          <li>Builtin Templates &raquo;</li>
         
       
     
-    <li>Template</li>
+    <li>Tutorial</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -193,9 +193,11 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="templates">Templates</h1>
-<p>pg-generator uses templates to generate files. A pg-generator template is a directory containing some special named directories and <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> files.</p>
-<p>Developers can use one of the pg-generator's builtin templates or create or modify templates according to their needs.</p>
+                <p>This template may be used to learn basics of pg-generator templates. Files in this template are not complicated and provides an easy start.</p>
+<h2 id="usage">Usage</h2>
+<pre><code>$ pgen template tutorial -t tutorial-template
+$ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
+</code></pre>
               
             </div>
           </div>
@@ -203,10 +205,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../directories-files/" class="btn btn-neutral float-right" title="Directories & Files"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../base/" class="btn btn-neutral float-right" title="Base"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../template/filters/" class="btn btn-neutral" title="Filters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -234,10 +236,10 @@
           <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../.." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../../template/filters/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../directories-files/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../base/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

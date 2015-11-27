@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorial - pg-generator</title>
+  <title>Base - pg-generator</title>
   
 
   <link rel="shortcut icon" href="../../img/favicon.ico">
@@ -20,7 +20,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Tutorial";
+    var mkdocs_page_name = "Base";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -35,7 +35,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-45732546-4', 'auto');
+      ga('create', 'UA-45732546-5', 'auto');
       ga('send', 'pageview');
   </script>
   
@@ -73,21 +73,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../Template/Template/">Template</a>
+        <a class="" href="../../template/template/">Template</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../Template/Directories & Files/">Directories & Files</a>
+        <a class="" href="../../template/directories-files/">Directories & Files</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../Template/Filters/">Filters</a>
+        <a class="" href="../../template/filters/">Filters</a>
         
     </li>
 
@@ -101,8 +101,15 @@
 
         
             
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial/">Tutorial</a>
+        
+    </li>
+
+        
+            
     <li class="toctree-l1 current">
-        <a class="current" href="./">Tutorial</a>
+        <a class="current" href="./">Base</a>
         
             <ul>
             
@@ -116,14 +123,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../Base/">Base</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../Sequelize/">Sequelize</a>
+        <a class="" href="../sequelize/">Sequelize</a>
         
     </li>
 
@@ -138,12 +138,19 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../API/Template Module API/">Template Module API</a>
+        <a class="" href="../../api/template-module-api/">Template Module API</a>
         
     </li>
 
         
     </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../license/">License</a>
+        
+    </li>
 <li>
           
         </ul>
@@ -172,7 +179,7 @@
         
       
     
-    <li>Tutorial</li>
+    <li>Base</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -186,10 +193,10 @@
           <div role="main">
             <div class="section">
               
-                <p>This template may be used to learn basics of pg-generator templates. Files in this template are not complicated and provides an easy start.</p>
+                <p>This template may be used to create your own templates from scratch. It generates all necessary boilerplate files.</p>
 <h2 id="usage">Usage</h2>
-<pre><code>$ pgen template tutorial -t tutorial-template
-$ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
+<pre><code>$ pgen template base -t base-template
+$ pgen exec base-template -d our_crm -u user -p tOpSeCrEt -t my-template
 </code></pre>
               
             </div>
@@ -198,10 +205,10 @@ $ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Base/" class="btn btn-neutral float-right" title="Base"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../sequelize/" class="btn btn-neutral float-right" title="Sequelize"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../Template/Filters/" class="btn btn-neutral" title="Filters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tutorial/" class="btn btn-neutral" title="Tutorial"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -229,10 +236,10 @@ $ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
           <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../Template/Filters/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../tutorial/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../Base/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../sequelize/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

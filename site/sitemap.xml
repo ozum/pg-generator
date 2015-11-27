@@ -12,19 +12,19 @@
     
         
     <url>
-     <loc>http://www.pg-generator.com/Template/Template/</loc>
+     <loc>http://www.pg-generator.com/template/template/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.pg-generator.com/Template/Directories & Files/</loc>
+     <loc>http://www.pg-generator.com/template/directories-files/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.pg-generator.com/Template/Filters/</loc>
+     <loc>http://www.pg-generator.com/template/filters/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -34,19 +34,19 @@
     
         
     <url>
-     <loc>http://www.pg-generator.com/Builtin Templates/Tutorial/</loc>
+     <loc>http://www.pg-generator.com/builtin-templates/tutorial/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.pg-generator.com/Builtin Templates/Base/</loc>
+     <loc>http://www.pg-generator.com/builtin-templates/base/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://www.pg-generator.com/Builtin Templates/Sequelize/</loc>
+     <loc>http://www.pg-generator.com/builtin-templates/sequelize/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -56,11 +56,19 @@
     
         
     <url>
-     <loc>http://www.pg-generator.com/API/Template Module API/</loc>
+     <loc>http://www.pg-generator.com/api/template-module-api/</loc>
      <lastmod>2015-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
+    
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/license/</loc>
+     <lastmod>2015-11-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
     
 
 </urlset>
