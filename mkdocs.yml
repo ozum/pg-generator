@@ -20,4 +20,5 @@ pages:
     - Sequelize: builtin-templates/sequelize.md
   - API:
     - Template Module API: api/template-module-api.md
+  - History: history.md
   - License: license.md
