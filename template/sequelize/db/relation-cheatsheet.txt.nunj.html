@@ -1,0 +1,23 @@
+{% from '../partials/helper.nunj.html' import modelName, attributeName, hasManyAlias, belongsToAlias, belongsToManyAlias -%}
+{% for schema in db.schemas -%}
+{% for table in schema.tables %}
+{% set c = custom[modelName(table)] -%} {# Custom Data for this table i.e. "custom.Account" #}
+{% set nameLen = modelName(table) | length -%}
+{{ modelName(table) }}
+{{ '-' | padRight(nameLen, '-') }}
+{% for relation in table.o2mRelations -%}
+{% set cr = c.hasMany[hasManyAlias(relation)] -%}
+{{ 'has many' | padRight(17) }} {{ relation.targetTable.name | padRight(40) }} as {{ cr.as or hasManyAlias(relation).val }}
+{% endfor -%}
+{% for relation in table.m2oRelations -%}
+{% set cr = c.belongsTo[belongsToAlias(relation)] -%}
+{{ 'belongs to' | padRight(17) }} {{ relation.targetTable.name | padRight(40) }} as {{ cr.as or belongsToAlias(relation).val }}
+{% endfor -%}
+{% for relation in table.m2mRelations -%}
+{% set cr = c.belongsToMany[belongsToManyAlias(relation)] -%}
+{{ 'belongs to many' | padRight(17) }} {{ relation.targetTable.name | padRight(40) }} as {{ cr.as or belongsToManyAlias(relation).val }}
+{% endfor -%}
+{% endfor -%}
+{% endfor -%}
+
+

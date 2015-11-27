@@ -1,76 +1,75 @@
 {
-  "name": "sequelize-pg-generator",
-  "version": "0.9.0",
-  "description": "Auto Create Sequelize ORM Models from PostgreSQL.",
+  "name": "pg-generator",
+  "version": "2.0.0",
+  "description": "Template Based Scaffolding Tool for PostgreSQL.",
   "main": "index.js",
+  "preferGlobal": true,
   "bin": {
-    "spgen": "lib/bin/spgen.js"
+    "pgen": "lib/bin/pgen.js"
+  },
+  "homepage": "http://www.pg-generator.com",
+  "bugs": "https://github.com/ozum/pg-generator/issues",
+  "directories": {
+    "bin": "bin",
+    "doc": "docs"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "make test"
+    "test": "node_modules/lab/bin/lab",
+    "doc": "cp docs/index.md ./README.md",
+    "preversion": "npm run doc && eslint lib &&  npm test",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags && rm -rf build/temp && git subtree push --prefix site origin gh-pages"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozum/pg-generate.git"
   },
   "keywords": [
-    "postgresql",
     "pg",
-    "postgres",
-    "database",
-    "schema",
-    "model",
-    "schema",
-    "export",
-    "dump",
-    "etl",
-    "erd",
-    "migration",
-    "transform",
-    "extract",
-    "information_schema",
+    "postgresql",
+    "reverse engineer",
+    "auto generate",
     "sequelize",
     "orm",
-    "model",
-    "structure",
-    "auto generate",
-    "meta"
+    "scaffold"
   ],
   "author": {
     "name": "Özüm Eldoğan",
     "url": "http://www.fortibase.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ozum/sequelize-pg-generator.git"
-  },
   "license": "MIT",
-  "devDependencies": {
-    "chai": "^1.10.0",
-    "ink-docstrap": "^0.4.12",
-    "mocha": "^2.1.0",
-    "pg": "^4.1.1",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^3.1.1"
+  "jscsConfig": {
+    "validateQuoteMarks": false,
+    "disallowSpaceAfterObjectKeys": false,
+    "validateIndentation": 4,
+    "requireTrailingComma": false,
+    "maximumLineLength": 320,
+    "requireCamelCaseOrUpperCaseIdentifiers": false
   },
   "dependencies": {
-    "async": "^0.9.0",
-    "commander": "^2.5.1",
-    "config": "^1.8.1",
-    "consolidate": "^0.10.0",
-    "ejs": "^1.0.0",
-    "fs-extra": "^0.13.0",
-    "inflection": "^1.5.1",
-    "js-beautify": "^1.5.4",
-    "json-stable-stringify": "^1.0.0",
-    "lodash": "^2.4.1",
+    "pg-structure": "^2.0.0-alpha.6",
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0",
+    "fs-extra": "^0.26.2",
+    "inflection": "^1.7.2",
+    "inquirer": "^0.11.0",
+    "js-beautify": "^1.5.10",
+    "lodash": "^3.10.1",
+    "nunjucks": "^2.1.0",
+    "pg": "^4.4.3",
+    "winston": "^2.1.1"
+  },
+  "optionalDependencies": {
+    "pg-native": "^1.9.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "lab": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "pg-structure": "^1.11.2",
-    "swig": "^1.4.2",
-    "winston": "^0.8.3"
-  },
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/ozum/sequelize-pg-generator/issues"
-  },
-  "homepage": "https://github.com/ozum/sequelize-pg-generator",
-  "_id": "sequelize-pg-generator@0.1.0",
-  "_shasum": "4a9deecd8712210defedf25a69548281547363d8",
-  "_from": "."
+    "pg-test-util": "^1.2.3",
+    "sequelize": "^3.14.0"
+  }
 }

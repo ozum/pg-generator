@@ -1,0 +1,23 @@
+{# Templates are sensitive to new lines. Be cautious to use <%- and -%> delete new lines operator operators. #}
+{# To make macros inline start with {% -%} and end with {%-  -%} #}
+
+{% macro modelName(table) -%}
+    {{ table.name | classCase }}
+{%- endmacro -%}
+
+{% macro attributeName(column) -%}
+    {{ column.name | camelCase }}
+{%- endmacro -%}
+
+{% macro hasManyAlias(relation) -%}
+    {{ relation.constraint.name | stripPrefix(relation.sourceTable) | classCase | plural }}
+{%- endmacro -%}
+
+{% macro belongsToAlias(relation) -%}
+    {{ relation.constraint.columns[0].name | relationName | classCase | singular }}
+{%- endmacro -%}
+
+{% macro belongsToManyAlias(relation) -%}
+    {{ relation.joinTable.name | classCase }}{{ relation.targetConstraint.columns[0].name | relationName('') | classCase | plural }}
+{%- endmacro -%}
+

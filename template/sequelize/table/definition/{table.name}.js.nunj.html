@@ -1,0 +1,38 @@
+{% from '../../partials/helper.nunj.html' import modelName, attributeName, hasManyAlias, belongsToAlias, belongsToManyAlias -%}
+{% set c = custom[modelName(table)] -%} {# Custom Data for this table i.e. "custom.Account" #}
+
+'use strict';
+
+module.exports = function(sequelize, DataTypes) {
+    return sequelize.define('{{ modelName(table) }}', {
+        {%- include "../../partials/columns.nunj.html" -%}
+        {% include '../../partials/extra-attributes.nunj.html' -%}
+    }, {
+        schema: "{{ c.schema or table.schema.name }}",
+        tableName: "{{ c.tableName or table.name }}",
+        timestamps: {{ c.timestamps or 'false' }}
+        {%- if c.comment or table.comment -%}
+            ,comment: {{ c.comment or (table.comment | quote) }}
+        {% endif -%}
+        {% for key, value in c -%} {# Custom table details from custom data not found in template #}
+            {%- if not (key == 'schema' or key == 'tableName' or key == 'comment' or key == 'attributes'
+                or key == 'hasMany' or key == 'belongsTo' or key == 'belongsToMany') -%}
+                ,{{ key }}: {{ value }}
+            {% endif -%}
+        {% endfor -%}
+    });
+};
+
+module.exports.initRelations = function() {
+    delete module.exports.initRelations; // Destroy itself to prevent repeated calls.
+    var model = require('../index');
+    var {{ modelName(table) }} = model.{{ modelName(table) }};
+
+    {%- for targetTable in util.uniqueRelatedTables(table) -%}
+        var {{ modelName(targetTable) }} = model.{{ modelName(targetTable) }};
+    {% endfor %}
+
+    {% include '../../partials/has-many.nunj.html' -%}
+    {% include '../../partials/belongs-to.nunj.html' -%}
+    {% include '../../partials/belongs-to-many.nunj.html' -%}
+};

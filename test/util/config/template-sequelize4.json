@@ -1,7 +1,0 @@
-{
-  "sequelize-pg-generator": {
-    "template": {
-      "folder": "template/sequelize4"
-    }
-  }
-}

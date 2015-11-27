@@ -1,0 +1,12 @@
+{% for relation in table.m2oRelations -%}
+    {% set cr = c.belongsTo[belongsToAlias(relation)] -%} {# Custom data of relation #}
+    {{ modelName(table) }}.belongsTo({{ modelName(relation.targetTable) }}, {
+    {% if options.generateAliases -%}
+        as        : {{ cr.as or (belongsToAlias(relation).val | quote) }},{% if cr.as -%} // as: "{{ belongsToAlias(relation) }}"{% endif %}
+    {% endif -%}
+    foreignKey: {{ cr.foreignKey or (relation.constraint.columns[0].name | quote) }}, {# Sequelize supports only single column FK :( #}
+    onDelete  : {{ cr.onDelete or (relation.constraint.onDelete | quote) }},
+    onUpdate  : {{ cr.onUpdate  or (relation.constraint.onUpdate | quote) }}
+    });
+
+{% endfor %}

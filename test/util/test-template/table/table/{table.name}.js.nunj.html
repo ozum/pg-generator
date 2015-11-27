@@ -1,0 +1,12 @@
+module.exports =  {
+    columns: {
+    {% for column in table.columns -%}
+        {{ column.name }}: {
+            name: {{ column.name | camelCase | quote }},
+            type: {{ column.type | quote }},
+            extraAll: {{ extraAll | quote }},
+            extra: {{ extra | quote }}
+        }{% if not loop.last -%},{% endif -%}
+    {% endfor -%}
+    }
+};
