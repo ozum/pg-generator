@@ -111,7 +111,7 @@ Feed that file to `pgen`
 
     $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --optionsfile options.js
 
-* Use custom aliases for some or all models by creating a file name `custom-data.js` (you can use any name) with similar content as below:
+* Or use custom aliases for some or all models by creating a file name `custom-data.js` (you can use any name) with similar content as below:
 
 ```js
 Account: {
@@ -122,7 +122,7 @@ Account: {
     },
 ```
 
-* Change alias naming for all tables by changing _has-many.nunj.html_, _belongs-to.nunj.html_, _belongs-to-many.nunj.html_ in _partials_ directory of generated __sequelize__ template.
+* Or change alias naming for all tables by changing _has-many.nunj.html_, _belongs-to.nunj.html_, _belongs-to-many.nunj.html_ in _partials_ directory of generated __sequelize__ template.
 
 #### *.nunj.html file extension is ugly.
 
