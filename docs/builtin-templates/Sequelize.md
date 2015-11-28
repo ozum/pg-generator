@@ -94,3 +94,40 @@ In your template;
 * Rename _'sequelize/table/definition/{table.name}.js.nunj.html'_ as _'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'_.
 * Change <span style="font-family:monospace">modelName macro</span> in _'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'_ as `{{ (table.schema.name + table.name) | classCase }}`.
 * Add <span style="font-family:monospace">'{table.schema.name}-'</span> string to <span style="font-family:monospace">'sequelize.import'</span> and <span style="font-family:monospace">'require'</span> parts in _'sequelize/db/index.js.nunj.html'_ file to match new model file's names. 
+
+#### I hate aliases that sequelize template generate. What can I do?
+
+You have three choices. You either do:
+
+* Disable aliases all together by creating a file named `option.js` (you can use any name) with content as below:
+
+```js
+module.exports = {
+    generateAliases: false  // This disables aliases all together. See partials/has-many-nunj.html and other relation templates.    
+};
+```
+
+Feed that file to `pgen` 
+
+    $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --optionsfile options.js
+
+* Use custom aliases for some or all models by creating a file name `custom-data.js` (you can use any name) with similar content as below:
+
+```js
+Account: {
+    hasMany: {
+        HasContacts: {
+            as: 'MyBeautifulAlias'
+        }
+    },
+```
+
+* Change alias naming for all tables by changing _has-many.nunj.html_, _belongs-to.nunj.html_, _belongs-to-many.nunj.html_ in _partials_ directory of generated __sequelize__ template.
+
+#### *.nunj.html file extension is ugly.
+
+This is not a question. nunj.html extension is chosen because [nunjucks](https://mozilla.github.io/nunjucks/) command line tools expect files with extension **html**. However some IDE's struggle to auto complete/help/color [nunjucks](https://mozilla.github.io/nunjucks/), swig, twig, jinja files with html extension. We can define .nunj.html extension in IDE's to differentiate template files (*.nunj.html) and html (*.html) files correctly and make [nunjucks](https://mozilla.github.io/nunjucks/) command line tools happy.
+
+However if you really like to use another file extension in your templates create template filw tih your desired extension and use `--extension` option of `pgen`
+
+    $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --extension html
