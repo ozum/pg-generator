@@ -142,6 +142,10 @@
                 
                     <li><a class="toctree-l4" href="#i-have-multiple-schema-with-same-table-names-in-them-how-can-i-prevent-collision-of-my-model-names">I have multiple schema with same table names in them. How can I prevent collision of my model names?</a></li>
                 
+                    <li><a class="toctree-l4" href="#i-hate-aliases-that-sequelize-template-generate-what-can-i-do">I hate aliases that sequelize template generate. What can I do?</a></li>
+                
+                    <li><a class="toctree-l4" href="#nunjhtml-file-extension-is-ugly">*.nunj.html file extension is ugly.</a></li>
+                
             
             </ul>
         
@@ -381,6 +385,38 @@ $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
 <li>Change <span style="font-family:monospace">modelName macro</span> in <em>'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'</em> as <code>{{ (table.schema.name + table.name) | classCase }}</code>.</li>
 <li>Add <span style="font-family:monospace">'{table.schema.name}-'</span> string to <span style="font-family:monospace">'sequelize.import'</span> and <span style="font-family:monospace">'require'</span> parts in <em>'sequelize/db/index.js.nunj.html'</em> file to match new model file's names. </li>
 </ul>
+<h4 id="i-hate-aliases-that-sequelize-template-generate-what-can-i-do">I hate aliases that sequelize template generate. What can I do?</h4>
+<p>You have three choices. You either do:</p>
+<ul>
+<li>Disable aliases all together by creating a file named <code>option.js</code> (you can use any name) with content as below:</li>
+</ul>
+<pre><code class="js">module.exports = {
+    generateAliases: false  // This disables aliases all together. See partials/has-many-nunj.html and other relation templates.    
+};
+</code></pre>
+
+<p>Feed that file to <code>pgen</code> </p>
+<pre><code>$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --optionsfile options.js
+</code></pre>
+<ul>
+<li>Use custom aliases for some or all models by creating a file name <code>custom-data.js</code> (you can use any name) with similar content as below:</li>
+</ul>
+<pre><code class="js">Account: {
+    hasMany: {
+        HasContacts: {
+            as: 'MyBeautifulAlias'
+        }
+    },
+</code></pre>
+
+<ul>
+<li>Change alias naming for all tables by changing <em>has-many.nunj.html</em>, <em>belongs-to.nunj.html</em>, <em>belongs-to-many.nunj.html</em> in <em>partials</em> directory of generated <strong>sequelize</strong> template.</li>
+</ul>
+<h4 id="nunjhtml-file-extension-is-ugly">*.nunj.html file extension is ugly.</h4>
+<p>This is not a question. nunj.html extension is chosen because <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> command line tools expect files with extension <strong>html</strong>. However some IDE's struggle to auto complete/help/color <a href="https://mozilla.github.io/nunjucks/">nunjucks</a>, swig, twig, jinja files with html extension. We can define .nunj.html extension in IDE's to differentiate template files (<em>.nunj.html) and html (</em>.html) files correctly and make <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> command line tools happy.</p>
+<p>However if you really like to use another file extension in your templates create template filw tih your desired extension and use <code>--extension</code> option of <code>pgen</code></p>
+<pre><code>$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --extension html
+</code></pre>
               
             </div>
           </div>

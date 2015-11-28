@@ -18,8 +18,8 @@
   },
   "scripts": {
     "test": "node_modules/lab/bin/lab",
-    "doc": "cat docs/index.md > README.md & mkdocs build --clean",
-    "preversion": "npm run doc && eslint lib && npm test",
+    "doc": "cat docs/index.md > README.md && mkdocs build --clean",
+    "preversion": "npm run doc; eslint lib; npm test; git add -A site",
     "postversion": "git push && git push --tags && git subtree push --prefix site origin gh-pages & npm publish"
   },
   "repository": {
