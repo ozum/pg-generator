@@ -399,7 +399,7 @@ $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
 <pre><code>$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --optionsfile options.js
 </code></pre>
 <ul>
-<li>Use custom aliases for some or all models by creating a file name <code>custom-data.js</code> (you can use any name) with similar content as below:</li>
+<li>Or use custom aliases for some or all models by creating a file name <code>custom-data.js</code> (you can use any name) with similar content as below:</li>
 </ul>
 <pre><code class="js">Account: {
     hasMany: {
@@ -410,7 +410,7 @@ $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
 </code></pre>
 
 <ul>
-<li>Change alias naming for all tables by changing <em>has-many.nunj.html</em>, <em>belongs-to.nunj.html</em>, <em>belongs-to-many.nunj.html</em> in <em>partials</em> directory of generated <strong>sequelize</strong> template.</li>
+<li>Or change alias naming for all tables by changing <em>has-many.nunj.html</em>, <em>belongs-to.nunj.html</em>, <em>belongs-to-many.nunj.html</em> in <em>partials</em> directory of generated <strong>sequelize</strong> template.</li>
 </ul>
 <h4 id="nunjhtml-file-extension-is-ugly">*.nunj.html file extension is ugly.</h4>
 <p>This is not a question. nunj.html extension is chosen because <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> command line tools expect files with extension <strong>html</strong>. However some IDE's struggle to auto complete/help/color <a href="https://mozilla.github.io/nunjucks/">nunjucks</a>, swig, twig, jinja files with html extension. We can define .nunj.html extension in IDE's to differentiate template files (<em>.nunj.html) and html (</em>.html) files correctly and make <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> command line tools happy.</p>
