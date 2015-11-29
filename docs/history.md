@@ -3,6 +3,9 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 2.0.7 / 2015-11-29
+* Changed: pg-structure updated to version 2.0.0-alpha.9
+
 ###### 2.0.6 / 2015-11-29
 * Changed: pg-structure module updated.
 
