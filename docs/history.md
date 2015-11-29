@@ -3,7 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
-###### 2.0.0
+###### 2.0.6 / 2015-11-29
+* Changed: pg-structure module updated.
+
+###### 2.0.0 / 2015-11-25
 * Completely rewritten from scratch.
 * CAUTION: 2.0.0 is incompatible with 0.x series.
 * Added: For sequelize-pg-generator users, better direct usable generated files compared to sequelize-pg-generator. pg-generator all features and more.
