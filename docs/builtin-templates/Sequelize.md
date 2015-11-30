@@ -2,8 +2,26 @@ This template is successor of [sequelize-pg-generator](https://www.npmjs.com/pac
 
 ## Usage
 
+Create template and model files:
+
     $ pgen template sequelize -t sequelize-template
     $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
+
+In your application, create a sequelize object and initialize models with it:
+
+```js
+var Sequelize   = require('sequelize');
+var sequelize   = new Sequelize('database', 'user', 'password', { dialect: 'postgres', logging: false });
+var model       = require('./model/index.js').init(sequelize); // You only need to init once. You can just require later.
+
+model.Company.findOne({ where: {id: 1} })
+    .then(function(company) {
+        console.log(company.name);
+    })
+    .catch(function(error) {
+        console.log(err.stack);
+    });
+```
 
 ## Features:
 
