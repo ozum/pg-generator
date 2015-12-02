@@ -1,6 +1,6 @@
 {
   "name": "pg-generator",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Template Based Scaffolding Tool for PostgreSQL.",
   "main": "index.js",
   "preferGlobal": true,
