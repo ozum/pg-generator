@@ -14,6 +14,8 @@ pg-generator takes your burden of manually creating ORM files or any other files
 
 ## Sequelize Example
 
+See [sequelize template](http://www.pg-generator.com/builtin-templates/sequelize/) for usage and details.
+
     $ pgen template sequelize -t sequelize-template
     $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
 
