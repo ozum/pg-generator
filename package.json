@@ -1,6 +1,6 @@
 {
   "name": "pg-generator",
-  "version": "2.0.11",
+  "version": "2.0.10",
   "description": "Template Based Scaffolding Tool for PostgreSQL.",
   "main": "index.js",
   "preferGlobal": true,
@@ -19,7 +19,7 @@
   "scripts": {
     "test": "node_modules/lab/bin/lab",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
-    "preversion": "npm run doc; eslint lib; npm test",
+    "preversion": "npm run doc; eslint lib; npm test; git add -A site",
     "postversion": "git push && git push --tags && git subtree push --prefix site origin gh-pages & npm publish;"
   },
   "repository": {
