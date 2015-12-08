@@ -19,8 +19,8 @@
   "scripts": {
     "test": "node_modules/lab/bin/lab",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
-    "preversion": "npm run doc; eslint lib; npm test; git add -A site",
-    "postversion": "git push && git push --tags && git subtree push --prefix site origin gh-pages & npm publish;"
+    "preversion": "npm run doc; eslint lib && npm test && git add -A site && git add README.md;",
+    "postversion": "git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;"
   },
   "repository": {
     "type": "git",
@@ -58,7 +58,7 @@
     "lodash": "^3.10.1",
     "nunjucks": "^2.1.0",
     "pg": "^4.4.3",
-    "pg-structure": "^2.0.0-alpha.9",
+    "pg-structure": "^2.0.4",
     "winston": "^2.1.1"
   },
   "optionalDependencies": {
