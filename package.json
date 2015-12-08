@@ -19,8 +19,8 @@
   "scripts": {
     "test": "node_modules/lab/bin/lab",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
-    "preversion": "npm run doc; eslint lib && npm test && git add -A site && git add README.md;",
-    "postversion": "git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;"
+    "preversion": "eslint lib && npm test;",
+    "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update.' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;"
   },
   "repository": {
     "type": "git",
@@ -52,13 +52,14 @@
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
     "fs-extra": "^0.26.2",
-    "inflection": "^1.7.2",
+    "inflection": "^1.8.0",
     "inquirer": "^0.11.0",
     "js-beautify": "^1.5.10",
+    "lab": "^8.0.0",
     "lodash": "^3.10.1",
     "nunjucks": "^2.1.0",
     "pg": "^4.4.3",
-    "pg-structure": "^2.0.4",
+    "pg-structure": "^2.0.7",
     "winston": "^2.1.1"
   },
   "optionalDependencies": {
@@ -66,7 +67,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "lab": "^7.3.0",
+    "lab": "^8.0.0",
     "pg-hstore": "^2.3.2",
     "pg-test-util": "^1.2.3",
     "sequelize": "^3.14.0"

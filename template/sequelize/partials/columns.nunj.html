@@ -9,7 +9,7 @@
             ,defaultValue: {{ cc.default or (column.default | clearDefault) }}
         {% endif -%}
 
-        {%- if cc.unique or column.uniqueIndexesNoPK -%}
+        {%- if cc.unique or column.uniqueIndexesNoPK[0] -%}
             ,unique: {{ cc.unique or (column.uniqueIndexesNoPK[0].name | quote) }}
         {% endif -%}
 

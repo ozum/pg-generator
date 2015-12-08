@@ -12,7 +12,7 @@ function uniqueRelatedTables(table) {
     let result = [];
     visited[table.name] = true;
 
-    table.getRelations((relation) => {
+    table.relations.forEach((relation) => {
         let tableName = relation.targetTable.name;
         if (visited[tableName]) { return; }
         visited[tableName] = true;
