@@ -1,12 +1,12 @@
 # Template Based Scaffolding for PostgreSQL 
 
-<div style="font-size:1.4em; color:#444466; margin-bottom:15px;"><strong>pg-generator</strong> is a command line utility which generates files for each table and schema of a PostgreSQL database.</div>
+<div style="font-size:1.4em; color:#444466; margin-bottom:15px;"><strong><a href="http://www.pg-generator.com">pg-generator</a></strong> is a command line utility which generates files for each table and schema of a PostgreSQL database.</div>
 
  * Reverse engineers PostgreSQL database,
  * Executes [nunjucks](https://mozilla.github.io/nunjucks/) templates for each table, schema and for database,
  * Makes database objects available to templates using [pg-structure](http://www.pg-structure.com).
 
-pg-generator takes your burden of manually creating ORM files or any other files which are based on database structure.
+[pg-generator](http://www.pg-generator.com) takes your burden of manually creating ORM files or any other files which are based on database structure.
 
 ## Installation
 
@@ -37,13 +37,17 @@ To see a basic example execute following command from shell and examine files in
     $ pgen template tutorial -t tutorial-template
     
 For a full fledged example which we use at Fortibase, see Sequelize Example above. 
+
+## For Low Level Direct Access: [pg-structure](http://www.pg-structure.com)
+    
+If you prefer lower level methods to directly access PostgreSQL structure to build your own generators. You can check [pg-structure](http://www.pg-structure.com) module which is used to build this module and provides direct access to database structure. 
     
 ## Full Documentation
 
 Documentation is available on [pg-generator.com](http://www.pg-generator.com)
 
 ## Special Thanks
-**pg-structure** is developed under sponsorship of [Fortibase](http://www.fortibase.com) and released as open source. See [license](http://www.pg-generator.com/license/).
+**pg-generator** is developed under sponsorship of [Fortibase](http://www.fortibase.com) and released as open source. See [license](http://www.pg-generator.com/license/).
 
 Also documentation is auto generated thanks to:
 
