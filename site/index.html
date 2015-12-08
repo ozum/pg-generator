@@ -75,6 +75,8 @@
                 
                     <li><a class="toctree-l4" href="#template">Template</a></li>
                 
+                    <li><a class="toctree-l4" href="#for-low-level-direct-access-pg-structure">For Low Level Direct Access: pg-structure</a></li>
+                
                     <li><a class="toctree-l4" href="#full-documentation">Full Documentation</a></li>
                 
                     <li><a class="toctree-l4" href="#special-thanks">Special Thanks</a></li>
@@ -211,14 +213,14 @@
             <div class="section">
               
                 <h1 id="template-based-scaffolding-for-postgresql">Template Based Scaffolding for PostgreSQL</h1>
-<div style="font-size:1.4em; color:#444466; margin-bottom:15px;"><strong>pg-generator</strong> is a command line utility which generates files for each table and schema of a PostgreSQL database.</div>
+<div style="font-size:1.4em; color:#444466; margin-bottom:15px;"><strong><a href="http://www.pg-generator.com">pg-generator</a></strong> is a command line utility which generates files for each table and schema of a PostgreSQL database.</div>
 
 <ul>
 <li>Reverse engineers PostgreSQL database,</li>
 <li>Executes <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> templates for each table, schema and for database,</li>
 <li>Makes database objects available to templates using <a href="http://www.pg-structure.com">pg-structure</a>.</li>
 </ul>
-<p>pg-generator takes your burden of manually creating ORM files or any other files which are based on database structure.</p>
+<p><a href="http://www.pg-generator.com">pg-generator</a> takes your burden of manually creating ORM files or any other files which are based on database structure.</p>
 <h2 id="installation">Installation</h2>
 <pre><code>$ npm install -g pg-generator
 </code></pre>
@@ -241,10 +243,12 @@ $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
 <pre><code>$ pgen template tutorial -t tutorial-template
 </code></pre>
 <p>For a full fledged example which we use at Fortibase, see Sequelize Example above. </p>
+<h2 id="for-low-level-direct-access-pg-structure">For Low Level Direct Access: <a href="http://www.pg-structure.com">pg-structure</a></h2>
+<p>If you prefer lower level methods to directly access PostgreSQL structure to build your own generators. You can check <a href="http://www.pg-structure.com">pg-structure</a> module which is used to build this module and provides direct access to database structure. </p>
 <h2 id="full-documentation">Full Documentation</h2>
 <p>Documentation is available on <a href="http://www.pg-generator.com">pg-generator.com</a></p>
 <h2 id="special-thanks">Special Thanks</h2>
-<p><strong>pg-structure</strong> is developed under sponsorship of <a href="http://www.fortibase.com">Fortibase</a> and released as open source. See <a href="http://www.pg-generator.com/license/">license</a>.</p>
+<p><strong>pg-generator</strong> is developed under sponsorship of <a href="http://www.fortibase.com">Fortibase</a> and released as open source. See <a href="http://www.pg-generator.com/license/">license</a>.</p>
 <p>Also documentation is auto generated thanks to:</p>
 <ul>
 <li><a href="http://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>.</li>
@@ -302,5 +306,5 @@ $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
 
 <!--
 MkDocs version : 0.14.0
-Build Date UTC : 2015-12-03 15:31:00.926347
+Build Date UTC : 2015-12-08 08:47:05.002906
 -->
