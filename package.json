@@ -59,7 +59,7 @@
     "lodash": "^3.10.1",
     "nunjucks": "^2.1.0",
     "pg": "^4.4.3",
-    "pg-structure": "^2.0.7",
+    "pg-structure": "^2.0.8",
     "winston": "^2.1.1"
   },
   "optionalDependencies": {

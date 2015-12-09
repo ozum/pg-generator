@@ -1,6 +1,6 @@
 /*
 Created: 24.11.2015
-Modified: 26.11.2015
+Modified: 09.12.2015
 Project: pg-generator-test
 Model: pg-generator-test
 Company: Fortibase
@@ -21,6 +21,9 @@ CREATE TABLE "company"(
  "name" Character varying(20) NOT NULL,
  "income" Integer
 )
+;
+
+COMMENT ON TABLE "company" IS 'Firma.'
 ;
 COMMENT ON COLUMN "company"."id" IS 'Kayıt no.'
 ;
@@ -56,6 +59,9 @@ CREATE TABLE "contact"(
  "age" Integer
 )
 ;
+
+COMMENT ON TABLE "contact" IS 'İrtibat.'
+;
 COMMENT ON COLUMN "contact"."id" IS 'Kayıt no.'
 ;
 COMMENT ON COLUMN "contact"."company_id" IS 'Company where this contact works.'
@@ -90,6 +96,9 @@ CREATE TABLE "product"(
  "color" Character varying(20)
 )
 ;
+
+COMMENT ON TABLE "product" IS 'Ürün.'
+;
 COMMENT ON COLUMN "product"."id" IS 'Kayıt no.'
 ;
 COMMENT ON COLUMN "product"."name" IS 'Name of the product.'
@@ -110,6 +119,9 @@ CREATE TABLE "cart"(
  "created_at" Timestamp(0) DEFAULT now() NOT NULL,
  "name" Character varying(20)
 )
+;
+
+COMMENT ON TABLE "cart" IS 'Alışveriş sepeti.'
 ;
 COMMENT ON COLUMN "cart"."id" IS 'Kayıt no.'
 ;
@@ -137,6 +149,9 @@ CREATE TABLE "cart_line_item"(
  "cart" Integer NOT NULL,
  "quantity" Smallint DEFAULT 1 NOT NULL
 )
+;
+
+COMMENT ON TABLE "cart_line_item" IS 'Alışveriş sepetindeki malzeme.'
 ;
 COMMENT ON COLUMN "cart_line_item"."product_id" IS 'Product of the cart.'
 ;
@@ -166,3 +181,6 @@ ALTER TABLE "cart_line_item" ADD CONSTRAINT "cart_cart_line_items" FOREIGN KEY (
 
 ALTER TABLE "cart" ADD CONSTRAINT "contact_carts" FOREIGN KEY ("contact_id") REFERENCES "contact" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 ;
+
+
+

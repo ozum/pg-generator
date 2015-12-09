@@ -3,6 +3,11 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 2.0.17 / 2015-12-09
+* Added: Additional test for sequelize template, which compares generated file with an expected result.  
+* Fixed: Sequelize template did not generate table description.
+* Changed: pg-structure module updated to v2.0.8.
+
 ###### 2.0.7 / 2015-11-29
 * Changed: pg-structure updated to version 2.0.0-alpha.9
 

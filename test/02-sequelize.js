@@ -43,6 +43,15 @@ lab.after((done) => {
     });
 });
 
+describe('Cart model file', () => {
+    it ('should equal expected result.', (done) => {
+        let cartSource  = fs.readFileSync(path.join(__dirname, 'model/definition/cart.js')).toString();
+        let expected    = fs.readFileSync(path.join(__dirname, 'util/expected/cart.js')).toString();
+        expect(cartSource).to.equal(expected);
+        done();
+    });
+});
+
 describe('Company Instance', () => {
     it ('should have a name', (done) => {
         model.Company.findOne({ where: {id: 1} })
