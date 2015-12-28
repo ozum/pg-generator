@@ -3,6 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 2.0.18 / 2015-12-28
+* Added: PostgreSQL range data types for sequelize template.
+* Added: sequelize template throws more explanatory error for unknown/undefined data types.
+
 ###### 2.0.17 / 2015-12-09
 * Added: Additional test for sequelize template, which compares generated file with an expected result.  
 * Fixed: Sequelize template did not generate table description.
