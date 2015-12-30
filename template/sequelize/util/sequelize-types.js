@@ -45,12 +45,12 @@ var sequelizeTypes = {
     uuid                            : { type: '.UUID' },
     xml                             : { type: '.STRING', hasLength: true },     // Not directly supported in Sequelize
     'user-defined'                  : { type: '.STRING', hasLength: true },     // Not directly supported in Sequelize
-    'int4range'                     : { type: ".RANGE('INTEGER')" },
-    'int8range'                     : { type: ".RANGE('BIGINT')" },
-    'numrange'                      : { type: ".RANGE('DECIMAL')" },
-    'tsrange'                       : { type: '.RANGE()' }, // Not implemented in Sequelize 3.15.1, posted a PR.
-    'tstzrange'                     : { type: ".RANGE('DATE')" },
-    'daterange'                     : { type: ".RANGE('DATEONLY')" }
+    int4range                       : { type: ".RANGE('INTEGER')" },
+    int8range                       : { type: ".RANGE('BIGINT')" },
+    numrange                        : { type: ".RANGE('DECIMAL')" },
+    tsrange                         : { type: ".RANGE('DATENOTZ')" },
+    tstzrange                       : { type: ".RANGE('DATE')" },
+    daterange                       : { type: ".RANGE('DATEONLY')" }
 };
 
 /**
