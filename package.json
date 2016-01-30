@@ -20,7 +20,7 @@
     "test": "node_modules/lab/bin/lab",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "eslint lib && npm test;",
-    "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update.' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npmrc ozum && npm publish;"
+    "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m && git push && git push --tags && git subtree push --prefix site origin gh-pages && npmrc ozum && npm publish;"
   },
   "repository": {
     "type": "git",
@@ -40,14 +40,6 @@
     "url": "http://www.fortibase.com"
   },
   "license": "MIT",
-  "jscsConfig": {
-    "validateQuoteMarks": false,
-    "disallowSpaceAfterObjectKeys": false,
-    "validateIndentation": 4,
-    "requireTrailingComma": false,
-    "maximumLineLength": 320,
-    "requireCamelCaseOrUpperCaseIdentifiers": false
-  },
   "dependencies": {
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
@@ -56,10 +48,10 @@
     "inquirer": "^0.11.0",
     "js-beautify": "^1.5.10",
     "lab": "^8.0.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "nunjucks": "^2.1.0",
     "pg": "^4.4.3",
-    "pg-structure": "^2.0.8",
+    "pg-structure": "^3.1.2",
     "winston": "^2.1.1"
   },
   "optionalDependencies": {
@@ -67,7 +59,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "lab": "^8.0.0",
+    "lab": "^8.2.0",
     "pg-hstore": "^2.3.2",
     "pg-test-util": "^1.2.3",
     "sequelize": "^3.14.0"

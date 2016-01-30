@@ -8,23 +8,22 @@ var initialized = false;
 function init(sequelize) {
     delete module.exports.init; // Destroy itself to prevent repeated calls and clash with a model named 'init'.
     initialized = true;
-
     // Import model files and assign them to `model` object.
-    {% for schema in db.schemas -%}
-        {% for table in schema.tables -%}
-            model.{{ modelName(table) }} = sequelize.import("./definition/{{ table.name }}.js");
+    {% for schema in db.schemas.array -%}
+        {% for table in schema.tables.array -%}
+            model.{{ modelName(table) }} = sequelize.import('./definition/{{ table.name }}.js');
         {% endfor -%}
     {% endfor %}
 
     // All models are initialized. Now connect them with relations.
-    {% for schema in db.schemas -%}
-       {% for table in schema.tables -%}
-           require("./definition/{{ table.name }}.js").initRelations();
+    {% for schema in db.schemas.array -%}
+       {% for table in schema.tables.array -%}
+           require('./definition/{{ table.name }}.js').initRelations();
        {% endfor -%}
     {% endfor -%}
 
     return model;
-};
+}
 
 // Note: While using this module, DO NOT FORGET FIRST CALL model.init(sequelize). Otherwise you get undefined.
 module.exports = model;

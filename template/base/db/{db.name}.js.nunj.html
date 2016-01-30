@@ -1,15 +1,15 @@
-{% for schema in db.schemas -%}
-    {% for table in schema.tables -%}
-        {% for column in table.columns -%}
+{% for schema in db.schemas.array -%}
+    {% for table in schema.tables.array -%}
+        {% for column in table.columns.array -%}
 
         {% endfor -%}
-        {% for relation in table.o2mRelations -%}
+        {% for relation in table.o2mRelations.array -%}
 
         {% endfor -%}
-        {% for relation in table.m2oRelations -%}
+        {% for relation in table.m2oRelations.array -%}
 
         {% endfor -%}
-        {% for relation in table.m2mRelations -%}
+        {% for relation in table.m2mRelations.array -%}
 
         {% endfor -%}
     {% endfor -%}

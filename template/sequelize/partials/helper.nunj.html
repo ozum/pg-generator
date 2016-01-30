@@ -14,10 +14,10 @@
 {%- endmacro -%}
 
 {% macro belongsToAlias(relation) -%}
-    {{ relation.constraint.columns[0].name | relationName | classCase | singular }}
+    {{ relation.constraint.columns.array[0].name | relationName | classCase | singular }}
 {%- endmacro -%}
 
 {% macro belongsToManyAlias(relation) -%}
-    {{ relation.joinTable.name | classCase }}{{ relation.targetConstraint.columns[0].name | relationName('') | classCase | plural }}
+    {{ relation.joinTable.name | classCase }}{{ relation.targetConstraint.columns.array[0].name | relationName('') | classCase | plural }}
 {%- endmacro -%}
 

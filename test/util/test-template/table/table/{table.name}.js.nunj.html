@@ -1,6 +1,6 @@
 module.exports =  {
     columns: {
-    {% for column in table.columns -%}
+    {% for column in table.columns.array -%}
         {{ column.name }}: {
             name: {{ column.name | camelCase | quote }},
             type: {{ column.type | quote }},

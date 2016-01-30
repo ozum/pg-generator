@@ -15,22 +15,22 @@ Below is messages from template's index.js.
 
 Below is nunjucks loop iterating schemas of {{ db.name }} database:
 
-{% for schema in db.schemas %}
+{% for schema in db.schemas.array %}
     "{{ db.name }}" has "{{ schema.name }}" schema.
 {% endfor %}
 
 Also it is possible to iterate all tables via nested loops:
 
-{% for schema in db.schemas %}
-    {% for table in schema.tables -%}
+{% for schema in db.schemas.array %}
+    {% for table in schema.tables.array -%}
     {{ schema.name }}.{{ table.name }}
     {% endfor %}
 {% endfor %}
 
 Filters are modifiers for template strings. For example below is a list of all table name in camel case:
 
-{% for schema in db.schemas %}
-    {% for table in schema.tables -%}
+{% for schema in db.schemas.array %}
+    {% for table in schema.tables.array -%}
         {{ schema.name | camelCase }}.{{ table.name | camelCase }}
     {% endfor %}
 {% endfor %}

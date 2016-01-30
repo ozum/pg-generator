@@ -11,6 +11,6 @@ Below is messages from template's index.js.
 Below is an example of a loop for listing all columns of the table separated by comma. See if condition which checks
 loop to prevent printing an extra comma for last column.
 
-{% for column in table.columns %}
+{% for column in table.columns.array %}
     {{ column.name }} is type of {{ column.type }}{% if not loop.last -%},{% endif -%}
 {% endfor %}

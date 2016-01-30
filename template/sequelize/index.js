@@ -19,6 +19,7 @@ function uniqueRelatedTables(table) {
         result.push(relation.targetTable);
     });
 
+
     return result;
 }
 

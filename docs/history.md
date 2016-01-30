@@ -3,6 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.0.0 / 2016-01-30
+* Changed: pg-structure is updated to v3.1.2
+* Changed: pg-structure v3 returns collections ad Map and Set instead of Object or Array. Templates are updated as necessary.
+
 ###### 2.0.18 / 2015-12-28
 * Added: PostgreSQL range data types for sequelize template.
 * Added: sequelize template throws more explanatory error for unknown/undefined data types.

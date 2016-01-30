@@ -4,37 +4,41 @@ module.exports = function(sequelize, DataTypes) {
     return sequelize.define('Cart', {
         id: {
             type: DataTypes.INTEGER,
-            field: "id",
+            field: 'id',
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            comment: 'Kayıt no.'
         },
         contactId: {
             type: DataTypes.INTEGER,
-            field: "contact_id",
+            field: 'contact_id',
             allowNull: false,
+            comment: 'Owner of the cart.',
             references: {
-                model: "contact",
-                key: "id"
+                model: 'contact',
+                key: 'id'
             },
-            onUpdate: "CASCADE",
-            onDelete: "RESTRICT"
+            onUpdate: 'CASCADE',
+            onDelete: 'RESTRICT'
         },
         createdAt: {
             type: DataTypes.DATE,
-            field: "created_at",
-            allowNull: false
+            field: 'created_at',
+            allowNull: false,
+            comment: 'Creation time.'
         },
         name: {
             type: DataTypes.STRING(20),
-            field: "name",
-            allowNull: true
+            field: 'name',
+            allowNull: true,
+            comment: 'Name of the cart.'
         }
     }, {
-        schema: "public",
-        tableName: "cart",
+        schema: 'public',
+        tableName: 'cart',
         timestamps: false,
-        comment: "Alışveriş sepeti."
+        comment: 'Alışveriş sepeti.'
     });
 };
 
@@ -47,26 +51,26 @@ module.exports.initRelations = function() {
     var Product = model.Product;
 
     Cart.hasMany(CartLineItem, {
-        as: "CartLineItems",
-        foreignKey: "cart",
-        onDelete: "RESTRICT",
-        onUpdate: "CASCADE"
+        as: 'CartLineItems',
+        foreignKey: 'cart',
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
     });
 
     Cart.belongsTo(Contact, {
-        as: "Contact",
-        foreignKey: "contact_id",
-        onDelete: "RESTRICT",
-        onUpdate: "CASCADE"
+        as: 'Contact',
+        foreignKey: 'contact_id',
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
     });
 
     Cart.belongsToMany(Product, {
-        as: "CartLineItemProducts",
+        as: 'CartLineItemProducts',
         through: CartLineItem,
-        foreignKey: "cart",
-        otherKey: "product_id",
-        onDelete: "RESTRICT",
-        onUpdate: "CASCADE"
+        foreignKey: 'cart',
+        otherKey: 'product_id',
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
     });
 
 };

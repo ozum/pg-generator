@@ -1,16 +1,16 @@
-{% for column in table.columns -%}
+{% for column in table.columns.array -%}
     {% set cc = custom[modelName(table)].attributes[attributeName(column)] -%} {# Custom Data for this attrbute i.e. "custom.Account.attributes.surname" #}
     {{ attributeName(column) }}: {
         type: {{ (cc.type or util.sequelizeType(column)) }},
-        field: {{ (cc.name or column.name) | quote }},
+        field: {{ (cc.name or column.name) | singleQuote }},
         allowNull: {{ cc.allowNull or column.allowNull }}
 
         {%- if cc.default or (column.default | clearDefault) -%}
             ,defaultValue: {{ cc.default or (column.default | clearDefault) }}
         {% endif -%}
 
-        {%- if cc.unique or column.uniqueIndexesNoPK[0] -%}
-            ,unique: {{ cc.unique or (column.uniqueIndexesNoPK[0].name | quote) }}
+        {%- if cc.unique or column.uniqueIndexesNoPK.array[0] -%}
+            ,unique: {{ cc.unique or (column.uniqueIndexesNoPK.array[0].name | singleQuote) }}
         {% endif -%}
 
         {%- if cc.primaryKey or column.isPrimaryKey -%}
@@ -22,19 +22,19 @@
         {% endif -%}
 
         {%- if cc.comment or column.comment -%}
-            ,comment: {{ cc.comment or (column.comment | quote) }}
+            ,comment: {{ cc.comment or (column.comment | singleQuote) }}
         {% endif -%}
 
-        {%- if cc.references or column.referencedColumn -%}
-            ,references: { model: {{ cc.references.model or (column.referencedColumn.table.name | quote) }}, key: {{ cc.references.key or (column.referencedColumn.name | quote) }} }
+        {%- if cc.references or column.referencedColumns.array[0] -%}
+            ,references: { model: {{ cc.references.model or (column.referencedColumns.array[0].table.name | singleQuote) }}, key: {{ cc.references.key or (column.referencedColumns.array[0].name | singleQuote) }} }
         {% endif -%}
 
-        {%- if cc.onUpdate or column.foreignKeyConstraint.onUpdate -%}
-            ,onUpdate: {{ cc.onUpdate or (column.foreignKeyConstraint.onUpdate | quote) }}
+        {%- if cc.onUpdate or column.foreignKeyConstraints.array[0].onUpdate -%}
+            ,onUpdate: {{ cc.onUpdate or (column.foreignKeyConstraints.array[0].onUpdate | singleQuote) }}
         {% endif -%}
 
-        {%- if cc.onDelete or column.foreignKeyConstraint.onDelete -%}
-            ,onDelete: {{ cc.onDelete or (column.foreignKeyConstraint.onDelete | quote) }}
+        {%- if cc.onDelete or column.foreignKeyConstraints.array[0].onDelete -%}
+            ,onDelete: {{ cc.onDelete or (column.foreignKeyConstraints.array[0].onDelete | singleQuote) }}
         {% endif -%}
 
         {%- for key, value in cc -%} {# Custom attribute details from custom data not found in template #}
