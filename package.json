@@ -20,7 +20,7 @@
     "test": "node_modules/lab/bin/lab",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "eslint lib && npm test;",
-    "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m && git push && git push --tags && git subtree push --prefix site origin gh-pages && npmrc ozum && npm publish;"
+    "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npmrc ozum && npm publish;"
   },
   "repository": {
     "type": "git",
