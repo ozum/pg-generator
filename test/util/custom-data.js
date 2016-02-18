@@ -25,5 +25,8 @@ module.exports = {
                 foreignKey: 'fake_id'
             }
         }
+    },
+    Cart: {
+        customData: { a: 1, b: 'O\'Reilly'}
     }
 };

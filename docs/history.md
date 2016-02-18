@@ -3,6 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.0.1 / 2016-02-18
+* Added: stringifyIfObject filter, which converts it's input to string if it is an object.
+* Changed: `sequelize` template expands custom data objects automatically.
+
 ###### 3.0.0 / 2016-01-30
 * Changed: pg-structure is updated to v3.1.2
 * Changed: pg-structure v3 returns collections ad Map and Set instead of Object or Array. Templates are updated as necessary.

@@ -40,7 +40,7 @@
         {%- for key, value in cc -%} {# Custom attribute details from custom data not found in template #}
             {%- if not (key == 'type' or key == 'name' or key == 'allowNull' or key == 'default' or key == 'defaultValue' or key == 'unique'
                 or key == 'primaryKey' or key == 'autoIncrement' or key == 'comment' or key == 'references' or key == 'onUpdate' or key == 'onDelete') -%}
-                ,{{ key }}: {{ value }}
+                ,{{ key }}: {{ value | stringifyIfObject }}
             {% endif -%}
         {% endfor -%}
     }{% if not loop.last -%},{% endif -%}

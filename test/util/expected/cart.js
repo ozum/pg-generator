@@ -38,7 +38,11 @@ module.exports = function(sequelize, DataTypes) {
         schema: 'public',
         tableName: 'cart',
         timestamps: false,
-        comment: 'Alışveriş sepeti.'
+        comment: 'Alışveriş sepeti.',
+        customData: {
+            a: 1,
+            b: 'O\'Reilly'
+        }
     });
 };
 

@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         {% for key, value in c -%} {# Custom table details from custom data not found in template #}
             {%- if not (key == 'schema' or key == 'tableName' or key == 'comment' or key == 'attributes'
                 or key == 'hasMany' or key == 'belongsTo' or key == 'belongsToMany') -%}
-                ,{{ key }}: {{ value }}
+                ,{{ key }}: {{ value | stringifyIfObject }}
             {% endif -%}
         {% endfor -%}
     });

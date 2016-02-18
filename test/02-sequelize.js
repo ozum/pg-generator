@@ -23,7 +23,8 @@ lab.before((done) => {
                 logLevel: 'error',
                 connection: testDB.credentials,
                 templateDir: path.join(__dirname, '../template/sequelize'),
-                targetDir: path.join(__dirname, 'model')
+                targetDir: path.join(__dirname, 'model'),
+                customData: require(path.join(__dirname, 'util/custom-data.js'))
             });
 
             return gen.writeAll();

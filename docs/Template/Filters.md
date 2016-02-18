@@ -23,6 +23,7 @@ pg-generator offfers additional filters suitable for database scaffolding. Some 
 | clearDefault | Clears PostgreSQL default values to be used in JS code. | "O''Reilly" | "O'Reilly" |
 | quote | Adds quotes to string using `JSON.stringify`. | member_name | "member_name" |
 | singleQuote | Adds single quotes to string. | member_name | 'member_name' |
+| stringifyIfObject | Converts object to string to use in template directly. | { name: 'George' } | { name: 'George' } 
 | stripPrefix(arg1, arg2, ...) | Strips given texts and `object.name`s from beginning of string. | cart_cart_id<sup>1</sup> | cart_id
 | stripSuffix(arg1, arg2, ...) | Strips given texts and `object.name`s from end of string. | cart_id<sup>2</sup> | cart
 | strip(arg1, arg2, ...) | Strips given texts and `object.name`s from string. | cart_product_id<sup>3</sup> | cart_id
