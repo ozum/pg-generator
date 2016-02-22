@@ -142,6 +142,8 @@
             
                 <li class="toctree-l3"><a href="#relations">Relations</a></li>
                 
+                    <li><a class="toctree-l4" href="#special-case-hasone">Special Case: hasOne</a></li>
+                
                     <li><a class="toctree-l4" href="#smart-default-naming-of-aliases">Smart Default Naming of Aliases</a></li>
                 
             
@@ -321,6 +323,20 @@ model.Company.findOne({ where: {id: 1} })
 </code></pre>
 <h2 id="relations">Relations</h2>
 <p>Relations are detected automatically. One to many (hasMany), many to one (belongsTo) and many to many (belongsToMany) relations are detected automatically. If two tables are joined via a join table this module detects it automatically and generates many to many sequelize relations. If a table has more than one foreign key, then it is considered join table. In reality it may not be a join table. However it is impossible to detect that.</p>
+<h3 id="special-case-hasone">Special Case: hasOne</h3>
+<p><em>one to one (hasOne)</em> relations does not really bring any design benefits. In fact, it would cause performance overheads to the database engine for having to link the table rows together. The 2 tables can actually be combined into a single table. However Sequelize provides <code>hasOne</code> type relations. Since there is no way to detect <code>one to one</code> relations automatically, they have to be added manually by using <a href="http://www.pg-generator.com/template/directories-files/">custom data file</a></p>
+<p>For example:
+Suppose Company has many Contacts. To make it one to one relation, below example may be added to <code>custom-data.js</code>. Please note <code>Contact</code> key is singular.</p>
+<p>Key should be singular version of <code>hasMany</code> aliases. </p>
+<pre><code class="js">module.exports = {
+    Company: {
+        hasOne: {
+            Contact: {}
+        }
+    }
+};
+</code></pre>
+
 <h3 id="smart-default-naming-of-aliases">Smart Default Naming of Aliases</h3>
 <p>This template uses table names or schema table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Default template is based on camelCase naming. You can easily change it to use snake_case or PascalCase by using provided filters. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter. Aliases can be turned of by providing a custom options file and setting <code>generateAliases</code> false.</p>
 <pre><code> module.exports = { generateAliases: false };
