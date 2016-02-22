@@ -46,9 +46,18 @@ lab.after((done) => {
 
 describe('Cart model file', () => {
     it ('should equal expected result.', (done) => {
-        let cartSource  = fs.readFileSync(path.join(__dirname, 'model/definition/cart.js')).toString();
+        let source      = fs.readFileSync(path.join(__dirname, 'model/definition/cart.js')).toString();
         let expected    = fs.readFileSync(path.join(__dirname, 'util/expected/cart.js')).toString();
-        expect(cartSource).to.equal(expected);
+        expect(source).to.equal(expected);
+        done();
+    });
+});
+
+describe('Cart model file', () => {
+    it ('should equal expected result.', (done) => {
+        let source      = fs.readFileSync(path.join(__dirname, 'model/definition/company.js')).toString();
+        let expected    = fs.readFileSync(path.join(__dirname, 'util/expected/company.js')).toString();
+        expect(source).to.equal(expected);
         done();
     });
 });

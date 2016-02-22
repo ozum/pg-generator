@@ -78,6 +78,24 @@ Returns Sequelize ORM data type for given column.
 
 Relations are detected automatically. One to many (hasMany), many to one (belongsTo) and many to many (belongsToMany) relations are detected automatically. If two tables are joined via a join table this module detects it automatically and generates many to many sequelize relations. If a table has more than one foreign key, then it is considered join table. In reality it may not be a join table. However it is impossible to detect that.
 
+###Special Case: hasOne###
+*one to one (hasOne)* relations does not really bring any design benefits. In fact, it would cause performance overheads to the database engine for having to link the table rows together. The 2 tables can actually be combined into a single table. However Sequelize provides `hasOne` type relations. Since there is no way to detect `one to one` relations automatically, they have to be added manually by using [custom data file](http://www.pg-generator.com/template/directories-files/)
+ 
+For example:
+Suppose Company has many Contacts. To make it one to one relation, below example may be added to `custom-data.js`. Please note `Contact` key is singular.
+
+Key should be singular version of `hasMany` aliases. 
+  
+```js
+module.exports = {
+    Company: {
+        hasOne: {
+            Contact: {}
+        }
+    }
+};
+```
+
 ### Smart Default Naming of Aliases
 
 This template uses table names or schema table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Default template is based on camelCase naming. You can easily change it to use snake_case or PascalCase by using provided filters. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter. Aliases can be turned of by providing a custom options file and setting `generateAliases` false.

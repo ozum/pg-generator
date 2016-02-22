@@ -3,6 +3,9 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.1.0 / 2016-02-22
+* Added: `hasOne` relation support for `Sequelize` template.
+
 ###### 3.0.2 / 2016-02-19
 * Changed: pg-structure updated to 3.1.3 to make pg-generator compatible with node.js v4 without --harmony flag.
 

@@ -27,6 +27,12 @@ module.exports = {
         }
     },
     Cart: {
-        customData: { a: 1, b: 'O\'Reilly'}
+        customDataString: "'String'",
+        customDataObject: { a: 1, b: 'O\'Reilly'}
+    },
+    Company: {
+        hasOne: {
+            Contact: {}
+        }
     }
 };

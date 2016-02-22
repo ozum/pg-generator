@@ -13,6 +13,10 @@
     {{ relation.constraint.name | stripPrefix(relation.sourceTable) | classCase | plural }}
 {%- endmacro -%}
 
+{% macro hasOneAlias(relation) -%}
+    {{ relation.constraint.name | stripPrefix(relation.sourceTable) | classCase | singular }}
+{%- endmacro -%}
+
 {% macro belongsToAlias(relation) -%}
     {{ relation.constraint.columns.array[0].name | relationName | classCase | singular }}
 {%- endmacro -%}

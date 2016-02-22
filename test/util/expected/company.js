@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Cart', {
+    return sequelize.define('Company', {
         id: {
             type: DataTypes.INTEGER,
             field: 'id',
@@ -10,11 +10,11 @@ module.exports = function(sequelize, DataTypes) {
             autoIncrement: true,
             comment: 'Kayıt no.'
         },
-        contactId: {
+        ownerId: {
             type: DataTypes.INTEGER,
-            field: 'contact_id',
-            allowNull: false,
-            comment: 'Owner of the cart.',
+            field: 'owner_id',
+            allowNull: true,
+            comment: 'Owner of the company.',
             references: {
                 model: 'contact',
                 key: 'id'
@@ -28,52 +28,48 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             comment: 'Creation time.'
         },
+        updatedAt: {
+            type: DataTypes.DATE,
+            field: 'updated_at',
+            allowNull: false,
+            comment: 'Update time.'
+        },
         name: {
             type: DataTypes.STRING(20),
             field: 'name',
+            allowNull: false,
+            comment: 'Name of the company.'
+        },
+        income: {
+            type: DataTypes.INTEGER,
+            field: 'income',
             allowNull: true,
-            comment: 'Name of the cart.'
+            comment: 'Yearly income.'
         }
     }, {
         schema: 'public',
-        tableName: 'cart',
+        tableName: 'company',
         timestamps: false,
-        comment: 'Alışveriş sepeti.',
-        customDataString: 'String',
-        customDataObject: {
-            a: 1,
-            b: 'O\'Reilly'
-        }
+        comment: 'Firma.'
     });
 };
 
 module.exports.initRelations = function() {
     delete module.exports.initRelations; // Destroy itself to prevent repeated calls.
     var model = require('../index');
-    var Cart = model.Cart;
-    var CartLineItem = model.CartLineItem;
+    var Company = model.Company;
     var Contact = model.Contact;
-    var Product = model.Product;
 
-    Cart.hasMany(CartLineItem, {
-        as: 'CartLineItems',
-        foreignKey: 'cart',
-        onDelete: 'RESTRICT',
-        onUpdate: 'CASCADE'
-    });
-
-    Cart.belongsTo(Contact, {
+    Company.hasOne(Contact, {
         as: 'Contact',
-        foreignKey: 'contact_id',
+        foreignKey: 'company_id',
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE'
     });
 
-    Cart.belongsToMany(Product, {
-        as: 'CartLineItemProducts',
-        through: CartLineItem,
-        foreignKey: 'cart',
-        otherKey: 'product_id',
+    Company.belongsTo(Contact, {
+        as: 'Owner',
+        foreignKey: 'owner_id',
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE'
     });
