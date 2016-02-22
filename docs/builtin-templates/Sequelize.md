@@ -79,8 +79,10 @@ Returns Sequelize ORM data type for given column.
 Relations are detected automatically. One to many (hasMany), many to one (belongsTo) and many to many (belongsToMany) relations are detected automatically. If two tables are joined via a join table this module detects it automatically and generates many to many sequelize relations. If a table has more than one foreign key, then it is considered join table. In reality it may not be a join table. However it is impossible to detect that.
 
 ###Special Case: hasOne###
-*one to one (hasOne)* relations does not really bring any design benefits. In fact, it would cause performance overheads to the database engine for having to link the table rows together. The 2 tables can actually be combined into a single table. However Sequelize provides `hasOne` type relations. Since there is no way to detect `one to one` relations automatically, they have to be added manually by using [custom data file](http://www.pg-generator.com/template/directories-files/)
- 
+In short: `hasMany` relations can be converted to `hasOne`relations manually using `custom-data.js`.
+
+Details: *one to one (hasOne)* relations does not really bring any design benefits. In fact, it would cause performance overheads to the database engine for having to link the table rows together. The 2 tables can actually be combined into a single table. However Sequelize provides `hasOne` type relations. Since there is no way to detect `one to one` relations automatically, they have to be added manually by using [custom data file](http://www.pg-generator.com/template/directories-files/)
+
 For example:
 Suppose Company has many Contacts. To make it one to one relation, below example may be added to `custom-data.js`. Please note `Contact` key is singular.
 
