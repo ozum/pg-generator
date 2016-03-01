@@ -23,14 +23,14 @@ lab.before((done) => {
                 logLevel: 'error',
                 connection: testDB.credentials,
                 templateDir: path.join(__dirname, '../template/sequelize'),
-                targetDir: path.join(__dirname, 'model'),
+                targetDir: path.join(__dirname, 'model-sequelize'),
                 customData: require(path.join(__dirname, 'util/custom-data.js'))
             });
 
             return gen.writeAll();
         })
         .then(() => {
-            let modelFile = './model/index.js';
+            let modelFile = './model-sequelize/index.js';
             model = require(modelFile).init(sequelize);
             done();
         })
@@ -39,14 +39,14 @@ lab.before((done) => {
 
 lab.after((done) => {
     testDB.dropDB().then(() => {
-        fs.removeSync(path.join(__dirname, 'model'));
+        fs.removeSync(path.join(__dirname, 'model-sequelize'));
         done();
     });
 });
 
 describe('Cart model file', () => {
     it ('should equal expected result.', (done) => {
-        let source      = fs.readFileSync(path.join(__dirname, 'model/definition/cart.js')).toString();
+        let source      = fs.readFileSync(path.join(__dirname, 'model-sequelize/definition/cart.js')).toString();
         let expected    = fs.readFileSync(path.join(__dirname, 'util/expected/cart.js')).toString();
         expect(source).to.equal(expected);
         done();
@@ -55,7 +55,7 @@ describe('Cart model file', () => {
 
 describe('Cart model file', () => {
     it ('should equal expected result.', (done) => {
-        let source      = fs.readFileSync(path.join(__dirname, 'model/definition/company.js')).toString();
+        let source      = fs.readFileSync(path.join(__dirname, 'model-sequelize/definition/company.js')).toString();
         let expected    = fs.readFileSync(path.join(__dirname, 'util/expected/company.js')).toString();
         expect(source).to.equal(expected);
         done();

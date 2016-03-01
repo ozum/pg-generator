@@ -22,14 +22,14 @@ lab.before((done) => {
                 logLevel: 'error',
                 connection: testDB.credentials,
                 templateDir: path.join(__dirname, '../template/objection-alpha'),
-                targetDir: path.join(__dirname, 'model'),
+                targetDir: path.join(__dirname, 'model-objection'),
                 customData: require(path.join(__dirname, 'util/custom-data.js'))
             });
 
             return gen.writeAll();
         })
         .then(() => {
-            let modelFile = './model/index.js';
+            let modelFile = './model-objection/index.js';
             knex = new Knex({client: 'pg', connection: { database: testDB.credentials.database, user: testDB.credentials.user,  password: testDB.credentials.password }});
             model = require(modelFile).init(knex);
             done();
@@ -41,9 +41,9 @@ lab.after((done) => {
     testDB.dropDB()
         .then(() => knex.destroy)
         .then(() => {
-            fs.removeSync(path.join(__dirname, 'model'));
-        done();
-    });
+            fs.removeSync(path.join(__dirname, 'model-objection'));
+            done();
+        });
 });
 
 describe('Company Instance', () => {
