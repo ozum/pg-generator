@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Template - pg-generator</title>
+  <title>Objection - pg-generator</title>
   
 
   <link rel="shortcut icon" href="../../img/favicon.ico">
@@ -20,7 +20,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Template";
+    var mkdocs_page_name = "Objection";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -79,29 +79,22 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Template</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#templates">Templates</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../../template/template/">Template</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../directories-files/">Directories & Files</a>
+        <a class="" href="../../template/directories-files/">Directories & Files</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../filters/">Filters</a>
+        <a class="" href="../../template/filters/">Filters</a>
         
     </li>
 
@@ -116,28 +109,39 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/tutorial/">Tutorial</a>
+        <a class="" href="../tutorial/">Tutorial</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/base/">Base</a>
+        <a class="" href="../base/">Base</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/sequelize/">Sequelize</a>
+        <a class="" href="../sequelize/">Sequelize</a>
         
     </li>
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../../builtin-templates/objection/">Objection</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Objection</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#alpha-stage">ALPHA STAGE</a></li>
+                
+                    <li><a class="toctree-l4" href="#usage">Usage</a></li>
+                
+                    <li><a class="toctree-l4" href="#features-targets-some-are-not-implemented-yet">Features &amp; Targets (Some are not implemented yet):</a></li>
+                
+            
+            </ul>
         
     </li>
 
@@ -196,11 +200,11 @@
     
       
         
-          <li>Template &raquo;</li>
+          <li>Builtin Templates &raquo;</li>
         
       
     
-    <li>Template</li>
+    <li>Objection</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -214,9 +218,41 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="templates">Templates</h1>
-<p>pg-generator uses templates to generate files. A pg-generator template is a directory containing some special named directories and <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> files.</p>
-<p>Developers can use one of the pg-generator's builtin templates or create or modify templates according to their needs.</p>
+                <h1 id="alpha-stage">ALPHA STAGE</h1>
+<p>This template is in alpha stage. Feedback needed.</p>
+<h2 id="usage">Usage</h2>
+<p>Create template and model files:</p>
+<pre><code>$ pgen template objection -t objection-alpha-template
+$ pgen exec objection-alpha-template -d our_crm -u user -p tOpSeCrEt -t model
+</code></pre>
+<p>In your application, create a sequelize object and initialize models with it:</p>
+<pre><code class="js">var Knex    = require('knex');
+var knex    = new Knex({client: 'pg', connection: { database: 'our_crm', user: 'user',  password: 'tOpSeCrEt' }});
+var model   = require('./model/index.js').init(knex); // You only need to init once. You can just require later.
+
+model.Company.query()
+    .then(function(companies) {
+        console.log(companies[0].name);
+    })
+    .catch(function(error) {
+        console.log(err.stack);
+    });
+</code></pre>
+
+<h2 id="features-targets-some-are-not-implemented-yet">Features &amp; Targets (Some are not implemented yet):</h2>
+<ul>
+<li>Generated model files are as similar as possible to official Objection documents.</li>
+<li>Created files are static and transparent. They are not used to create models dynamically. So debugging and seeing what is generated is very easy for humans.</li>
+<li>Documented,</li>
+<li>Tested,</li>
+<li>No Dependencies on generated files,</li>
+<li>Multi schema support,</li>
+<li>One to many relation support (hasMany and belongsTo),</li>
+<li>Many to many relation support (belongsToMany),</li>
+<li>Inter-schema relation support. (i.e. public.account table to other_schema.cutomer table),</li>
+<li>Default smart naming of models and relations,</li>
+<li>Very easy to override auto generated files,</li>
+</ul>
               
             </div>
           </div>
@@ -224,10 +260,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../directories-files/" class="btn btn-neutral float-right" title="Directories & Files"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../api/template-module-api/" class="btn btn-neutral float-right" title="Template Module API"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../migration/" class="btn btn-neutral" title="Migration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../sequelize/" class="btn btn-neutral" title="Sequelize"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -255,10 +291,10 @@
           <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../migration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../sequelize/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../directories-files/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../api/template-module-api/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

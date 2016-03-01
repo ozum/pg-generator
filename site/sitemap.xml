@@ -59,6 +59,12 @@
      <changefreq>daily</changefreq>
     </url>
         
+    <url>
+     <loc>http://www.pg-generator.com/builtin-templates/objection/</loc>
+     <lastmod>2016-03-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     
