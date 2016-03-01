@@ -1,0 +1,74 @@
+{% set class = table.name | classCase -%}
+{% set relComma = joiner() -%}
+{% set idComma = joiner() -%}
+
+{% macro columns(columns, noTableName) -%}
+    {% set comma = joiner() -%}
+    {% if columns.length == 1 -%}
+        '{{ columnName(columns[0], noTableName) }}'
+    {%- else -%}
+        [{% for column in columns %}{{ comma() }} '{{ columnName(column, noTableName) }}'{% endfor %}]
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro columnName(column, noTableName) -%}
+    {%- if noTableName -%}
+        {{ column.name }}
+    {%- else -%}
+        {{ column.table.name }}.{{ column.name }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro file(table) -%}
+    path.join(__dirname, {{ table.name | dashCase | singleQuote }} )
+{%- endmacro -%}
+
+'use strict';
+
+const path = require('path');
+const Model = {};
+
+class {{ class }} extends Model {}
+
+{{ class }}.tableName = {{ table.name | singleQuote }};
+{{ class }}.idColumn = {{ columns(table.primaryKeyColumns.array, true)  }};
+
+{{ class }}.relationMappings = {
+    {% for relation in table.o2mRelations.array -%}
+        {{ relComma() }}{{ relation.generateName() | camelCase }}: {
+            relation: Model.OneToManyRelation,
+            modelClass: {{ file(relation.targetTable) }},
+            join: {
+                from: {{ columns(table.primaryKeyColumns.array) }},
+                to: {{ columns(relation.constraint.columns.array) }}
+            }
+        }
+    {% endfor -%}
+    {% for relation in table.m2oRelations.array -%}
+        {{ relComma() }}{{ relation.generateName() | camelCase }}: {
+            relation: Model.OneToOneRelation,
+            modelClass: {{ file(relation.targetTable) }},
+            join: {
+                from: {{ columns(relation.constraint.columns.array) }},
+                to: {{ columns(relation.constraint.referencedColumnsBy.array) }}
+            }
+        }
+    {% endfor -%}
+    {% for relation in table.m2mRelations.array -%}
+        {{ relComma() }}{{ relation.generateName() | camelCase }}: {
+            relation: Model.ManyToManyRelation,
+            modelClass: {{ file(relation.targetTable) }},
+            join: {
+                from: {{ columns(table.primaryKeyColumns.array) }},
+                through: {
+                    modelClass: {{ file(relation.joinTable) }},
+                    from: {{ columns(relation.sourceConstraint.columns.array) }},
+                    to: {{ columns(relation.targetConstraint.columns.array) }}
+                },
+                to: {{ columns(relation.targetTable.primaryKeyColumns.array) }}
+            }
+        }
+    {% endfor -%}
+};
+
+{{ class }}.jsonSchema = {{ pgen.tableJsonSchema(table) | stringifyIfObject }};

@@ -18,6 +18,7 @@ pg-generator offfers additional filters suitable for database scaffolding. Some 
 | pascalCase | Converts string to pascal case. | member_name | MemberName |
 | classCase | Converts string to class case. | member_name | MemberName |
 | snakeCase | Converts string to snake case. | memberName | member_name |
+| dashCase | Converts string to separated by dash (-). | member_Name | member-name |
 | singular | Converts string to singular. | member_names | member_name |
 | plural | Converts string to plural. | member_name | member_names |
 | clearDefault | Clears PostgreSQL default values to be used in JS code. | "O''Reilly" | "O'Reilly" |

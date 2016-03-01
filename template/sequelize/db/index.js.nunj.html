@@ -11,14 +11,14 @@ function init(sequelize) {
     // Import model files and assign them to `model` object.
     {% for schema in db.schemas.array -%}
         {% for table in schema.tables.array -%}
-            model.{{ modelName(table) }} = sequelize.import('./definition/{{ table.name }}.js');
+            model.{{ modelName(table) }} = sequelize.import('./definition/{{ table.name | dashCase }}.js');
         {% endfor -%}
     {% endfor %}
 
     // All models are initialized. Now connect them with relations.
     {% for schema in db.schemas.array -%}
        {% for table in schema.tables.array -%}
-           require('./definition/{{ table.name }}.js').initRelations();
+           require('./definition/{{ table.name | dashCase }}.js').initRelations();
        {% endfor -%}
     {% endfor -%}
 

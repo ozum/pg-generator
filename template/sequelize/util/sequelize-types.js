@@ -62,7 +62,7 @@ var sequelizeTypes = {
  * {{ sequelizeType('Sequelize') }}  // Sequelize.INTEGER(3)
  */
 function sequelizeType(column) {
-    if (!sequelizeTypes[column.type]) throw new Error(column.type + ' datatype is not defined in sequelize types of ' + __filename);
+    if (!sequelizeTypes[column.type]) throw new Error(`'${column.fullName}' column is data type of '${column.type}', which is not defined in sequelize types in ${__filename}`);
     var varName = 'DataTypes';
     var enumValues = column.enumValues;
     var type = enumValues ? '.ENUM' : sequelizeTypes[column.type].type;
