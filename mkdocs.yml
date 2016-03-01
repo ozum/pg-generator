@@ -19,6 +19,7 @@ pages:
     - Tutorial: builtin-templates/tutorial.md
     - Base: builtin-templates/base.md
     - Sequelize: builtin-templates/sequelize.md
+    - Objection: builtin-templates/objection.md
   - API:
     - Template Module API: api/template-module-api.md
   - History: history.md
