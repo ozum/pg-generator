@@ -25,8 +25,8 @@
 
 'use strict';
 
-const path = require('path');
-const Model = {};
+const path  = require('path');
+const Model = require('../model');
 
 class {{ class }} extends Model {}
 
@@ -72,3 +72,5 @@ class {{ class }} extends Model {}
 };
 
 {{ class }}.jsonSchema = {{ pgen.tableJsonSchema(table) | stringifyIfObject }};
+
+module.exports = {{ class }};

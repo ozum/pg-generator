@@ -1,0 +1,23 @@
+'use strict';
+
+const Model = require('./model');
+const model = {};
+
+function init(knex) {
+    delete module.exports.init; // Destroy itself to prevent repeated calls and clash with a model named 'init'.
+
+    Model.init(knex);
+
+    // Import model files and assign them to `models` object.
+    {% for schema in db.schemas.array -%}
+        {% for table in schema.tables.array -%}
+            model.{{ table.name | classCase }} = require('./definition/{{ table.name | dashCase }}.js');
+        {% endfor -%}
+    {% endfor -%}
+
+    return model;
+}
+
+// Note: While using this module, DO NOT FORGET FIRST CALL model.init(knex). Otherwise you get undefined.
+module.exports = model;
+module.exports.init = init;
