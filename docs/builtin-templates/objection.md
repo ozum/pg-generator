@@ -5,7 +5,7 @@ This template is in alpha stage. Feedback needed.
 
 Create template and model files:
 
-    $ pgen template objection -t objection-alpha-template
+    $ pgen template objection-alpha -t objection-alpha-template
     $ pgen exec objection-alpha-template -d our_crm -u user -p tOpSeCrEt -t model
 
 In your application, create a sequelize object and initialize models with it:
