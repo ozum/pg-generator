@@ -1,5 +1,7 @@
 {% from '../../partials/helper.nunj.html' import modelName, attributeName, hasOneAlias, hasManyAlias, belongsToAlias, belongsToManyAlias -%}
 {% set c = custom[modelName(table)] -%} {# Custom Data for this table i.e. "custom.Account" #}
+{% set templateDataFields = ['schema', 'tableName', 'comment', 'attributes',
+    'hasMany', 'belongsTo', 'belongsToMany', 'hasOne', 'timestamps'] -%}
 
 'use strict';
 
@@ -15,8 +17,7 @@ module.exports = function(sequelize, DataTypes) {
             ,comment: {{ c.comment or (table.comment | singleQuote) }}
         {% endif -%}
         {% for key, value in c -%} {# Custom table details from custom data not found in template #}
-            {%- if not (key == 'schema' or key == 'tableName' or key == 'comment' or key == 'attributes'
-                or key == 'hasMany' or key == 'belongsTo' or key == 'belongsToMany' or key == 'hasOne') -%}
+            {%- if (templateDataFields.indexOf(key) == -1) -%} {# Do not add dupilcates from custom data #}
                 ,{{ key }}: {{ value | stringifyIfObject }}
             {% endif -%}
         {% endfor -%}
