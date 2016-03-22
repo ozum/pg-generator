@@ -3,6 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.2.4 / 2016-03-22
+* Fixed: Template file names contain pipe `|` character for filtering. It's an invalid character in windows file names.
+Now `#` is used for filtering. For backward compatibility `|` can still be used. 
+
 ###### 3.2.0 / 2016-02-22
 * Added: New template 'objection-alpha' added. As name suggests, it is in alpha stage, needs some feedback.
 
