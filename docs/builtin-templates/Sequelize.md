@@ -23,7 +23,7 @@ model.Company.findOne({ where: {id: 1} })
     });
 ```
 
-After you initialized your model, tou shouldn't initialize it again and just require your model like below:
+After you initialized your model, you shouldn't initialize it again and just require your model like below:
   
 ```js
 var model = require('./model/index.js');    // No init here, because it is initialized before.
