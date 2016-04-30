@@ -11,18 +11,18 @@ module.exports = {
         },
         hasMany: {
             HasContacts: {
-                as: 'CustomHasContacts'
+                as: "'CustomHasContacts'"
             }
         },
         belongsTo: {
             Owner: {
-                as: 'CustomBelongsTo'
+                as: "'CustomBelongsTo'"
             }
         },
         belongsToMany: {
             ContactSecondCompanies: {
-                as: 'CustomBelongsToMany',
-                foreignKey: 'fake_id'
+                as: "'CustomBelongsToMany'",
+                foreignKey: "'fake_id'"
             }
         }
     },
