@@ -34,5 +34,12 @@ module.exports = {
         hasOne: {
             Contact: {}
         }
+    },
+    Contact: {
+        hasMany: {
+            OwnedCompanies: {
+                as: "'AliasedOwnedCompanies'"
+            }
+        }
     }
 };
