@@ -51,7 +51,6 @@
     "nunjucks": "^2.4.2",
     "pg": "^4.5.5",
     "pg-structure": "^3",
-    "sequelize": "^3.22.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
