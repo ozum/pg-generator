@@ -54,9 +54,6 @@
     "sequelize": "^3.22.0",
     "winston": "^2.2.0"
   },
-  "optionalDependencies": {
-    "pg-native": "^1"
-  },
   "devDependencies": {
     "chai": "^3",
     "knex": "^0",
