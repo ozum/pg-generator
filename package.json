@@ -45,7 +45,7 @@
     "commander": "^2",
     "fs-extra": "^0.30.0",
     "inflection": "^1.10.0",
-    "inquirer": "^1",
+    "inquirer": "^0",
     "js-beautify": "^1.6.2",
     "lodash": "^4.11.1",
     "nunjucks": "^2.4.2",
