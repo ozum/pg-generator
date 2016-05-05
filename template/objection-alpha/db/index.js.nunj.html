@@ -1,23 +1,40 @@
 'use strict';
 
-const Model = require('./model');
+const objection = require('objection');
 const model = {};
+let initialized = false;
 
-function init(knex) {
-    delete module.exports.init; // Destroy itself to prevent repeated calls and clash with a model named 'init'.
+/**
+* Initializes connection, loads model files and assign them to exported property `module.exports.model`. Also assigns `objection.Model`
+* or given subclass of it to `module.exports.Model`. Should be called only once.
+* @param    {knex}                      knex                            - Knex instance to use with model.
+* @param    {objection.Model}           [customModel=objection.Model]   - Optional objection model object, if you want to use custom subclassed model. See [custom query builder](http://vincit.github.io/objection.js/#custom-query-builder)
+* @returns  {Object.<string, Object>}                                   - Keys are names of entities, values are `objection.Model` subclasses for that entity.
+* @throws                                                               - Init function supposed to be called only once. When called more than once, this function throws exception.
+*/
+function init(knex, customModel) {
+    if (initialized) {
+        throw new Error('Model is already initialized. init function must be called only once.');
+    }
+    initialized = true;
 
-    Model.init(knex);
+    module.exports.Model = customModel || objection.Model;  // If no model is given use default Model.
+    module.exports.Model.knex(knex);                        // Give the connection to objection.
 
-    // Import model files and assign them to `models` object.
+
+    // Import model files and assign them to `model` object.
     {% for schema in db.schemas.array -%}
         {% for table in schema.tables.array -%}
             model.{{ table.name | classCase }} = require('./definition/{{ table.name | dashCase }}.js');
         {% endfor -%}
     {% endfor -%}
-
-    return model;
 }
 
-// Note: While using this module, DO NOT FORGET FIRST CALL model.init(knex). Otherwise you get undefined.
-module.exports = model;
+/** objection.Model or subclass of it. */
+module.exports.Model = null;    // Will be assigned by init function
+
+/** Objection models representing database tables. */
+module.exports.model = model;
+
+/** Init function */
 module.exports.init = init;

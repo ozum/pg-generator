@@ -11,9 +11,12 @@ Create template and model files:
 In your application, create a sequelize object and initialize models with it:
 
 ```js
-var Knex    = require('knex');
-var knex    = new Knex({client: 'pg', connection: { database: 'our_crm', user: 'user',  password: 'tOpSeCrEt' }});
-var model   = require('./model/index.js').init(knex); // You only need to init once. You can just require later.
+const Knex = require('knex');
+const knex = Knex({ client: 'pg', connection: { host: 'localhost', user: 'user', password: 'password', database: 'my_database' } });
+const models = require('./model/index');
+
+models.init(knex);
+const model = models.model;
 
 model.Company.query()
     .then(function(companies) {

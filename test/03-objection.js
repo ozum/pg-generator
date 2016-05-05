@@ -31,7 +31,11 @@ lab.before((done) => {
         .then(() => {
             let modelFile = './model-objection/index.js';
             knex = new Knex({client: 'pg', connection: { database: testDB.credentials.database, user: testDB.credentials.user,  password: testDB.credentials.password }});
-            model = require(modelFile).init(knex);
+            let models = require(modelFile)
+
+            models.init(knex);
+            model = models.model;
+
             done();
         })
         .catch(done);

@@ -3,6 +3,11 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.3.0 / 2016-05-05
+* Added: Objection template can be used with custom objection.Model subclass.
+* Changed: Objection template is simplified. Still in alpha stage.
+* Changed: Documentation update.
+
 ###### 3.2.4 / 2016-03-22
 * Fixed: Template file names contain pipe `|` character for filtering. It's an invalid character in windows file names.
 Now `#` is used for filtering. For backward compatibility `|` can still be used. 
