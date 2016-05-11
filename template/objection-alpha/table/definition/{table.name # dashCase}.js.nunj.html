@@ -36,7 +36,7 @@ class {{ class }} extends Model {}
 {{ class }}.relationMappings = {
     {% for relation in table.o2mRelations.array -%}
         {{ relComma() }}{{ relation.generateName() | camelCase }}: {
-            relation: Model.OneToManyRelation,
+            relation: Model.HasManyRelation,
             modelClass: {{ file(relation.targetTable) }},
             join: {
                 from: {{ columns(table.primaryKeyColumns.array) }},
@@ -46,7 +46,7 @@ class {{ class }} extends Model {}
     {% endfor -%}
     {% for relation in table.m2oRelations.array -%}
         {{ relComma() }}{{ relation.generateName() | camelCase }}: {
-            relation: Model.OneToOneRelation,
+            relation: Model.BelongsToOneRelation,
             modelClass: {{ file(relation.targetTable) }},
             join: {
                 from: {{ columns(relation.constraint.columns.array) }},
