@@ -59,7 +59,7 @@
     "lab": "^10.3.2",
     "objection": "^0",
     "pg-hstore": "^2",
-    "pg-test-util": "^1",
+    "pg-test-util": "^1.3.3",
     "sequelize": "^3"
   }
 }

@@ -3,6 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.4.0 / 2016-06-27
+* Added: `-nobeautifier` CLI option added.
+* Added: `beautifier` option added.
+
 ###### 3.3.0 / 2016-05-05
 * Added: Objection template can be used with custom objection.Model subclass.
 * Changed: Objection template is simplified. Still in alpha stage.
