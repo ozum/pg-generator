@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Özüm Eldoğan">
   
   <title>Filters - pg-generator</title>
   
@@ -21,6 +24,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Filters";
+    var mkdocs_page_input_path = "template/filters.md";
+    var mkdocs_page_url = "/template/filters/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -287,7 +292,7 @@
 </tr>
 <tr>
 <td>quote</td>
-<td>Adds quotes to string using <code>JSON.stringify</code></td>
+<td>Adds quotes to string using <code>JSON.stringify</code>.</td>
 <td>member_name</td>
 <td>"member_name"</td>
 </tr>
@@ -305,19 +310,19 @@
 </tr>
 <tr>
 <td>stripPrefix(arg1, arg2, ...)</td>
-<td>Strips given texts and <code>object.name</code> from beginning of string.</td>
+<td>Strips given texts and <code>object.name</code>s from beginning of string.</td>
 <td>cart_cart_id<sup>1</sup></td>
 <td>cart_id</td>
 </tr>
 <tr>
 <td>stripSuffix(arg1, arg2, ...)</td>
-<td>Strips given texts and <code>object.name</code> from end of string.</td>
+<td>Strips given texts and <code>object.name</code>s from end of string.</td>
 <td>cart_id<sup>2</sup></td>
 <td>cart</td>
 </tr>
 <tr>
 <td>strip(arg1, arg2, ...)</td>
-<td>Strips given texts and <code>object.name</code> from string.</td>
+<td>Strips given texts and <code>object.name</code>s from string.</td>
 <td>cart_product_id<sup>3</sup></td>
 <td>cart_id</td>
 </tr>
@@ -485,7 +490,7 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../builtin-templates/tutorial/" class="btn btn-neutral float-right" title="Tutorial"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../builtin-templates/tutorial/" class="btn btn-neutral float-right" title="Tutorial">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../directories-files/" class="btn btn-neutral" title="Directories & Files"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -513,7 +518,7 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
 <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/ozum/pg-generator.git" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../directories-files/" style="color: #fcfcfc;">&laquo; Previous</a></span>

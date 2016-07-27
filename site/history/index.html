@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Özüm Eldoğan">
   
   <title>History - pg-generator</title>
   
@@ -21,6 +24,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "History";
+    var mkdocs_page_input_path = "history.md";
+    var mkdocs_page_url = "/history/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -161,6 +166,8 @@
             
                 <li class="toctree-l3"><a href="#history-release-notes">History &amp; Release Notes</a></li>
                 
+                    <li><a class="toctree-l4" href="#340-2016-06-27">3.4.0 / 2016-06-27</a></li>
+                
                     <li><a class="toctree-l4" href="#330-2016-05-05">3.3.0 / 2016-05-05</a></li>
                 
                     <li><a class="toctree-l4" href="#324-2016-03-22">3.2.4 / 2016-03-22</a></li>
@@ -264,6 +271,11 @@
               
                 <h1 id="history-release-notes">History &amp; Release Notes</h1>
 <p><strong>Note</strong>: Version history for minimal documentation updates are not listed here to prevent cluttering.</p>
+<h6 id="340-2016-06-27">3.4.0 / 2016-06-27</h6>
+<ul>
+<li>Added: <code>-nobeautifier</code> CLI option added.</li>
+<li>Added: <code>beautifier</code> option added.</li>
+</ul>
 <h6 id="330-2016-05-05">3.3.0 / 2016-05-05</h6>
 <ul>
 <li>Added: Objection template can be used with custom objection.Model subclass.</li>
@@ -417,7 +429,7 @@ Now <code>#</code> is used for filtering. For backward compatibility <code>|</co
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../license/" class="btn btn-neutral float-right" title="License"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../license/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../api/template-module-api/" class="btn btn-neutral" title="Template Module API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -445,7 +457,7 @@ Now <code>#</code> is used for filtering. For backward compatibility <code>|</co
 <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/ozum/pg-generator.git" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../api/template-module-api/" style="color: #fcfcfc;">&laquo; Previous</a></span>
