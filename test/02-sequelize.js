@@ -39,7 +39,7 @@ lab.before((done) => {
 
 lab.after((done) => {
     testDB.dropDB().then(() => {
-        //fs.removeSync(path.join(__dirname, 'model-sequelize'));
+        fs.removeSync(path.join(__dirname, 'model-sequelize'));
         done();
     });
 });
