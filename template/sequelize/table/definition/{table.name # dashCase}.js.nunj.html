@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         tableName: '{{ c.tableName or table.name }}',
         timestamps: {{ c.timestamps or 'false' }}
         {%- if c.comment or table.comment -%}
-            ,comment: {{ c.comment or (table.comment | singleQuote) }}
+            ,comment: {{ (c.comment or (table.comment | singleQuote)) | singleLine }}
         {% endif -%}
         {% for key, value in c -%} {# Custom table details from custom data not found in template #}
             {%- if (templateDataFields.indexOf(key) == -1) -%}

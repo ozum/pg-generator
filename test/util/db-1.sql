@@ -35,7 +35,8 @@ COMMENT ON COLUMN "company"."updated_at" IS 'Update time.'
 ;
 COMMENT ON COLUMN "company"."name" IS 'Name of the company.'
 ;
-COMMENT ON COLUMN "company"."income" IS 'Yearly income.'
+COMMENT ON COLUMN "company"."income" IS 'Yearly income.
+Multi Line.'
 ;
 
 -- Create indexes for table company

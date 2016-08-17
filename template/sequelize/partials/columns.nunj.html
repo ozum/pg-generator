@@ -22,7 +22,7 @@
         {% endif -%}
 
         {%- if cc.comment or column.comment -%}
-            ,comment: {{ cc.comment or (column.comment | singleQuote) }}
+            ,comment: {{ (cc.comment or (column.comment | singleQuote)) | singleLine }}
         {% endif -%}
 
         {%- if cc.references or column.referencedColumns.array[0] -%}

@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             field: 'income',
             allowNull: true,
-            comment: 'Yearly income.'
+            comment: 'Yearly income.\nMulti Line.'
         }
     }, {
         schema: 'public',
