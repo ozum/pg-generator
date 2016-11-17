@@ -3,6 +3,9 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.4.5 / 2016-11-17
+* SSL option added to CLI. Thanks to [gbahamondezc](https://github.com/gbahamondezc).
+
 ###### 3.4.2 / 2016-08-17
 * Added: `singleLine` nunjucks filter added.
 * Fixed: Multi line database comments throw exception.
