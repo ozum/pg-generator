@@ -3,7 +3,7 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
-###### 3.5.0 / 2016-12-8
+###### 3.4.6 / 2016-12-8
 
 * Custom data `attributeName` added for `sequelize` template. [#38](https://github.com/ozum/pg-generator/issues/38).
 
