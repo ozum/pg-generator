@@ -1,8 +1,8 @@
 {% for column in table.columns.array -%}
     {% set cc = custom[modelName(table)].attributes[attributeName(column)] -%} {# Custom Data for this attrbute i.e. "custom.Account.attributes.surname" #}
-    {{ attributeName(column) }}: {
+    {{ attributeName(column, cc) }}: {
         type: {{ (cc.type or util.sequelizeType(column)) }},
-        field: {{ (cc.name or column.name) | singleQuote }},
+        field: {{ (cc.field or cc.name or column.name) | singleQuote }},
         allowNull: {{ cc.allowNull or column.allowNull }}
 
         {%- if cc.default or (column.default | clearDefault) -%}
@@ -39,7 +39,8 @@
 
         {%- for key, value in cc -%} {# Custom attribute details from custom data not found in template #}
             {%- if not (key == 'type' or key == 'name' or key == 'allowNull' or key == 'default' or key == 'defaultValue' or key == 'unique'
-                or key == 'primaryKey' or key == 'autoIncrement' or key == 'comment' or key == 'references' or key == 'onUpdate' or key == 'onDelete') -%}
+                or key == 'primaryKey' or key == 'autoIncrement' or key == 'comment' or key == 'references' or key == 'onUpdate' or key == 'onDelete'
+                or key == 'attributeName') -%}
                 ,{{ key }}: {{ value | stringifyIfObject }}
             {% endif -%}
         {% endfor -%}

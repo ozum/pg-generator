@@ -5,8 +5,8 @@
     {{ table.name | classCase }}
 {%- endmacro -%}
 
-{% macro attributeName(column) -%}
-    {{ column.name | camelCase }}
+{% macro attributeName(column, cc) -%}
+    {{ cc.attributeName or column.name | camelCase }}
 {%- endmacro -%}
 
 {% macro hasManyAlias(relation) -%}

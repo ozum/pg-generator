@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             comment: 'Creation time.'
         },
-        name: {
+        customNameFromCustomData: {
             type: DataTypes.STRING(20),
             field: 'name',
             allowNull: true,
