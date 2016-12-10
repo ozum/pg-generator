@@ -118,7 +118,8 @@ CREATE TABLE "cart"(
  "id" Serial NOT NULL,
  "contact_id" Integer NOT NULL,
  "created_at" Timestamp(0) DEFAULT now() NOT NULL,
- "name" Character varying(20)
+ "name" Character varying(20),
+ "VAT" Character varying(20)
 )
 ;
 

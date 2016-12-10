@@ -28,7 +28,8 @@ module.exports = {
     },
     Cart: {
         attributes: {
-            name: { attributeName: 'customNameFromCustomData' }
+            name: { attributeName: 'customNameFromCustomData' },
+            VAT: { attributeName: 'vat' }
         },
         customDataString: "'String'",
         customDataObject: { a: 1, b: 'O\'Reilly'}

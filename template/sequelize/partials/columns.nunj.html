@@ -1,5 +1,5 @@
 {% for column in table.columns.array -%}
-    {% set cc = custom[modelName(table)].attributes[attributeName(column)] -%} {# Custom Data for this attrbute i.e. "custom.Account.attributes.surname" #}
+    {% set cc = custom[modelName(table)].attributes[column.name] -%} {# Custom Data for this attrbute i.e. "custom.Account.attributes.surname" #}
     {{ attributeName(column, cc) }}: {
         type: {{ (cc.type or util.sequelizeType(column)) }},
         field: {{ (cc.field or cc.name or column.name) | singleQuote }},

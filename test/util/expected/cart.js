@@ -33,6 +33,11 @@ module.exports = function(sequelize, DataTypes) {
             field: 'name',
             allowNull: true,
             comment: 'Name of the cart.'
+        },
+        vat: {
+            type: DataTypes.STRING(20),
+            field: 'VAT',
+            allowNull: true
         }
     }, {
         schema: 'public',
