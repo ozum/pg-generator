@@ -26,6 +26,12 @@ First command copies one of the builtin templates (sequelize) into target direct
 1. Use `pgen template` to copy one of the builtin templates or create your own template. (You can use base template for starting up.)
 1. Use `pgen exec` to create files based on your template.
 
+You can access CLI options and their description via `-h` or `--help` arguments.
+
+    $ pgen --help
+    $ pgen template --help
+    $ pgen exec --help
+
 ## Template
 
 Creating a template from scratch is easy. Execute command below:
