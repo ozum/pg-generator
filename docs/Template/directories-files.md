@@ -60,7 +60,7 @@ Files in this directory are not processed by template engine and directly copied
 
 ### "index.js" file
 
-`index.js` file is a node.js module file which exports `allData`, `dbData`, `schemaData` and `tableData` functions. Those functions are used to provide additional variables to template files. It makes pg-generator templates very flexible. See [Template Module API](../API/Template Module API.md)
+`index.js` file is a node.js module file which exports `allData`, `dbData`, `schemaData` and `tableData` functions. Those functions are used to provide additional variables to template files. It makes pg-generator templates very flexible. See [Template Module API](../api/template-module-api.md)
 
 ```js
 'use strict';
