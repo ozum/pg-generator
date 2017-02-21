@@ -38,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(20),
             field: 'name',
             allowNull: false,
+            defaultValue: "",
             comment: 'Name of the company.'
         },
         income: {
@@ -45,6 +46,18 @@ module.exports = function(sequelize, DataTypes) {
             field: 'income',
             allowNull: true,
             comment: 'Yearly income.\nMulti Line.'
+        },
+        codeString: {
+            type: DataTypes.STRING(20),
+            field: 'code_string',
+            allowNull: true,
+            defaultValue: "0"
+        },
+        codeInteger: {
+            type: DataTypes.INTEGER,
+            field: 'code_integer',
+            allowNull: true,
+            defaultValue: 0
         }
     }, {
         schema: 'public',

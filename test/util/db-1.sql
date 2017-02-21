@@ -1,6 +1,6 @@
 /*
 Created: 24.11.2015
-Modified: 09.12.2015
+Modified: 21.02.2017
 Project: pg-generator-test
 Model: pg-generator-test
 Company: Fortibase
@@ -8,6 +8,8 @@ Author: Özüm Eldoğan
 Version: 1.0.0
 Database: PostgreSQL 9.4
 */
+
+
 
 -- Create tables section -------------------------------------------------
 
@@ -18,8 +20,10 @@ CREATE TABLE "company"(
  "owner_id" Integer,
  "created_at" Timestamp(0) DEFAULT now() NOT NULL,
  "updated_at" Timestamp(0) DEFAULT now() NOT NULL,
- "name" Character varying(20) NOT NULL,
- "income" Integer
+ "name" Character varying(20) DEFAULT '' NOT NULL,
+ "income" Integer,
+ "code_string" Character varying(20) DEFAULT '0',
+ "code_integer" Integer DEFAULT 0
 )
 ;
 
@@ -183,6 +187,9 @@ ALTER TABLE "cart_line_item" ADD CONSTRAINT "cart_cart_line_items" FOREIGN KEY (
 
 ALTER TABLE "cart" ADD CONSTRAINT "contact_carts" FOREIGN KEY ("contact_id") REFERENCES "contact" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 ;
+
+
+
 
 
 
