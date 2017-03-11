@@ -63,4 +63,17 @@ Also documentation is auto generated thanks to:
 ## Contributions
 
 * For contribution please send pull requests with tests on [GitHub](https://github.com/ozum/pg-generator.git).
-* Send bugs and feature requests to [GitHub Issues](https://github.com/ozum/pg-generator/issues).
+
+## BUG REPORTS
+
+Without necessary information, it is hard to impossible to debug every error for every database.
+
+Please include details below in your bug reports.
+ 
+1. `pg-generator` and PostgreSQL version,
+1. DDL (Database creation script),
+1. `pgen` commands you executed,
+1. JS code you executed if it is a runtime bug,
+1. Error message.
+
+Send bug reports and feature requests to [GitHub Issues](https://github.com/ozum/pg-generator/issues).
