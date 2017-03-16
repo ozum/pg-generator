@@ -239,9 +239,10 @@
 <h2 id="sequelize-example">Sequelize Example</h2>
 <p>See <a href="http://www.pg-generator.com/builtin-templates/sequelize/">sequelize template</a> for usage and details.</p>
 <pre><code>$ pgen template sequelize -t sequelize-template
-$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
+$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --fix
 </code></pre>
 <p>First command copies one of the builtin templates (sequelize) into target directory (sequelize-template). Second command generates files based on given template (sequelize-template) into target directory (model).  </p>
+<p>You may change generated templates according to your requirements, also <strong>you should add generated templates to your repository</strong>.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <ol>
 <li>Use <code>pgen template</code> to copy one of the builtin templates or create your own template. (You can use base template for starting up.)</li>
@@ -334,5 +335,5 @@ $ pgen exec --help
 
 <!--
 MkDocs version : 0.16.0
-Build Date UTC : 2017-03-11 06:13:28
+Build Date UTC : 2017-03-16 20:09:22
 -->
