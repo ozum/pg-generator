@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
     Account: {
         schema: 'super_schema',

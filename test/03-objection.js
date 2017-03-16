@@ -1,24 +1,24 @@
 'use strict';
-var Lab             = require('lab');
-var Chai            = require('chai');
-var Generator       = require('../index.js');
-var path            = require('path');
-var fs              = require('fs-extra');
-var Knex            = require('knex');
+const Lab             = require('lab');
+const Chai            = require('chai');
+const Generator       = require('../index.js');
+const path            = require('path');
+const fs              = require('fs-extra');
+const Knex            = require('knex');
 
-var lab         = exports.lab = Lab.script();
-var describe    = lab.describe;
-var it          = lab.it;
-var testDB      = require('./util/test-db.js');
-var expect      = Chai.expect;
+const lab         = exports.lab = Lab.script();
+const describe    = lab.describe;
+const it          = lab.it;
+const testDB      = require('./util/test-db.js');
+const expect      = Chai.expect;
 
-var model;
-var knex;
+let model;
+let knex;
 
 lab.before((done) => {
     testDB.createDB(1)
         .then(() => {
-            var gen = new Generator({
+            const gen = new Generator({
                 logLevel: 'error',
                 connection: testDB.credentials,
                 templateDir: path.join(__dirname, '../template/objection-alpha'),
@@ -29,7 +29,7 @@ lab.before((done) => {
             return gen.writeAll();
         })
         .then(() => {
-            let modelFile = './model-objection/index.js';
+            const modelFile = './model-objection/index.js';
             knex = new Knex({client: 'pg', connection: { database: testDB.credentials.database, user: testDB.credentials.user,  password: testDB.credentials.password }});
             let models = require(modelFile)
 

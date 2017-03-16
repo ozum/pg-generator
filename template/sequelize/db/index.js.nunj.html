@@ -1,10 +1,13 @@
+/* eslint global-require: "off" */
 {% from '../partials/helper.nunj.html' import modelName -%}
+const model     = {};
+let initialized = false;
 
-'use strict';
-
-var model       = {};
-var initialized = false;
-
+/**
+* Initializes sequelize models and their relations.
+* @param   {Object} sequelize  - Sequelize instance.
+* @returns {Object}            - Sequelize models.
+*/
 function init(sequelize) {
     delete module.exports.init; // Destroy itself to prevent repeated calls and clash with a model named 'init'.
     initialized = true;

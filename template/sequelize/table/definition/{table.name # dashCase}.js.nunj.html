@@ -1,10 +1,8 @@
+/* eslint new-cap: "off", global-require: "off" */
 {% from '../../partials/helper.nunj.html' import modelName, attributeName, hasOneAlias, hasManyAlias, belongsToAlias, belongsToManyAlias -%}
 {% set c = custom[modelName(table)] -%} {# Custom Data for this table i.e. "custom.Account" #}
 {% set templateDataFields = ['schema', 'tableName', 'comment', 'attributes', 'hasMany', 'belongsTo', 'belongsToMany', 'hasOne', 'timestamps'] -%}
-
-'use strict';
-
-module.exports = function(sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
     return sequelize.define('{{ modelName(table) }}', {
         {%- include "../../partials/columns.nunj.html" -%}
         {% include '../../partials/extra-attributes.nunj.html' -%}
@@ -23,16 +21,20 @@ module.exports = function(sequelize, DataTypes) {
     });
 };
 
-module.exports.initRelations = function() {
+module.exports.initRelations = () => {
+    {% set uniqueRelatedTables = util.uniqueRelatedTables(table) -%}
     delete module.exports.initRelations; // Destroy itself to prevent repeated calls.
-    var model = require('../index');
-    var {{ modelName(table) }} = model.{{ modelName(table) }};
 
-    {%- for targetTable in util.uniqueRelatedTables(table) -%}
-        var {{ modelName(targetTable) }} = model.{{ modelName(targetTable) }};
+    {% if uniqueRelatedTables | length > 0 -%}
+    const model = require('../index');
+    const {{ modelName(table) }} = model.{{ modelName(table) }};
+
+    {%- for targetTable in uniqueRelatedTables  -%}
+        const {{ modelName(targetTable) }} = model.{{ modelName(targetTable) }};
     {% endfor %}
 
     {% include '../../partials/has-many.nunj.html' -%}
     {% include '../../partials/belongs-to.nunj.html' -%}
     {% include '../../partials/belongs-to-many.nunj.html' -%}
+    {% endif -%}
 };

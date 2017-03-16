@@ -17,9 +17,11 @@
 See [sequelize template](http://www.pg-generator.com/builtin-templates/sequelize/) for usage and details.
 
     $ pgen template sequelize -t sequelize-template
-    $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
+    $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --fix
 
 First command copies one of the builtin templates (sequelize) into target directory (sequelize-template). Second command generates files based on given template (sequelize-template) into target directory (model).  
+
+You may change generated templates according to your requirements, also **you should add generated templates to your repository**.
 
 ## Basic Usage
 

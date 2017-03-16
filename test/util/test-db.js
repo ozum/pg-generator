@@ -1,11 +1,9 @@
-'use strict';
+const PgTestUtil  = require('pg-test-util');
+const path        = require('path');
 
-var PgTestUtil  = require('pg-test-util');
-var path        = require('path');
+const db = 'pg-generator-test-7348G63';
 
-var db = 'pg-generator-test-7348G63';
-
-var dbOptions = {
+const dbOptions = {
     host: 'localhost',
     port: 5432,
     user: 'user',
@@ -13,16 +11,16 @@ var dbOptions = {
     defaultDatabase: db
 };
 
-var pgUtil = new PgTestUtil(dbOptions);
+const pgUtil = new PgTestUtil(dbOptions);
 
-var createDB = function createDB(code) {
+const createDB = function createDB(code) {
     return pgUtil.createDB(db, { drop: false })
         .then(() => { return pgUtil.executeSQLFile(path.join(__dirname, `db-${code}.sql`)); })
         .then(() => { return pgUtil.executeSQLFile(path.join(__dirname, `data-${code}.sql`)); })
         .catch((err) => { console.log(err); });
 };
 
-var dropDB = function dropDB() {
+const dropDB = function dropDB() {
     return pgUtil.dropDB(db);
 };
 

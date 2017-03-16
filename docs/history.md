@@ -3,6 +3,10 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 3.5.0 / 2017-03-16
+* Added: eslint --fix feature added with `lintFix` option. If it is set to true and eslint command is available,
+generated files are fixed with eslint according to .eslintrc or settings in your project.
+
 ###### 3.4.14 / 2017-02-21
 * Fixed: Empty and numeric default values were generated wrong. 
 

@@ -1,6 +1,4 @@
-'use strict';
-
-var sequelizeType   = require('./util/sequelize-types');
+const sequelizeType   = require('./util/sequelize-types');
 
 /**
  * Returns an array of all tables related to this table. Duplicates are removed, so every related table in the result array is unique.
@@ -8,12 +6,12 @@ var sequelizeType   = require('./util/sequelize-types');
  * @returns {Array.<pgStructure.table>}         - List of related tables.
  */
 function uniqueRelatedTables(table) {
-    let visited = {};
-    let result = [];
+    const visited = {};
+    const result = [];
     visited[table.name] = true;
 
     table.relations.forEach((relation) => {
-        let tableName = relation.targetTable.name;
+        const tableName = relation.targetTable.name;
         if (visited[tableName]) { return; }
         visited[tableName] = true;
         result.push(relation.targetTable);
@@ -24,7 +22,7 @@ function uniqueRelatedTables(table) {
 }
 
 function allData(db) {
-    let data = { util : {} };
+    const data = { util : {} };
     data.util.uniqueRelatedTables = uniqueRelatedTables;
     data.util.sequelizeType = sequelizeType;
     return data;

@@ -1,7 +1,5 @@
-'use strict';
-
 // PostgreSQL Enum type comes as user-defined. As a result it should be handled manually.
-var sequelizeTypes = {
+const sequelizeTypes = {
     array                           : { type: '.ARRAY' },
     bigint                          : { type: '.BIGINT', hasLength: true },
     bigserial                       : { type: '.BIGINT', hasLength: true },
@@ -63,20 +61,20 @@ var sequelizeTypes = {
  */
 function sequelizeType(column) {
     if (!sequelizeTypes[column.type]) throw new Error(`'${column.fullName}' column is data type of '${column.type}', which is not defined in sequelize types in ${__filename}`);
-    var varName = 'DataTypes';
-    var enumValues = column.enumValues;
-    var type = enumValues ? '.ENUM' : sequelizeTypes[column.type].type;
-    var realType = column.arrayDimension >= 1 ? column.arrayType : column.type; // Type or type of array (if array).
-    var hasLength = sequelizeTypes[realType].hasLength;
-    var hasPrecision = sequelizeTypes[realType].hasPrecision;
-    var isObject = type && type.indexOf('.') !== -1;             // . ile başlıyorsa değişkene çevirmek için
-    var details;
-    var isArrayTypeObject;
+    const varName = 'DataTypes';
+    let enumValues = column.enumValues;
+    let type = enumValues ? '.ENUM' : sequelizeTypes[column.type].type;
+    const realType = column.arrayDimension >= 1 ? column.arrayType : column.type; // Type or type of array (if array).
+    const hasLength = sequelizeTypes[realType].hasLength;
+    const hasPrecision = sequelizeTypes[realType].hasPrecision;
+    const isObject = type && type.indexOf('.') !== -1;             // . ile başlıyorsa değişkene çevirmek için
+    let details;
+    let isArrayTypeObject;
 
     if (isObject) { type = varName + type; }
 
     details = function(num1, num2) {
-        var detail = '';
+        let detail = '';
         if (num1 >= 0 && num1 !== null && num2 && num2 !== null) {
             detail = '(' + num1 + ',' + num2 + ')';         // (5,2)
         } else if (num1 >= 0 && num1 !== null) {

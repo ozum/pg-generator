@@ -1,5 +1,3 @@
-'use strict';
-
 // This file is used for providing additional data to templates during generation phase.
 
 /**

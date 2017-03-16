@@ -17,7 +17,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "node_modules/lab/bin/lab -l",
+    "test": "lab --timeout 3500 --globals @@any-promise/REGISTRATION,__core-js_shared__",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "eslint lib && npm test;",
     "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;"
@@ -43,7 +43,8 @@
   "dependencies": {
     "chalk": "^1.x",
     "commander": "^2",
-    "fs-extra": "^2.x",
+    "eslint-fixer": "^0.x",
+    "fs-promise": "^2.x",
     "inflection": "^1.x",
     "inquirer": "^0",
     "js-beautify": "^1.x",
@@ -55,9 +56,15 @@
     "winston": "^2.x"
   },
   "devDependencies": {
+    "babel-eslint": "^7.1.1",
     "chai": "^3",
+    "eslint-config-airbnb": "^14.x",
+    "eslint-plugin-import": "^2.x",
+    "eslint-plugin-jsx-a11y": "^4.x",
+    "eslint-plugin-react": "^6.x",
     "knex": "^0",
-    "lab": "^11.x",
+    "lab": "^13.x",
+    "mz": "^2.x",
     "objection": "^0",
     "pg-hstore": "^2",
     "pg-test-util": "^1.x",
