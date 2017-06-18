@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Özüm Eldoğan">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Sequelize - pg-generator</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sequelize";
+    var mkdocs_page_input_path = "builtin-templates/sequelize.md";
+    var mkdocs_page_url = "/builtin-templates/sequelize/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-45732546-5', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> pg-generator</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../relation-names/">Relation Names</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../migration/">Migration</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Template</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../template/template/">Template</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../template/directories-files/">Directories & Files</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../template/filters/">Filters</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Builtin Templates</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../tutorial/">Tutorial</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../base/">Base</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Sequelize</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#usage">Usage</a></li>
+    
+
+    <li class="toctree-l3"><a href="#features">Features:</a></li>
+    
+
+    <li class="toctree-l3"><a href="#template-utility-functions">Template Utility Functions</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#uniquerelatedtablestable-arraypgstructuretable">uniqueRelatedTables(table) ⇒ Array.&lt;pgStructure.table&gt;</a></li>
+        
+            <li><a class="toctree-l4" href="#sequelizetypecolumn-string">sequelizeType(column) ⇒ string</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#relations">Relations</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#special-case-hasone">Special Case: hasOne</a></li>
+        
+            <li><a class="toctree-l4" href="#smart-default-naming-of-aliases">Smart Default Naming of Aliases</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#faq">FAQ</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#i-have-multiple-schema-with-same-table-names-in-them-how-can-i-prevent-collision-of-my-model-names">I have multiple schema with same table names in them. How can I prevent collision of my model names?</a></li>
+        
+            <li><a class="toctree-l4" href="#i-hate-aliases-that-sequelize-template-generate-what-can-i-do">I hate aliases that sequelize template generate. What can I do?</a></li>
+        
+            <li><a class="toctree-l4" href="#nunjhtml-file-extension-is-ugly">*.nunj.html file extension is ugly.</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../objection/">Objection</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../api/template-module-api/">Template Module API</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../history/">History</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">pg-generator</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Builtin Templates &raquo;</li>
+        
+      
+    
+    <li>Sequelize</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/builtin-templates/sequelize.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>This template is successor of <a href="https://www.npmjs.com/package/sequelize-pg-generator">sequelize-pg-generator</a> module which is used for creating <a href="../docs.sequelizejs.com">sequelize</a> models from existing PostgreSQL database.</p>
+<h2 id="usage">Usage</h2>
+<p>Create template and model files:</p>
+<pre><code>$ pgen template sequelize -t sequelize-template
+$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
+</code></pre>
+<p>In your application, create a sequelize object and initialize models with it:</p>
+<pre><code class="js">var Sequelize   = require('sequelize');
+var sequelize   = new Sequelize('database', 'user', 'password', { dialect: 'postgres', logging: false });
+var model       = require('./model/index.js').init(sequelize); // You only need to init once. You can just require later.
+
+model.Company.findOne({ where: {id: 1} })
+    .then(function(company) {
+        console.log(company.name);
+    })
+    .catch(function(error) {
+        console.log(err.stack);
+    });
+</code></pre>
+
+<p>After you initialized your model, you shouldn't initialize it again and just require your model like below:</p>
+<pre><code class="js">var model = require('./model/index.js');    // No init here, because it is initialized before.
+
+// Your code here.
+</code></pre>
+
+<h2 id="features">Features:</h2>
+<ul>
+<li>Generated model files are as similar as possible to official Sequelize documents.</li>
+<li>Created files are static and transparent. They are not used to create models dynamically. So debugging and seeing what is generated is very easy for humans.</li>
+<li>Documented,</li>
+<li>Tested,</li>
+<li>No Dependencies on generated files,</li>
+<li>Multi schema support,</li>
+<li>One to many relation support (hasMany and belongsTo),</li>
+<li>Many to many relation support (belongsToMany),</li>
+<li>Inter-schema relation support. (i.e. public.account table to other_schema.cutomer table),</li>
+<li>Ultimately configurable and customizable by modifying template files,</li>
+<li>No configuration file to modify,</li>
+<li>CLI support,</li>
+<li>Default smart naming of models and relations,</li>
+<li>Very easy to override auto generated files,</li>
+<li>Table Specific Configuration.</li>
+</ul>
+<h2 id="template-utility-functions">Template Utility Functions</h2>
+<p>Templates have passed a variable called <code>util</code> which provides some useful utilities.</p>
+<pre><code>type: {{ util.sequelizeType(column) }}  -&gt; type: DataTypes.INTEGER
+</code></pre>
+<p><a name="uniqueRelatedTables"></a></p>
+<h3 id="uniquerelatedtablestable-arraypgstructuretable">uniqueRelatedTables(table) ⇒ <code>Array.&lt;pgStructure.table&gt;</code></h3>
+<p>Returns an array of all tables related to this table. Duplicates are removed, so every related table in the result array is unique.</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Array.&lt;pgStructure.table&gt;</code> - - List of related tables.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table</td>
+<td><code>pgStructure.table</code></td>
+<td><a href="http://www.pg-structure.com/api/Table/">pg-structure table</a> to search related tables for.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="sequelizeType"></a></p>
+<h3 id="sequelizetypecolumn-string">sequelizeType(column) ⇒ <code>string</code></h3>
+<p>Returns Sequelize ORM data type for given column.</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>string</code> - - Sequelize data type.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>column</td>
+<td><code>pgStructure.column</code></td>
+<td><a href="http://www.pg-structure.com/api/Column/">pg-structure column object</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<pre><code>{{ util.sequelizeType() }}        // DataTypes.INTEGER(3)
+{{ sequelizeType('Sequelize') }}  // Sequelize.INTEGER(3)
+</code></pre>
+<h2 id="relations">Relations</h2>
+<p>Relations are detected automatically. One to many (hasMany), many to one (belongsTo) and many to many (belongsToMany) relations are detected automatically. If two tables are joined via a join table this module detects it automatically and generates many to many sequelize relations. If a table has more than one foreign key, then it is considered join table. In reality it may not be a join table. However it is impossible to detect that.</p>
+<h3 id="special-case-hasone">Special Case: hasOne</h3>
+<p>In short: <code>hasMany</code> relations can be converted to <code>hasOne</code>relations manually using <code>custom-data.js</code>.</p>
+<p>Details: <em>one to one (hasOne)</em> relations does not really bring any design benefits. In fact, it would cause performance overheads to the database engine for having to link the table rows together. The 2 tables can actually be combined into a single table. However Sequelize provides <code>hasOne</code> type relations. Since there is no way to detect <code>one to one</code> relations automatically, they have to be added manually by using <a href="http://www.pg-generator.com/template/directories-files/">custom data file</a></p>
+<p>For example:
+Suppose Company has many Contacts. To make it one to one relation, below example may be added to <code>custom-data.js</code>. Please note <code>Contact</code> key is singular.</p>
+<p>Key should be singular version of <code>hasMany</code> aliases. </p>
+<pre><code class="js">module.exports = {
+    Company: {
+        hasOne: {
+            Contact: {}
+        }
+    }
+};
+</code></pre>
+
+<h3 id="smart-default-naming-of-aliases">Smart Default Naming of Aliases</h3>
+<p>This template uses table names or schema table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Default template is based on camelCase naming. You can easily change it to use snake_case or PascalCase by using provided filters. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter. Aliases can be turned of by providing a custom options file and setting <code>generateAliases</code> false.</p>
+<pre><code> module.exports = { generateAliases: false };
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Type of Object</th>
+<th>Filters</th>
+<th>Default Naming &amp; Alias Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table</td>
+<td>classCase</td>
+<td>Table name.</td>
+</tr>
+<tr>
+<td>hasMany</td>
+<td>plural, classCase, stripPrefix(source)</td>
+<td>Relation name in database. Table name stripped from beginning.</td>
+</tr>
+<tr>
+<td>belongsTo</td>
+<td>singular, classCase, relationName</td>
+<td>Foreign key column name. If name ends with 'id' or '_id' it will be stripped. Otherwise 'related' is added at the beginning to prevent it from clashing with column name.</td>
+</tr>
+<tr>
+<td>belongsToMany</td>
+<td>plural, classCase, relationName('')</td>
+<td>Join table name + foreign key in join table which refers to other table. If name ends with 'id' or '_id' it will be stripped.</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Example Schema" src="../../images/schema.png" title="Example Schema" /></p>
+<p>As an example for the schema above aliases are created as follows. Please note names of foreign keys in <strong>cart_line_item</strong> table: <strong>product_id</strong> and <strong>cart</strong>. To demonstrate different naming rules 'product_id' contains <em>id</em> suffix while 'cart' not.</p>
+<table>
+<thead>
+<tr>
+<th>Relation</th>
+<th>As</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product.hasMany</td>
+<td>CartLineItems</td>
+<td><strike style="color:#AAAAAA">product_</strike><strong>cart_line_items</strong>: Plural of relation name. Table name is stripped from the beginning of relation name.</td>
+</tr>
+<tr>
+<td>Product.belongsToMany</td>
+<td>CartLineItemCarts</td>
+<td><strong>cart_line_item</strong> + <strong>cart</strong> + <strong>s</strong>: Plural of join table name + foreign key column in join table referring to other table. '_id' suffix is stripped from column name.</td>
+</tr>
+<tr>
+<td>Cart.belongsToMany</td>
+<td>CartLineItemProducts</td>
+<td><strong>cart_line_item</strong> + <strong>product</strong><strike style="color:#AAAAAA">_id</strike> + <strong>s</strong>: Plural of join table name + foreign key column in join table referring to other table. '_id' suffix is stripped from column name.</td>
+</tr>
+<tr>
+<td>Cart.hasMany</td>
+<td>CartLineItems</td>
+<td><strike style="color:#AAAAAA">cart_</strike><strong>cart_line_items</strong>: Plural of relation name. Table name is stripped from the beginning of relation name.</td>
+</tr>
+<tr>
+<td>CartLineItem.belongsTo</td>
+<td>RelatedCart</td>
+<td><strong>Related</strong> + <strong>cart</strong>: Singular of foreign key column prefixed with <em>'Related'</em>. Otherwise 'Cart' relation and 'cart' column collide in same casing (camelCase, ClassCase etc.)</td>
+</tr>
+<tr>
+<td>CartLineItem.belongsTo</td>
+<td>Product</td>
+<td><strong>product</strong><strike style="color:#AAAAAA">_id</strike>: Singular of foreign key column. Id suffix is stripped from column name. Otherwise 'ProductId' relation and 'product_id' column collide in same casing (camelCase, ClassCase etc.)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="faq">FAQ</h2>
+<h4 id="i-have-multiple-schema-with-same-table-names-in-them-how-can-i-prevent-collision-of-my-model-names">I have multiple schema with same table names in them. How can I prevent collision of my model names?<br></h4>
+<p>In your template;</p>
+<ul>
+<li>Rename <em>'sequelize/table/definition/{table.name}.js.nunj.html'</em> as <em>'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'</em>.</li>
+<li>Change <span style="font-family:monospace">modelName macro</span> in <em>'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'</em> as <code>{{ (table.schema.name + table.name) | classCase }}</code>.</li>
+<li>Add <span style="font-family:monospace">'{table.schema.name}-'</span> string to <span style="font-family:monospace">'sequelize.import'</span> and <span style="font-family:monospace">'require'</span> parts in <em>'sequelize/db/index.js.nunj.html'</em> file to match new model file's names. </li>
+</ul>
+<h4 id="i-hate-aliases-that-sequelize-template-generate-what-can-i-do">I hate aliases that sequelize template generate. What can I do?</h4>
+<p>You have three choices. You either do:</p>
+<ul>
+<li>Disable aliases all together by creating a file named <code>option.js</code> (you can use any name) with content as below:</li>
+</ul>
+<pre><code class="js">module.exports = {
+    generateAliases: false  // This disables aliases all together. See partials/has-many-nunj.html and other relation templates.    
+};
+</code></pre>
+
+<p>Feed that file to <code>pgen</code> </p>
+<pre><code>$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --optionsfile options.js
+</code></pre>
+<ul>
+<li>Or use custom aliases for some or all models by creating a file name <code>custom-data.js</code> (you can use any name) with similar content as below:</li>
+</ul>
+<p>You can see original and overridden aliases in generated file 'relation-cheatsheet.txt'.</p>
+<pre><code class="js">Account: {
+    hasMany: {
+        HasContacts: {                      // This is the default alias should have generated by pgen. 
+            as: &quot;'MyBeautifulAlias'&quot;        // This is the alias you want. You renamed 'HasContacts' as 'MyBeautifulAlias'
+        }
+    },
+</code></pre>
+
+<ul>
+<li>Or change alias naming for all tables by changing <em>has-many.nunj.html</em>, <em>belongs-to.nunj.html</em>, <em>belongs-to-many.nunj.html</em> in <em>partials</em> directory of generated <strong>sequelize</strong> template.</li>
+</ul>
+<h4 id="nunjhtml-file-extension-is-ugly">*.nunj.html file extension is ugly.</h4>
+<p>This is not a question. nunj.html extension is chosen because <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> command line tools expect files with extension <strong>html</strong>. However some IDE's struggle to auto complete/help/color <a href="https://mozilla.github.io/nunjucks/">nunjucks</a>, swig, twig, jinja files with html extension. We can define .nunj.html extension in IDE's to differentiate template files (<em>.nunj.html) and html (</em>.html) files correctly and make <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> command line tools happy.</p>
+<p>However if you really like to use another file extension in your templates create template filw tih your desired extension and use <code>--extension</code> option of <code>pgen</code></p>
+<pre><code>$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --extension html
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../objection/" class="btn btn-neutral float-right" title="Objection">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../base/" class="btn btn-neutral" title="Base"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/ozum/pg-generator.git" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../base/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../objection/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

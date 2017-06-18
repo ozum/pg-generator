@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Özüm Eldoğan">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>History - pg-generator</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "History";
+    var mkdocs_page_input_path = "history.md";
+    var mkdocs_page_url = "/history/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-45732546-5', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> pg-generator</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../relation-names/">Relation Names</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../migration/">Migration</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Template</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../template/template/">Template</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../template/directories-files/">Directories & Files</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../template/filters/">Filters</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Builtin Templates</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../builtin-templates/tutorial/">Tutorial</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../builtin-templates/base/">Base</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../builtin-templates/sequelize/">Sequelize</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../builtin-templates/objection/">Objection</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../api/template-module-api/">Template Module API</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">History</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#history-release-notes">History &amp; Release Notes</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#400-2017-06-18">4.0.0 / 2017-06-18</a></li>
+        
+            <li><a class="toctree-l3" href="#350-2017-03-16">3.5.0 / 2017-03-16</a></li>
+        
+            <li><a class="toctree-l3" href="#3414-2017-02-21">3.4.14 / 2017-02-21</a></li>
+        
+            <li><a class="toctree-l3" href="#346-2016-12-8">3.4.6 / 2016-12-8</a></li>
+        
+            <li><a class="toctree-l3" href="#345-2016-11-17">3.4.5 / 2016-11-17</a></li>
+        
+            <li><a class="toctree-l3" href="#342-2016-08-17">3.4.2 / 2016-08-17</a></li>
+        
+            <li><a class="toctree-l3" href="#340-2016-06-27">3.4.0 / 2016-06-27</a></li>
+        
+            <li><a class="toctree-l3" href="#330-2016-05-05">3.3.0 / 2016-05-05</a></li>
+        
+            <li><a class="toctree-l3" href="#324-2016-03-22">3.2.4 / 2016-03-22</a></li>
+        
+            <li><a class="toctree-l3" href="#320-2016-02-22">3.2.0 / 2016-02-22</a></li>
+        
+            <li><a class="toctree-l3" href="#310-2016-02-22">3.1.0 / 2016-02-22</a></li>
+        
+            <li><a class="toctree-l3" href="#302-2016-02-19">3.0.2 / 2016-02-19</a></li>
+        
+            <li><a class="toctree-l3" href="#301-2016-02-18">3.0.1 / 2016-02-18</a></li>
+        
+            <li><a class="toctree-l3" href="#300-2016-01-30">3.0.0 / 2016-01-30</a></li>
+        
+            <li><a class="toctree-l3" href="#2018-2015-12-28">2.0.18 / 2015-12-28</a></li>
+        
+            <li><a class="toctree-l3" href="#2017-2015-12-09">2.0.17 / 2015-12-09</a></li>
+        
+            <li><a class="toctree-l3" href="#207-2015-11-29">2.0.7 / 2015-11-29</a></li>
+        
+            <li><a class="toctree-l3" href="#206-2015-11-29">2.0.6 / 2015-11-29</a></li>
+        
+            <li><a class="toctree-l3" href="#200-2015-11-25">2.0.0 / 2015-11-25</a></li>
+        
+            <li><a class="toctree-l3" href="#090">0.9.0</a></li>
+        
+            <li><a class="toctree-l3" href="#080-2015-10-14">0.8.0 / 2015-10-14</a></li>
+        
+            <li><a class="toctree-l3" href="#070-2015-10-14">0.7.0 / 2015-10-14</a></li>
+        
+            <li><a class="toctree-l3" href="#060-2015-09-10">0.6.0 / 2015-09-10</a></li>
+        
+            <li><a class="toctree-l3" href="#054-2015-06-16">0.5.4 / 2015-06-16</a></li>
+        
+            <li><a class="toctree-l3" href="#053-2015-06-16">0.5.3 / 2015-06-16</a></li>
+        
+            <li><a class="toctree-l3" href="#042-2015-04-27">0.4.2 / 2015-04-27</a></li>
+        
+            <li><a class="toctree-l3" href="#031-2015-01-10">0.3.1 / 2015-01-10</a></li>
+        
+            <li><a class="toctree-l3" href="#030-2014-12-30">0.3.0 / 2014-12-30</a></li>
+        
+            <li><a class="toctree-l3" href="#020-2014-12-27">0.2.0 / 2014-12-27</a></li>
+        
+            <li><a class="toctree-l3" href="#0117-2014-12-26">0.1.17 / 2014-12-26</a></li>
+        
+            <li><a class="toctree-l3" href="#0115-2014-12-26">0.1.15 / 2014-12-26</a></li>
+        
+            <li><a class="toctree-l3" href="#0112-2014-12-23">0.1.12 / 2014-12-23</a></li>
+        
+            <li><a class="toctree-l3" href="#010-2014-12-23">0.1.0 / 2014-12-23</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">pg-generator</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>History</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/history.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="history-release-notes">History &amp; Release Notes</h1>
+<p><strong>Note</strong>: Version history for minimal documentation updates are not listed here to prevent cluttering.</p>
+<h6 id="400-2017-06-18">4.0.0 / 2017-06-18</h6>
+<ul>
+<li>pg-structure updated to next major version of 4. There are some breaking changes see <a href="http://www.pg-structure.com/history/">pg-structure v4 changes</a>.</li>
+</ul>
+<h6 id="350-2017-03-16">3.5.0 / 2017-03-16</h6>
+<ul>
+<li>Added: eslint --fix feature added with <code>lintFix</code> option. If it is set to true and eslint command is available,
+generated files are fixed with eslint according to .eslintrc or settings in your project.</li>
+</ul>
+<h6 id="3414-2017-02-21">3.4.14 / 2017-02-21</h6>
+<ul>
+<li>Fixed: Empty and numeric default values were generated wrong. </li>
+</ul>
+<h6 id="346-2016-12-8">3.4.6 / 2016-12-8</h6>
+<ul>
+<li>Custom data <code>attributeName</code> added for <code>sequelize</code> template. <a href="https://github.com/ozum/pg-generator/issues/38">#38</a>.</li>
+</ul>
+<h6 id="345-2016-11-17">3.4.5 / 2016-11-17</h6>
+<ul>
+<li>SSL option added to CLI. Thanks to <a href="https://github.com/gbahamondezc">gbahamondezc</a>.</li>
+</ul>
+<h6 id="342-2016-08-17">3.4.2 / 2016-08-17</h6>
+<ul>
+<li>Added: <code>singleLine</code> nunjucks filter added.</li>
+<li>Fixed: Multi line database comments throw exception.</li>
+</ul>
+<h6 id="340-2016-06-27">3.4.0 / 2016-06-27</h6>
+<ul>
+<li>Added: <code>-nobeautifier</code> CLI option added.</li>
+<li>Added: <code>beautifier</code> option added.</li>
+</ul>
+<h6 id="330-2016-05-05">3.3.0 / 2016-05-05</h6>
+<ul>
+<li>Added: Objection template can be used with custom objection.Model subclass.</li>
+<li>Changed: Objection template is simplified. Still in alpha stage.</li>
+<li>Changed: Documentation update.</li>
+</ul>
+<h6 id="324-2016-03-22">3.2.4 / 2016-03-22</h6>
+<ul>
+<li>Fixed: Template file names contain pipe <code>|</code> character for filtering. It's an invalid character in windows file names.
+Now <code>#</code> is used for filtering. For backward compatibility <code>|</code> can still be used. </li>
+</ul>
+<h6 id="320-2016-02-22">3.2.0 / 2016-02-22</h6>
+<ul>
+<li>Added: New template 'objection-alpha' added. As name suggests, it is in alpha stage, needs some feedback.</li>
+</ul>
+<h6 id="310-2016-02-22">3.1.0 / 2016-02-22</h6>
+<ul>
+<li>Added: <code>hasOne</code> relation support for <code>Sequelize</code> template.</li>
+</ul>
+<h6 id="302-2016-02-19">3.0.2 / 2016-02-19</h6>
+<ul>
+<li>Changed: pg-structure updated to 3.1.3 to make pg-generator compatible with node.js v4 without --harmony flag.</li>
+</ul>
+<h6 id="301-2016-02-18">3.0.1 / 2016-02-18</h6>
+<ul>
+<li>Added: stringifyIfObject filter, which converts it's input to string if it is an object.</li>
+<li>Changed: <code>sequelize</code> template expands custom data objects automatically.</li>
+</ul>
+<h6 id="300-2016-01-30">3.0.0 / 2016-01-30</h6>
+<ul>
+<li>Changed: pg-structure is updated to v3.1.2</li>
+<li>Changed: pg-structure v3 returns collections ad Map and Set instead of Object or Array. Templates are updated as necessary.</li>
+</ul>
+<h6 id="2018-2015-12-28">2.0.18 / 2015-12-28</h6>
+<ul>
+<li>Added: PostgreSQL range data types for sequelize template.</li>
+<li>Added: sequelize template throws more explanatory error for unknown/undefined data types.</li>
+</ul>
+<h6 id="2017-2015-12-09">2.0.17 / 2015-12-09</h6>
+<ul>
+<li>Added: Additional test for sequelize template, which compares generated file with an expected result.  </li>
+<li>Fixed: Sequelize template did not generate table description.</li>
+<li>Changed: pg-structure module updated to v2.0.8.</li>
+</ul>
+<h6 id="207-2015-11-29">2.0.7 / 2015-11-29</h6>
+<ul>
+<li>Changed: pg-structure updated to version 2.0.0-alpha.9</li>
+</ul>
+<h6 id="206-2015-11-29">2.0.6 / 2015-11-29</h6>
+<ul>
+<li>Changed: pg-structure module updated.</li>
+</ul>
+<h6 id="200-2015-11-25">2.0.0 / 2015-11-25</h6>
+<ul>
+<li>Completely rewritten from scratch.</li>
+<li>CAUTION: 2.0.0 is incompatible with 0.x series.</li>
+<li>Added: For sequelize-pg-generator users, better direct usable generated files compared to sequelize-pg-generator. pg-generator all features and more.</li>
+<li>Renamed from sequelize-pg-generator to pg-generator.</li>
+<li>Added: Updated pg-structure v2 API.</li>
+<li>Added: Template based generation. Not limited to sequelize.</li>
+<li>Added: <a href="http://www.pg-generator.com">www.pg-generator.com</a> web site.</li>
+<li>Added: Interactive command line.</li>
+<li>Added: 3 templates. (Sequelize, base and tutorial)</li>
+<li>Removed: Configuration files. Templates are easier and more intuitive than config files.</li>
+<li>Changed: Command changed from 'spgen' to 'pgen'. </li>
+<li>Changed: Makefile to npm scripts.</li>
+</ul>
+<h6 id="090">0.9.0</h6>
+<ul>
+<li>Added: sequelize-types are added. (pg-structure deprecated it.)</li>
+</ul>
+<h6 id="080-2015-10-14">0.8.0 / 2015-10-14</h6>
+<ul>
+<li>Added: <code>alias.json</code> file is generated in target directory to let developer easily override relationship names.</li>
+</ul>
+<h6 id="070-2015-10-14">0.7.0 / 2015-10-14</h6>
+<ul>
+<li>Changed: Location of utils.js is changed to inside of model directory.</li>
+</ul>
+<h6 id="060-2015-09-10">0.6.0 / 2015-09-10</h6>
+<ul>
+<li>-t --templateName parameter added to spgen. This name is used to choose one of the builtin template directories.</li>
+<li>sequalize4 template added for protect backward compatibility.</li>
+<li>sequalize4 template supports object references property. (references and referencesKey will be depreciated in Sequelize 4)</li>
+</ul>
+<h6 id="054-2015-06-16">0.5.4 / 2015-06-16</h6>
+<ul>
+<li>pg-structure updated to latest version.</li>
+</ul>
+<h6 id="053-2015-06-16">0.5.3 / 2015-06-16</h6>
+<ul>
+<li>Added: JSONB support and Boolean default value. Contributed by viniciuspinto (https://github.com/viniciuspinto)</li>
+</ul>
+<h6 id="042-2015-04-27">0.4.2 / 2015-04-27</h6>
+<ul>
+<li>Added documentation and examples.</li>
+</ul>
+<h6 id="031-2015-01-10">0.3.1 / 2015-01-10</h6>
+<ul>
+<li>Tested for Sequelize 2.0 RC7</li>
+</ul>
+<h6 id="030-2014-12-30">0.3.0 / 2014-12-30</h6>
+<ul>
+<li>Removed: pg-native dependency removed. Some users experienced problems during install.</li>
+<li>Added: generate.addRelationNameToManyToMany configuration to prefix relation aliases prevent further name clashes which cannot be prevented by generate.addTableNameToManyToMany. Default: true.</li>
+<li>Added: generate.stripFirstTableNameFromManyToMany configuration added. Default: true</li>
+<li>Changed: generate.addTableNameToManyToMany configuration default is false now.</li>
+<li>Changed: Default naming rule for many to many relations.</li>
+<li>Added: Logging uses Winston module now.</li>
+<li>Added: Doc update for Windows OS users.</li>
+<li>Fixed: Database tables without any column throws error when warning configuration is true.</li>
+</ul>
+<h6 id="020-2014-12-27">0.2.0 / 2014-12-27</h6>
+<ul>
+<li>Added: Automatic alias and naming validations to prevent name clash.</li>
+<li>Added: generate.addTableNameToManyToMany configuration to prefix relation aliases prevent name clash. Default: true.</li>
+<li>Added: --throwError option added to CLI. This option decides wheter to throw error or simply log.</li>
+<li>Added: Prevent hasMany through and belongsToMany true at the same time.</li>
+<li>Fixed: generate.prefixForBelongsTo aliases are not properly camel cased.</li>
+<li>Fixed: --resetConfig option does not work from CLI</li>
+<li>Doc update</li>
+</ul>
+<h6 id="0117-2014-12-26">0.1.17 / 2014-12-26</h6>
+<ul>
+<li>Fixed: CLI command does not work.</li>
+<li>Added: Required parameters warning.</li>
+</ul>
+<h6 id="0115-2014-12-26">0.1.15 / 2014-12-26</h6>
+<ul>
+<li>Added: Turkish documentation added.</li>
+<li>Fixed: Typos and mistakes in documents.</li>
+</ul>
+<h6 id="0112-2014-12-23">0.1.12 / 2014-12-23</h6>
+<ul>
+<li>Added: Tests added.</li>
+<li>Added: --nolog option added to spgen command.</li>
+<li>Added: --resetConfig option. Also details and caveat added to the document.</li>
+<li>Fix: lib/index.js exported function expects different parameters than written in documentation.</li>
+<li>Fix: Command line arguments fixed.</li>
+<li>Fix: Data type variable name configuration is ignored.</li>
+<li>Document update.</li>
+</ul>
+<h6 id="010-2014-12-23">0.1.0 / 2014-12-23</h6>
+<ul>
+<li>Initial version.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../license/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../api/template-module-api/" class="btn btn-neutral" title="Template Module API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/ozum/pg-generator.git" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../api/template-module-api/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../license/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

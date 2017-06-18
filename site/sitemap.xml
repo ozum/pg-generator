@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/relation-names/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/migration/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>http://www.pg-generator.com/template/template/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/template/directories-files/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/template/filters/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.pg-generator.com/builtin-templates/tutorial/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/builtin-templates/base/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/builtin-templates/sequelize/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>http://www.pg-generator.com/builtin-templates/objection/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>http://www.pg-generator.com/api/template-module-api/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/history/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>http://www.pg-generator.com/license/</loc>
+     <lastmod>2017-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>

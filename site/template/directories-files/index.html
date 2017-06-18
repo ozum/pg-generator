@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Özüm Eldoğan">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Directories & Files - pg-generator</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Directories & Files";
+    var mkdocs_page_input_path = "template/directories-files.md";
+    var mkdocs_page_url = "/template/directories-files/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-45732546-5', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> pg-generator</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../relation-names/">Relation Names</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../migration/">Migration</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Template</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../template/">Template</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Directories & Files</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#special-template-directories-files">Special Template Directories &amp; Files</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#db-directory">"db" directory</a></li>
+        
+            <li><a class="toctree-l4" href="#schema-directory">"schema" directory</a></li>
+        
+            <li><a class="toctree-l4" href="#table-directory">"table" directory</a></li>
+        
+            <li><a class="toctree-l4" href="#copy-directory">"copy" directory</a></li>
+        
+            <li><a class="toctree-l4" href="#indexjs-file">"index.js" file</a></li>
+        
+            <li><a class="toctree-l4" href="#other-directories-files">Other Directories &amp; Files</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#external-files">External Files</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#custom-data-file">Custom Data File</a></li>
+        
+            <li><a class="toctree-l4" href="#options-file">Options File</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../filters/">Filters</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Builtin Templates</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../builtin-templates/tutorial/">Tutorial</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../builtin-templates/base/">Base</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../builtin-templates/sequelize/">Sequelize</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../builtin-templates/objection/">Objection</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../api/template-module-api/">Template Module API</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../history/">History</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">pg-generator</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Template &raquo;</li>
+        
+      
+    
+    <li>Directories & Files</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/template/directories-files.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="special-template-directories-files">Special Template Directories &amp; Files</h2>
+<p>pg-generator templates contain several directories and files. Directories and files listed below are part of pg-generator templates. <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> templates located in those directories are executed once or more. They create files in same relative position as relative position to their parent directory.</p>
+<p><strong>For example</strong>:<br>
+<strong>Template directory</strong>: .../sequelize<br>
+<strong>Target directory</strong>: .../model<br>
+<strong>Database name</strong>: crm<br>
+<strong>Database schemas</strong>: public<br>
+<strong>Database tables</strong>: company, contact, product<br></p>
+<table>
+<thead>
+<tr>
+<th>Template File</th>
+<th>Created File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span style="font-family: monospace">.../sequelize/db/{db.name}.js.nunj.html</span></td>
+<td><span style="font-family: monospace">.../model/crm.js</span></td>
+</tr>
+<tr>
+<td><span style="font-family: monospace">.../sequelize/schema/{schema.name}.js.nunj.html</span></td>
+<td><span style="font-family: monospace">.../model/public.js</span></td>
+</tr>
+<tr>
+<td><span style="font-family: monospace">.../sequelize/schema/sub/{schema.name}.js.nunj.html</span></td>
+<td><span style="font-family: monospace">.../model/sub/public.js</span></td>
+</tr>
+<tr>
+<td><span style="font-family: monospace">.../sequelize/table/{table.name}.js.nunj.html</span></td>
+<td><span style="font-family: monospace">.../model/company.js</span></td>
+</tr>
+<tr>
+<td><span style="font-family: monospace">.../sequelize/table/{table.schema.name}/{table.name}.js.nunj.html</span></td>
+<td><span style="font-family: monospace">.../model/public/company.js</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="db-directory">"db" directory</h3>
+<p>Template files in <code>db</code> are executed once for the database. Variables listed below are available in those template files. </p>
+<table>
+<thead>
+<tr>
+<th>Varible Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db</td>
+<td>pg-structure database object to access database details.</td>
+<td><a href="http://www.pg-structure.com/api/DB">DB API</a></td>
+</tr>
+<tr>
+<td>custom</td>
+<td>Custom data provided by custom data file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Options provided by custom options file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's allData export.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's dbData export.</td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schema-directory">"schema" directory</h3>
+<p>Template files in <code>schema</code> are executed for each PostgreSQL schema. Variables listed below are available in those template files. Files in this directory are created relative to the root of target directory.</p>
+<table>
+<thead>
+<tr>
+<th>Varible Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema</td>
+<td>pg-structure schema object to access database details.</td>
+<td><a href="http://www.pg-structure.com/api/Schema">Schema API</a></td>
+</tr>
+<tr>
+<td>custom</td>
+<td>Custom data provided by custom data file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Options provided by custom options file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's allData export.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's schemaData export.</td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
+<h3 id="table-directory">"table" directory</h3>
+<p>Template files in <code>table</code> are executed for each table. Variables listed below are available in those template files. Files in this directory are created relative to the root of target directory.</p>
+<table>
+<thead>
+<tr>
+<th>Varible Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema</td>
+<td>pg-structure table object to access database details.</td>
+<td><a href="http://www.pg-structure.com/api/Table">Table API</a></td>
+</tr>
+<tr>
+<td>custom</td>
+<td>Custom data provided by custom data file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Options provided by custom options file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's allData export.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's tableData export.</td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
+<h3 id="copy-directory">"copy" directory</h3>
+<p>Files in this directory are not processed by template engine and directly copied to target. Files in this directory are copied relative to the root of target directory.</p>
+<h3 id="indexjs-file">"index.js" file</h3>
+<p><code>index.js</code> file is a node.js module file which exports <code>allData</code>, <code>dbData</code>, <code>schemaData</code> and <code>tableData</code> functions. Those functions are used to provide additional variables to template files. It makes pg-generator templates very flexible. See <a href="../../api/template-module-api/">Template Module API</a></p>
+<pre><code class="js">'use strict';
+
+// This file is used for providing additional data to templates during generation phase.
+
+function allData(db) {
+    return {
+        extraAll: db.name
+    };
+}
+
+function dbData(db) {
+    return {
+        extra: db.name
+    };
+}
+
+function schemaData(schema) {
+    return {
+        extra: schema.name
+    };
+}
+
+function tableData(table) {
+    return {
+        extra: table.name
+    };
+}
+
+module.exports = {
+    allData: allData,
+    dbData: dbData,
+    schemaData: schemaData,
+    tableData: tableData
+};
+</code></pre>
+
+<h3 id="other-directories-files">Other Directories &amp; Files</h3>
+<p>Other directories and files do not have any meaning for pg-generator and they are not used. However you can create any directory to organize your partial templates.</p>
+<h2 id="external-files">External Files</h2>
+<p>External files are not part of the template. These optional files are set during file generation phase dynamically by options provided to <code>pgen</code> command.</p>
+<pre><code>$ pgen sequelize --datafile custom-data.js --optionsFile customOptions
+</code></pre>
+<h3 id="custom-data-file">Custom Data File</h3>
+<p>This optional file is a node.js module which should export a simple JavaScript object. Exported object can be accessed with variable named <code>custom</code> in template files. This data may be used very flexible ways for various reasons. For example builtin sequelize template uses this file for letting user to change some default behavior of template.</p>
+<p><strong>Example</strong></p>
+<pre><code class="js">'use strict';
+
+module.exports = {
+    Account: {
+        schema: 'super_schema',
+        customTableAttribute: '&quot;tableAtt&quot;',
+        attributes: {
+            id: { attributeName: 'ID', type: '&quot;fake_type_id&quot;', onUpdate: '&quot;UPDATE ME&quot;', customAttribute: 3 },
+            ss: { type: '&quot;fake_type_ss&quot;', specialAttribute: '&quot;ok&quot;' },
+            dd: { type: '&quot;fake_type_dd&quot;', onUpdate: '&quot;UPDATE ME TOO&quot;', specA: 3, specB: 4, specC: 6 }
+        },
+        hasMany: {
+            HasContacts: {
+                as: 'CustomHasContacts'
+            }
+        },
+        belongsTo: {
+            Owner: {
+                as: 'CustomBelongsTo'
+            }
+        },
+        belongsToMany: {
+            ContactSecondCompanies: {
+                as: 'CustomBelongsToMany',
+                foreignKey: 'fake_id'
+            }
+        }
+    }
+};
+</code></pre>
+
+<h3 id="options-file">Options File</h3>
+<p>This optional file is a node.js module which should export a simple JavaScript object. Exported object can be accessed with variable named <code>options</code> in template files. Usage of this file is same as custom data file except variable name used for accessing data.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../filters/" class="btn btn-neutral float-right" title="Filters">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../template/" class="btn btn-neutral" title="Template"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/ozum/pg-generator.git" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../template/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../filters/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>
