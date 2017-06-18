@@ -3,6 +3,9 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 4.0.0 / 2017-06-18
+* pg-structure updated to next major version of 4. There are some breaking changes see [pg-structure v4 changes](http://www.pg-structure.com/history/).
+
 ###### 3.5.0 / 2017-03-16
 * Added: eslint --fix feature added with `lintFix` option. If it is set to true and eslint command is available,
 generated files are fixed with eslint according to .eslintrc or settings in your project.

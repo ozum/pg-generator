@@ -52,22 +52,23 @@
     "lodash": "^4.x",
     "nunjucks": "^3.x",
     "pg": "^6.x",
-    "pg-structure": "^3",
+    "pg-structure": "^4",
     "winston": "^2.x"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
-    "chai": "^3",
-    "eslint-config-airbnb": "^14.x",
+    "chai": "^4",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.x",
     "eslint-plugin-import": "^2.x",
-    "eslint-plugin-jsx-a11y": "^4.x",
-    "eslint-plugin-react": "^6.x",
+    "eslint-plugin-jsx-a11y": "^5.x",
+    "eslint-plugin-react": "^7.x",
     "knex": "^0",
-    "lab": "^13.x",
+    "lab": "^14.x",
     "mz": "^2.x",
     "objection": "^0",
     "pg-hstore": "^2",
     "pg-test-util": "^1.x",
-    "sequelize": "^3"
+    "sequelize": "^4"
   }
 }

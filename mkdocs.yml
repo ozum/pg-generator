@@ -10,6 +10,7 @@ google_analytics:
 docs_dir: docs
 pages:
   - Home: index.md
+  - Relation Names: relation-names.md
   - Migration: migration.md
   - Template:
     - Template: template/template.md
