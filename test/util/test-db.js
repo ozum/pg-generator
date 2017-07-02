@@ -1,13 +1,14 @@
 const PgTestUtil  = require('pg-test-util');
 const path        = require('path');
+const config      = require('./test-config.json').development;
 
-const db = 'pg-generator-test-7348G63';
+const db = config.database;
 
 const dbOptions = {
-    host: 'localhost',
-    port: 5432,
-    user: 'user',
-    password: 'password',
+    host: config.host,
+    port: config.port,
+    user: config.user || config.username, // sequelize configs use 'username', not 'user'
+    password: config.password,
     defaultDatabase: db
 };
 
