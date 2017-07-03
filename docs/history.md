@@ -3,6 +3,9 @@
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 
+###### 4.1.0 / 2017-07-03
+* Added: --config and --env CLI options. Thanks [mmkal](https://github.com/mmkal) for PR.
+
 ###### 4.0.0 / 2017-06-18
 * pg-structure updated to next major version of 4. There are some breaking changes see [pg-structure v4 changes](http://www.pg-structure.com/history/).
 

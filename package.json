@@ -63,6 +63,7 @@
     "eslint-plugin-import": "^2.x",
     "eslint-plugin-jsx-a11y": "^5.x",
     "eslint-plugin-react": "^7.x",
+    "fs-extra": "^3.0.1",
     "knex": "^0",
     "lab": "^14.x",
     "mz": "^2.x",

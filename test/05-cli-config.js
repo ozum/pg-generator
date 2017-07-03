@@ -18,7 +18,7 @@ const exec        = require('mz/child_process').exec;
 
 let model;
 
-const targetDir = path.join(__dirname, 'model-sequelize-2');
+const targetDir = path.join(__dirname, 'model-sequelize-3');
 
 lab.before((done) => {
     testDB.createDB(1)
