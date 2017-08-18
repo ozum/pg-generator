@@ -44,7 +44,7 @@ To see a basic example execute following command from shell and examine files in
 
     $ pgen template tutorial -t tutorial-template
     
-For a full fledged example which we use at Fortibase, see Sequelize Example above. 
+For a full fledged example which we use at Ozcorp, see Sequelize Example above. 
 
 ## For Low Level Direct Access: [pg-structure](http://www.pg-structure.com)
     
@@ -55,7 +55,7 @@ If you prefer lower level methods to directly access PostgreSQL structure to bui
 Documentation is available on [pg-generator.com](http://www.pg-generator.com)
 
 ## Special Thanks
-**pg-generator** is developed under sponsorship of [Fortibase](http://www.fortibase.com) and released as open source. See [license](http://www.pg-generator.com/license/).
+**pg-generator** is developed under sponsorship of [Ozcorp](http://www.ozcorp.com) and released as open source. See [license](http://www.pg-generator.com/license/).
 
 Also documentation is auto generated thanks to:
 

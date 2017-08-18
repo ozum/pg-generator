@@ -1,6 +1,6 @@
 {
   "name": "pg-generator",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Template Based Scaffolding Tool for PostgreSQL.",
   "main": "index.js",
   "preferGlobal": true,
@@ -36,8 +36,7 @@
     "scaffold"
   ],
   "author": {
-    "name": "Özüm Eldoğan",
-    "url": "http://www.fortibase.com"
+    "name": "Özüm Eldoğan"
   },
   "license": "MIT",
   "dependencies": {

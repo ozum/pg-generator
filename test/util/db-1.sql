@@ -3,7 +3,7 @@ Created: 24.11.2015
 Modified: 21.02.2017
 Project: pg-generator-test
 Model: pg-generator-test
-Company: Fortibase
+Company: Ozcorp
 Author: Özüm Eldoğan
 Version: 1.0.0
 Database: PostgreSQL 9.4
