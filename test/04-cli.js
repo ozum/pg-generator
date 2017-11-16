@@ -34,7 +34,7 @@ lab.before((done) => {
             model = require(modelFile).init(sequelize);
             done();
         })
-        .catch(done);
+        .catch((err) => { throw err; });
 });
 
 lab.after((done) => {

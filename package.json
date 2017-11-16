@@ -17,7 +17,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "lab --timeout 3500 --globals @@any-promise/REGISTRATION,__core-js_shared__",
+    "test": "lab --timeout 7000 --globals @@any-promise/REGISTRATION,__core-js_shared__",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "npm test;",
     "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;"
