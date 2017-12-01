@@ -17,7 +17,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "lab --timeout 7000 --globals @@any-promise/REGISTRATION,__core-js_shared__",
+    "test": "lab --timeout 7000 --globals @@any-promise/REGISTRATION,__core-js_shared__,SharedArrayBuffer,Atomics",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "npm test;",
     "postversion": "npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;"
@@ -51,7 +51,7 @@
     "lodash": "^4.x",
     "nunjucks": "^3.x",
     "pg": "^6.x",
-    "pg-structure": "^4",
+    "pg-structure": "^4.0.6",
     "winston": "^2.x"
   },
   "devDependencies": {
