@@ -195,21 +195,29 @@
 <pre><code>$ pgen template objection-alpha -t objection-alpha-template
 $ pgen exec objection-alpha-template -d our_crm -u user -p tOpSeCrEt -t model
 </code></pre>
-<p>In your application, create a sequelize object and initialize models with it:</p>
-<pre><code class="js">const Knex = require('knex');
-const knex = Knex({ client: 'pg', connection: { host: 'localhost', user: 'user', password: 'password', database: 'my_database' } });
-const models = require('./model/index');
+<p>In your application:</p>
+<pre><code class="js">const knex = require(&quot;knex&quot;);
+const { models, init } = require(&quot;./model/index&quot;);
 
-models.init(knex);
-const model = models.model;
+const credentials = {
+  client: &quot;pg&quot;,
+  connection: {
+    host: &quot;localhost&quot;,
+    user: &quot;user&quot;,
+    password: &quot;password&quot;,
+    database: &quot;my_database&quot;
+  }
+};
+
+init(knex(credentials));
 
 model.Company.query()
-    .then(function(companies) {
-        console.log(companies[0].name);
-    })
-    .catch(function(error) {
-        console.log(err.stack);
-    });
+  .then(function(companies) {
+    console.log(companies[0].name);
+  })
+  .catch(function(error) {
+    console.log(err.stack);
+  });
 </code></pre>
 
 <h2 id="features-targets-some-are-not-implemented-yet">Features &amp; Targets (Some are not implemented yet):</h2>

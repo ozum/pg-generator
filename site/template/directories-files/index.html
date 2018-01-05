@@ -246,69 +246,156 @@
 </tbody>
 </table>
 <h3 id="db-directory">"db" directory</h3>
-<p>Template files in <code>db</code> are executed once for the database. Variables listed below are available in those template files. </p>
-<p>| Varible Name | Description | Example | Details
-|-|-|-|
-| db | pg-structure database object to access database details. | <a href="http://www.pg-structure.com/api/DB">DB API</a>
-| custom | Custom data provided by custom data file. | See below 
-| options | Options provided by custom options file. | See below
-| {...} | Any variable provided by index.js file's allData export. | See below
-| {...} | Any variable provided by index.js file's dbData export. | See below</p>
+<p>Template files in <code>db</code> are executed once for the database. Variables listed below are available in those template files.</p>
+<table>
+<thead>
+<tr>
+<th>Varible Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db</td>
+<td>pg-structure database object to access database details.</td>
+<td><a href="http://www.pg-structure.com/api/DB">DB API</a></td>
+</tr>
+<tr>
+<td>custom</td>
+<td>Custom data provided by custom data file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Options provided by custom options file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's allData export.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's dbData export.</td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
 <h3 id="schema-directory">"schema" directory</h3>
 <p>Template files in <code>schema</code> are executed for each PostgreSQL schema. Variables listed below are available in those template files. Files in this directory are created relative to the root of target directory.</p>
-<p>| Varible Name | Description | Example | Details
-|-|-|-|
-| schema | pg-structure schema object to access database details. | <a href="http://www.pg-structure.com/api/Schema">Schema API</a>
-| custom | Custom data provided by custom data file. | See below 
-| options | Options provided by custom options file. | See below
-| {...} | Any variable provided by index.js file's allData export. | See below
-| {...} | Any variable provided by index.js file's schemaData export. | See below</p>
+<table>
+<thead>
+<tr>
+<th>Varible Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema</td>
+<td>pg-structure schema object to access database details.</td>
+<td><a href="http://www.pg-structure.com/api/Schema">Schema API</a></td>
+</tr>
+<tr>
+<td>custom</td>
+<td>Custom data provided by custom data file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Options provided by custom options file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's allData export.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's schemaData export.</td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
 <h3 id="table-directory">"table" directory</h3>
 <p>Template files in <code>table</code> are executed for each table. Variables listed below are available in those template files. Files in this directory are created relative to the root of target directory.</p>
-<p>| Varible Name | Description | Example | Details
-|-|-|-|
-| schema | pg-structure table object to access database details. | <a href="http://www.pg-structure.com/api/Table">Table API</a>
-| custom | Custom data provided by custom data file. | See below 
-| options | Options provided by custom options file. | See below
-| {...} | Any variable provided by index.js file's allData export. | See below
-| {...} | Any variable provided by index.js file's tableData export. | See below</p>
+<table>
+<thead>
+<tr>
+<th>Varible Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema</td>
+<td>pg-structure table object to access database details.</td>
+<td><a href="http://www.pg-structure.com/api/Table">Table API</a></td>
+</tr>
+<tr>
+<td>custom</td>
+<td>Custom data provided by custom data file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Options provided by custom options file.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's allData export.</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>{...}</td>
+<td>Any variable provided by index.js file's tableData export.</td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
 <h3 id="copy-directory">"copy" directory</h3>
 <p>Files in this directory are not processed by template engine and directly copied to target. Files in this directory are copied relative to the root of target directory.</p>
 <h3 id="indexjs-file">"index.js" file</h3>
 <p><code>index.js</code> file is a node.js module file which exports <code>allData</code>, <code>dbData</code>, <code>schemaData</code> and <code>tableData</code> functions. Those functions are used to provide additional variables to template files. It makes pg-generator templates very flexible. See <a href="../../api/template-module-api/">Template Module API</a></p>
-<pre><code class="js">'use strict';
+<pre><code class="js">&quot;use strict&quot;;
 
 // This file is used for providing additional data to templates during generation phase.
 
 function allData(db) {
-    return {
-        extraAll: db.name
-    };
+  return {
+    extraAll: db.name
+  };
 }
 
 function dbData(db) {
-    return {
-        extra: db.name
-    };
+  return {
+    extra: db.name
+  };
 }
 
 function schemaData(schema) {
-    return {
-        extra: schema.name
-    };
+  return {
+    extra: schema.name
+  };
 }
 
 function tableData(table) {
-    return {
-        extra: table.name
-    };
+  return {
+    extra: table.name
+  };
 }
 
 module.exports = {
-    allData: allData,
-    dbData: dbData,
-    schemaData: schemaData,
-    tableData: tableData
+  allData: allData,
+  dbData: dbData,
+  schemaData: schemaData,
+  tableData: tableData
 };
 </code></pre>
 
@@ -321,34 +408,45 @@ module.exports = {
 <h3 id="custom-data-file">Custom Data File</h3>
 <p>This optional file is a node.js module which should export a simple JavaScript object. Exported object can be accessed with variable named <code>custom</code> in template files. This data may be used very flexible ways for various reasons. For example builtin sequelize template uses this file for letting user to change some default behavior of template.</p>
 <p><strong>Example</strong></p>
-<pre><code class="js">'use strict';
+<pre><code class="js">&quot;use strict&quot;;
 
 module.exports = {
-    Account: {
-        schema: 'super_schema',
-        customTableAttribute: '&quot;tableAtt&quot;',
-        attributes: {
-            id: { attributeName: 'ID', type: '&quot;fake_type_id&quot;', onUpdate: '&quot;UPDATE ME&quot;', customAttribute: 3 },
-            ss: { type: '&quot;fake_type_ss&quot;', specialAttribute: '&quot;ok&quot;' },
-            dd: { type: '&quot;fake_type_dd&quot;', onUpdate: '&quot;UPDATE ME TOO&quot;', specA: 3, specB: 4, specC: 6 }
-        },
-        hasMany: {
-            HasContacts: {
-                as: 'CustomHasContacts'
-            }
-        },
-        belongsTo: {
-            Owner: {
-                as: 'CustomBelongsTo'
-            }
-        },
-        belongsToMany: {
-            ContactSecondCompanies: {
-                as: 'CustomBelongsToMany',
-                foreignKey: 'fake_id'
-            }
-        }
+  Account: {
+    schema: &quot;super_schema&quot;,
+    customTableAttribute: '&quot;tableAtt&quot;',
+    attributes: {
+      id: {
+        attributeName: &quot;ID&quot;,
+        type: '&quot;fake_type_id&quot;',
+        onUpdate: '&quot;UPDATE ME&quot;',
+        customAttribute: 3
+      },
+      ss: { type: '&quot;fake_type_ss&quot;', specialAttribute: '&quot;ok&quot;' },
+      dd: {
+        type: '&quot;fake_type_dd&quot;',
+        onUpdate: '&quot;UPDATE ME TOO&quot;',
+        specA: 3,
+        specB: 4,
+        specC: 6
+      }
+    },
+    hasMany: {
+      HasContacts: {
+        as: &quot;CustomHasContacts&quot;
+      }
+    },
+    belongsTo: {
+      Owner: {
+        as: &quot;CustomBelongsTo&quot;
+      }
+    },
+    belongsToMany: {
+      ContactSecondCompanies: {
+        as: &quot;CustomBelongsToMany&quot;,
+        foreignKey: &quot;fake_id&quot;
+      }
     }
+  }
 };
 </code></pre>
 
