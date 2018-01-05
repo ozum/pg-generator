@@ -19,7 +19,7 @@ function init(knex, customModel) {
     module.exports.Model = customModel || objection.Model;  // If no model is given use default Model.
     module.exports.Model.knex(knex);                        // Give the connection to objection.
 
-
+    /* eslint-disable global-require */
     // Import model files and assign them to `model` object.
     {% for schema in db.schemas.array -%}
         {% for table in schema.tables.array -%}

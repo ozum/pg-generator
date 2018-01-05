@@ -1,4 +1,5 @@
 # ALPHA STAGE
+
 This template is in alpha stage. Feedback needed.
 
 ## Usage
@@ -8,23 +9,31 @@ Create template and model files:
     $ pgen template objection-alpha -t objection-alpha-template
     $ pgen exec objection-alpha-template -d our_crm -u user -p tOpSeCrEt -t model
 
-In your application, create a sequelize object and initialize models with it:
+In your application:
 
 ```js
-const Knex = require('knex');
-const knex = Knex({ client: 'pg', connection: { host: 'localhost', user: 'user', password: 'password', database: 'my_database' } });
-const models = require('./model/index');
+const knex = require("knex");
+const { models, init } = require("./model/index");
 
-models.init(knex);
-const model = models.model;
+const credentials = {
+  client: "pg",
+  connection: {
+    host: "localhost",
+    user: "user",
+    password: "password",
+    database: "my_database"
+  }
+};
+
+init(knex(credentials));
 
 model.Company.query()
-    .then(function(companies) {
-        console.log(companies[0].name);
-    })
-    .catch(function(error) {
-        console.log(err.stack);
-    });
+  .then(function(companies) {
+    console.log(companies[0].name);
+  })
+  .catch(function(error) {
+    console.log(err.stack);
+  });
 ```
 
 ## Features & Targets (Some are not implemented yet):
