@@ -23,18 +23,26 @@
     path.join(__dirname, {{ table.name | dashCase | singleQuote }} )
 {%- endmacro -%}
 
-'use strict';
-
 const path  = require('path');
-const Model = require('../index').Model;
+const { Model } = require('../index');
 
-class {{ class }} extends Model {}
+/* eslint-disable require-jsdoc */
 
-{{ class }}.tableName = {{ table.name | singleQuote }};
-{{ class }}.idColumn = {{ columns(table.primaryKeyColumns.array, true)  }};
+/**
+ * {{ table.description }}
+ */
+class {{ class }} extends Model {
+  static get tableName() {
+    return {{ table.name | singleQuote }};
+  }
 
-{{ class }}.relationMappings = {
-    {% for relation in table.o2mRelations.array -%}
+  static get idColumn() {
+    return {{ columns(table.primaryKeyColumns.array, true)  }};
+  }
+
+  static get relationMappings() {
+    return {
+      {% for relation in table.o2mRelations.array -%}
         {{ relComma() }}{{ relation.generateName() | camelCase }}: {
             relation: Model.HasManyRelation,
             modelClass: {{ file(relation.targetTable) }},
@@ -69,8 +77,12 @@ class {{ class }} extends Model {}
             }
         }
     {% endfor -%}
-};
+    }
+  }
 
-{{ class }}.jsonSchema = {{ pgen.tableJsonSchema(table) | stringifyIfObject }};
+  static get jsonSchema() {
+    return {{ pgen.tableJsonSchema(table) | stringifyIfObject }};
+  }
+}
 
 module.exports = {{ class }};
