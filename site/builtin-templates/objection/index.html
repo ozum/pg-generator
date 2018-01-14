@@ -197,7 +197,7 @@ $ pgen exec objection-alpha-template -d our_crm -u user -p tOpSeCrEt -t model
 </code></pre>
 <p>In your application:</p>
 <pre><code class="js">const knex = require(&quot;knex&quot;);
-const { models, init } = require(&quot;./model/index&quot;);
+const { model, init } = require(&quot;./model/index&quot;);
 
 const credentials = {
   client: &quot;pg&quot;,
@@ -216,7 +216,7 @@ model.Company.query()
     console.log(companies[0].name);
   })
   .catch(function(error) {
-    console.log(err.stack);
+    console.log(error.stack);
   });
 </code></pre>
 
