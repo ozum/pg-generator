@@ -13,7 +13,7 @@ In your application:
 
 ```js
 const knex = require("knex");
-const { models, init } = require("./model/index");
+const { model, init } = require("./model/index");
 
 const credentials = {
   client: "pg",
@@ -32,7 +32,7 @@ model.Company.query()
     console.log(companies[0].name);
   })
   .catch(function(error) {
-    console.log(err.stack);
+    console.log(error.stack);
   });
 ```
 
