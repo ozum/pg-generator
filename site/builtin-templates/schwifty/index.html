@@ -8,7 +8,7 @@
   
   <meta name="author" content="Özüm Eldoğan">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Tutorial - pg-generator</title>
+  <title>Schwifty - pg-generator</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Tutorial";
-    var mkdocs_page_input_path = "builtin-templates/tutorial.md";
-    var mkdocs_page_url = "/builtin-templates/tutorial/";
+    var mkdocs_page_name = "Schwifty";
+    var mkdocs_page_input_path = "builtin-templates/schwifty.md";
+    var mkdocs_page_url = "/builtin-templates/schwifty/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -95,15 +95,9 @@
 		
     <span class="caption-text">Builtin Templates</span>
     <ul class="subnav">
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Tutorial</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#usage">Usage</a></li>
-    
-
-    </ul>
+    <a class="" href="../tutorial/">Tutorial</a>
                 </li>
                 <li class="">
                     
@@ -117,9 +111,21 @@
                     
     <a class="" href="../objection/">Objection</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../schwifty/">Schwifty</a>
+    <a class="current" href="./">Schwifty</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#alpha-stage">ALPHA STAGE</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#usage">Usage</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -171,10 +177,10 @@
         
       
     
-    <li>Tutorial</li>
+    <li>Schwifty</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/builtin-templates/tutorial.md"
+        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/builtin-templates/schwifty.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -184,10 +190,12 @@
           <div role="main">
             <div class="section">
               
-                <p>This template may be used to learn basics of pg-generator templates. Files in this template are not complicated and provides an easy start.</p>
+                <h1 id="alpha-stage">ALPHA STAGE</h1>
+<p>This template is in alpha stage. Feedback needed.</p>
 <h2 id="usage">Usage</h2>
-<pre><code>$ pgen template tutorial -t tutorial-template
-$ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
+<p>Create template and model files:</p>
+<pre><code>$ pgen template schwifty -t schwifty
+$ pgen exec schwifty -d our_crm -u user -p tOpSeCrEt -t model
 </code></pre>
               
             </div>
@@ -196,10 +204,10 @@ $ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../base/" class="btn btn-neutral float-right" title="Base">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../api/template-module-api/" class="btn btn-neutral float-right" title="Template Module API">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../template/filters/" class="btn btn-neutral" title="Filters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../objection/" class="btn btn-neutral" title="Objection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -227,10 +235,10 @@ $ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial
           <a href="https://github.com/ozum/pg-generator.git/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../template/filters/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../objection/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../base/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../api/template-module-api/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

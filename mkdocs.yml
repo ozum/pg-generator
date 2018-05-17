@@ -21,6 +21,7 @@ pages:
     - Base: builtin-templates/base.md
     - Sequelize: builtin-templates/sequelize.md
     - Objection: builtin-templates/objection.md
+    - Schwifty: builtin-templates/schwifty.md
   - API:
     - Template Module API: api/template-module-api.md
   - History: history.md
