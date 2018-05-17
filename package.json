@@ -1,6 +1,6 @@
 {
   "name": "pg-generator",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "Template Based Scaffolding Tool for PostgreSQL.",
   "main": "index.js",
   "preferGlobal": true,
@@ -20,17 +20,23 @@
     "test": "lab --timeout 7000 --globals @@any-promise/REGISTRATION,__core-js_shared__,SharedArrayBuffer,Atomics",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "npm test;",
-    "postversion":
-      "npm run remove && npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;",
-    "generate":
-      "pgen template schwifty -t __sil-template && node lib/bin/pgen exec __sil-template --host localhost --port 5432 --user user --password password --schema public --target __sil-models --log info --extension nunj.html --indent 2 --fix",
+    "postversion": "npm run remove && npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;",
+    "generate": "pgen template schwifty -t __sil-template && node lib/bin/pgen exec __sil-template --host localhost --port 5432 --user user --password password --schema public --target __sil-models --log info --extension nunj.html --indent 2 --fix",
     "remove": "rm -rf __sil-models && rm -rf __sil-template"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ozum/pg-generator.git"
   },
-  "keywords": ["pg", "postgresql", "reverse engineer", "auto generate", "sequelize", "orm", "scaffold"],
+  "keywords": [
+    "pg",
+    "postgresql",
+    "reverse engineer",
+    "auto generate",
+    "sequelize",
+    "orm",
+    "scaffold"
+  ],
   "author": {
     "name": "Özüm Eldoğan"
   },
