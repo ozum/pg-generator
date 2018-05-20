@@ -138,6 +138,8 @@
     
         <ul>
         
+            <li><a class="toctree-l3" href="#440-2018-05-20">4.4.0 / 2018-05-20</a></li>
+        
             <li><a class="toctree-l3" href="#410-2017-07-03">4.1.0 / 2017-07-03</a></li>
         
             <li><a class="toctree-l3" href="#400-2017-06-18">4.0.0 / 2017-06-18</a></li>
@@ -254,6 +256,13 @@
               
                 <h1 id="history-release-notes">History &amp; Release Notes</h1>
 <p><strong>Note</strong>: Version history for minimal documentation updates are not listed here to prevent cluttering.</p>
+<h6 id="440-2018-05-20">4.4.0 / 2018-05-20</h6>
+<ul>
+<li>Added: schwifty template</li>
+<li>Added: Joi schema generation function</li>
+<li>Added: TypeScript schema generation function</li>
+<li>Added: JSDoc schema generation function</li>
+</ul>
 <h6 id="410-2017-07-03">4.1.0 / 2017-07-03</h6>
 <ul>
 <li>Added: --config and --env CLI options. Thanks <a href="https://github.com/mmkal">mmkal</a> for PR.</li>
@@ -265,11 +274,11 @@
 <h6 id="350-2017-03-16">3.5.0 / 2017-03-16</h6>
 <ul>
 <li>Added: eslint --fix feature added with <code>lintFix</code> option. If it is set to true and eslint command is available,
-generated files are fixed with eslint according to .eslintrc or settings in your project.</li>
+  generated files are fixed with eslint according to .eslintrc or settings in your project.</li>
 </ul>
 <h6 id="3414-2017-02-21">3.4.14 / 2017-02-21</h6>
 <ul>
-<li>Fixed: Empty and numeric default values were generated wrong. </li>
+<li>Fixed: Empty and numeric default values were generated wrong.</li>
 </ul>
 <h6 id="346-2016-12-8">3.4.6 / 2016-12-8</h6>
 <ul>
@@ -298,7 +307,7 @@ generated files are fixed with eslint according to .eslintrc or settings in your
 <h6 id="324-2016-03-22">3.2.4 / 2016-03-22</h6>
 <ul>
 <li>Fixed: Template file names contain pipe <code>|</code> character for filtering. It's an invalid character in windows file names.
-Now <code>#</code> is used for filtering. For backward compatibility <code>|</code> can still be used. </li>
+  Now <code>#</code> is used for filtering. For backward compatibility <code>|</code> can still be used.</li>
 </ul>
 <h6 id="320-2016-02-22">3.2.0 / 2016-02-22</h6>
 <ul>
@@ -329,7 +338,7 @@ Now <code>#</code> is used for filtering. For backward compatibility <code>|</co
 </ul>
 <h6 id="2017-2015-12-09">2.0.17 / 2015-12-09</h6>
 <ul>
-<li>Added: Additional test for sequelize template, which compares generated file with an expected result.  </li>
+<li>Added: Additional test for sequelize template, which compares generated file with an expected result.</li>
 <li>Fixed: Sequelize template did not generate table description.</li>
 <li>Changed: pg-structure module updated to v2.0.8.</li>
 </ul>
@@ -353,7 +362,7 @@ Now <code>#</code> is used for filtering. For backward compatibility <code>|</co
 <li>Added: Interactive command line.</li>
 <li>Added: 3 templates. (Sequelize, base and tutorial)</li>
 <li>Removed: Configuration files. Templates are easier and more intuitive than config files.</li>
-<li>Changed: Command changed from 'spgen' to 'pgen'. </li>
+<li>Changed: Command changed from 'spgen' to 'pgen'.</li>
 <li>Changed: Makefile to npm scripts.</li>
 </ul>
 <h6 id="090">0.9.0</h6>
