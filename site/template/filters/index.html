@@ -193,7 +193,7 @@
             <div class="section">
               
                 <h1 id="template-filters">Template Filters</h1>
-<p>Filters are essentially functions that can be applied to variables. They are called with a pipe operator (|) and can take arguments. <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> filters alter output of variables in place. You can use all available builtin <a href="https://mozilla.github.io/nunjucks/templating.html#builtin-filters">nunjucks filters</a>. </p>
+<p>Filters are essentially functions that can be applied to variables. They are called with a pipe operator (|) and can take arguments. <a href="https://mozilla.github.io/nunjucks/">nunjucks</a> filters alter output of variables in place. You can use all available builtin <a href="https://mozilla.github.io/nunjucks/templating.html#builtin-filters">nunjucks filters</a>.</p>
 <pre><code>{{ table.name | lower }} -&gt; Converts name to lower case. (i.e. Member -&gt; member)
 </code></pre>
 <p>They can be chained:</p>
@@ -307,6 +307,12 @@
 <td>company_id, account</td>
 <td>company related_account</td>
 </tr>
+<tr>
+<td>makeJsDoc(str)</td>
+<td>Converts given string to JSOC lines</td>
+<td>"some \n multi line"</td>
+<td>" _ some\n _ multi line"</td>
+</tr>
 </tbody>
 </table>
 <p><strong>*</strong> Footnotes</p>
@@ -322,7 +328,7 @@
 <h3 id="cleardefaultstring-string-boolean-undefined">clearDefault(string) ⇒ <code>string</code> &#124; <code>boolean</code> &#124; <code>undefined</code></h3>
 <p>Clears SQL type escapes (Two quote '' to one quote ') and strips beginning and trailing quotes around string.
 Also escapes result according to JSON standards.</p>
-<p><strong>Returns</strong>: <code>string</code> &#124; <code>boolean</code> &#124; <code>undefined</code> - - Default value to use in template.  </p>
+<p><strong>Returns</strong>: <code>string</code> &#124; <code>boolean</code> &#124; <code>undefined</code> - - Default value to use in template.</p>
 <table>
 <thead>
 <tr>
@@ -343,7 +349,7 @@ Also escapes result according to JSON standards.</p>
 <h3 id="relationnamestr-prefix-string">relationName(str, [prefix]) ⇒ <code>string</code></h3>
 <p>Converts foreign key name to be used in a relationship. If string ends with '_id' or 'id', strips it (case insensitive).
 Otherwise adds given prefix at the beginning of the string. company_id -&gt; company, account -&gt; related_account</p>
-<p><strong>Returns</strong>: <code>string</code> - - Name for the belongsTo relationship.  </p>
+<p><strong>Returns</strong>: <code>string</code> - - Name for the belongsTo relationship.</p>
 <table>
 <thead>
 <tr>
@@ -371,7 +377,7 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
 <p><a name="stripPrefix"></a></p>
 <h3 id="stripprefixsource-arguments-string">stripPrefix(source, arguments) ⇒ <code>string</code></h3>
 <p>Variadic function which strips given list of strings or object's names from start of the source string.</p>
-<p><strong>Returns</strong>: <code>string</code> - - Cleaned string.  </p>
+<p><strong>Returns</strong>: <code>string</code> - - Cleaned string.</p>
 <table>
 <thead>
 <tr>
@@ -396,7 +402,7 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
 <p><a name="stripSuffix"></a></p>
 <h3 id="stripsuffixsource-arguments-string">stripSuffix(source, arguments) ⇒ <code>string</code></h3>
 <p>Variadic function which strips given list of strings or object's names from end of the source string.</p>
-<p><strong>Returns</strong>: <code>string</code> - - Cleaned string.  </p>
+<p><strong>Returns</strong>: <code>string</code> - - Cleaned string.</p>
 <table>
 <thead>
 <tr>
@@ -421,7 +427,7 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
 <p><a name="padRight"></a></p>
 <h3 id="padrightstr-count-char-string">padRight(str, count, [char]) ⇒ <code>string</code></h3>
 <p>Pads given string's right side with given character (default space) to complete its length to count.</p>
-<p><strong>Returns</strong>: <code>string</code> - - Result string with length of count.  </p>
+<p><strong>Returns</strong>: <code>string</code> - - Result string with length of count.</p>
 <table>
 <thead>
 <tr>
@@ -476,18 +482,18 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
 
   Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+	  
         </div>
       </div>
 
     </section>
-
+    
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/ozum/pg-generator.git/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/ozum/pg-generator.git" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../directories-files/" style="color: #fcfcfc;">&laquo; Previous</a></span>
@@ -497,10 +503,7 @@ Otherwise adds given prefix at the beginning of the string. company_id -&gt; com
       
     </span>
 </div>
-    <script>var base_url = '../..';</script>
     <script src="../../js/theme.js"></script>
-      <script src="../../search/require.js"></script>
-      <script src="../../search/search.js"></script>
 
 </body>
 </html>

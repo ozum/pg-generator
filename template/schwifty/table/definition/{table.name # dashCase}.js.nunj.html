@@ -23,8 +23,8 @@
     path.join(__dirname, {{ table.name | dashCase | singleQuote }} )
 {%- endmacro -%}
 
-const path  = require('path');
-const { Model } = require('../index');
+const { Model } = require('../../model');
+const Joi = require('joi');
 
 /* eslint-disable require-jsdoc, max-len */
 
@@ -82,8 +82,11 @@ class {{ class }} extends Model {
     }
   }
 
-  static get jsonSchema() {
-    return {{ pgen.tableJsonSchema(table) | stringifyIfObject }};
+
+  static get joiSchema() {
+    return Joi.object({
+      {{ pgen.tableJoiSchema(table) | stringifyIfObject(raw = true) }}
+    });
   }
 }
 
