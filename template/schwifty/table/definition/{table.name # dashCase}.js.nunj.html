@@ -52,7 +52,7 @@ class {{ class }} extends Model {
   }
 
   static get relationMappings() {
-    {% set relatedTables = table.hasManyTables.array.concat(table.belongsToTables.array) | uniqueArray -%}
+    {% set relatedTables = table.hasManyTables.array.concat(table.belongsToTables.array, table.belongsToManyTables.array) | uniqueArray -%}
 
     {% for relatedTable in relatedTables -%}
       const {{ relatedTable.name | pascalCase }} = require('./{{ relatedTable.name | dashCase }}');
@@ -63,7 +63,7 @@ class {{ class }} extends Model {
       {% for relation in table.o2mRelations.array -%}
           {{ relComma() }}{{ relation.generateName() | camelCase }}: {
               relation: Model.HasManyRelation,
-              modelClass: {{ file(relation.targetTable) }},
+              modelClass: {{ relation.targetTable.name | pascalCase }},
               join: {
                   from: {{ columns(table.primaryKeyColumns.array) }},
                   to: {{ columns(relation.constraint.columns.array) }}
@@ -83,11 +83,11 @@ class {{ class }} extends Model {
       {% for relation in table.m2mRelations.array -%}
           {{ relComma() }}{{ relation.generateName() | camelCase }}: {
               relation: Model.ManyToManyRelation,
-              modelClass: {{ file(relation.targetTable) }},
+              modelClass: {{ relation.targetTable.name | pascalCase }},
               join: {
                   from: {{ columns(table.primaryKeyColumns.array) }},
                   through: {
-                      modelClass: {{ file(relation.joinTable) }},
+                      modelClass: {{ relation.joinTable.name | pascalCase }},
                       from: {{ columns(relation.sourceConstraint.columns.array) }},
                       to: {{ columns(relation.targetConstraint.columns.array) }}
                   },
