@@ -32,7 +32,7 @@
     path.join(__dirname, {{ table.name | dashCase | singleQuote }} )
 {%- endmacro -%}
 
-const { Model } = require('../../model');
+const { Model } = require('schwifty');
 const Joi = require('joi');
 
 /* eslint-disable require-jsdoc, max-len, global-require */
