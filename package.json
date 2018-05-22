@@ -53,7 +53,7 @@
     "lodash": "^4.x",
     "nunjucks": "^3.x",
     "pg": "^6.x",
-    "pg-structure": "^4.0.6",
+    "pg-structure": "^4.1.0",
     "winston": "^2.x"
   },
   "devDependencies": {
