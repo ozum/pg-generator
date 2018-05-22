@@ -55,7 +55,9 @@ class {{ class }} extends Model {
     {% set relatedTables = table.hasManyTables.array.concat(table.belongsToTables.array, table.belongsToManyTables.array) | uniqueArray -%}
 
     {% for relatedTable in relatedTables -%}
-      const {{ relatedTable.name | pascalCase }} = require('./{{ relatedTable.name | dashCase }}');
+      {% if relatedTable.name != table.name -%}
+        const {{ relatedTable.name | pascalCase }} = require('./{{ relatedTable.name | dashCase }}');
+      {% endif -%}
     {% endfor %}
 
 
