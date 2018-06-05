@@ -1,6 +1,0 @@
-{% for schema in db.schemas.array -%}
-  {% for table in schema.tables.array -%}
-    module.exports.{{ table.name | classCase }} = require('./definition/{{ table.name | dashCase }}');
-  {% endfor -%}
-{% endfor -%}
-
