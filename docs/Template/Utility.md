@@ -6,6 +6,14 @@
 
 Schema generating utilites generates schemas for common basic needs. If you need custom functionality, you should do it in template manuanlly.
 
+Signature of functions are as below:
+
+**schemaFunction(table, options)**
+
+- `table`: (Object) pg-structure table object
+- `options`: (Object) Options
+- `options.exclude`: (string[]) Array of column names to exclude
+
 ### pgen.tableJsDocSchema
 
 Generates JSDoc documentation for given table.

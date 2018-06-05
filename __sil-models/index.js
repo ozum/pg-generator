@@ -1,0 +1,14 @@
+module.exports.BusinessUnit = require('./definition/business-unit');
+module.exports.Field = require('./definition/field');
+module.exports.Operation = require('./definition/operation');
+module.exports.Organization = require('./definition/organization');
+module.exports.Privilege = require('./definition/privilege');
+module.exports.PrivilegeGroup = require('./definition/privilege-group');
+module.exports.Role = require('./definition/role');
+module.exports.RoleField = require('./definition/role-field');
+module.exports.RolePrivilege = require('./definition/role-privilege');
+module.exports.User = require('./definition/user');
+module.exports.VRoleOperationPrivilege = require('./definition/v-role-operation-privilege');
+module.exports.VRolePrivilege = require('./definition/v-role-privilege');
+module.exports.KnexMigration = require('./definition/knex-migrations');
+module.exports.KnexMigrationsLock = require('./definition/knex-migrations-lock');
