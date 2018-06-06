@@ -108,7 +108,7 @@ class {{ class }} extends Model {
   }
 
   static get joiSchema() {
-    return Joi.object({{ class }}.rawJoiObject);
+    return Joi.object(this.rawJoiObject);
   }
 }
 
