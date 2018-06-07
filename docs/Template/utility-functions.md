@@ -1,4 +1,4 @@
-# Utility
+# Utility Funtions
 
 `pg-generator` provides some utility functions.
 

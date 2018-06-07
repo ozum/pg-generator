@@ -16,6 +16,7 @@ pages:
     - Template: template/template.md
     - Directories & Files: template/directories-files.md
     - Filters: template/filters.md
+    - Utility: template/utility-functions.md
   - Builtin Templates:
     - Tutorial: builtin-templates/tutorial.md
     - Base: builtin-templates/base.md
