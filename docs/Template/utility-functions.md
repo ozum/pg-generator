@@ -10,9 +10,12 @@ Signature of functions are as below:
 
 **schemaFunction(table, options)**
 
-- `table`: (Object) pg-structure table object
-- `options`: (Object) Options
-- `options.exclude`: (string[]) Array of column names to exclude
+| Name                   | Type     | Default | Description                                           |
+| ---------------------- | -------- | ------- | ----------------------------------------------------- |
+| table                  | Object   |         | pg-structure table object                             |
+| [options]              | Object   |         | Options                                               |
+| [options.exclude]      | string[] |         | Array of column names to exclude                      |
+| [options.jsonAsString] | boolean  | `false` | Whether json and jsonb types are expected as a string |
 
 ### pgen.tableJsDocSchema
 
