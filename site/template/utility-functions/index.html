@@ -200,11 +200,42 @@
 <p>Schema generating utilites generates schemas for common basic needs. If you need custom functionality, you should do it in template manuanlly.</p>
 <p>Signature of functions are as below:</p>
 <p><strong>schemaFunction(table, options)</strong></p>
-<ul>
-<li><code>table</code>: (Object) pg-structure table object</li>
-<li><code>options</code>: (Object) Options</li>
-<li><code>options.exclude</code>: (string[]) Array of column names to exclude</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table</td>
+<td>Object</td>
+<td></td>
+<td>pg-structure table object</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td></td>
+<td>Options</td>
+</tr>
+<tr>
+<td>[options.exclude]</td>
+<td>string[]</td>
+<td></td>
+<td>Array of column names to exclude</td>
+</tr>
+<tr>
+<td>[options.jsonAsString]</td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Whether json and jsonb types are expected as a string</td>
+</tr>
+</tbody>
+</table>
 <h3 id="pgentablejsdocschema">pgen.tableJsDocSchema</h3>
 <p>Generates JSDoc documentation for given table.</p>
 <p>Example usage in template:</p>
