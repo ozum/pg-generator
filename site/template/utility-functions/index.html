@@ -8,7 +8,7 @@
   
   <meta name="author" content="Özüm Eldoğan">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Base - pg-generator</title>
+  <title>Utility - pg-generator</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Base";
-    var mkdocs_page_input_path = "builtin-templates/base.md";
-    var mkdocs_page_url = "/builtin-templates/base/";
+    var mkdocs_page_name = "Utility";
+    var mkdocs_page_input_path = "template/utility-functions.md";
+    var mkdocs_page_url = "/template/utility-functions/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -78,19 +78,31 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../template/template/">Template</a>
+    <a class="" href="../template/">Template</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../template/directories-files/">Directories & Files</a>
+    <a class="" href="../directories-files/">Directories & Files</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../template/filters/">Filters</a>
+    <a class="" href="../filters/">Filters</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../../template/utility-functions/">Utility</a>
+    <a class="current" href="./">Utility</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#utility-funtions">Utility Funtions</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#schema-generating-utilities">Schema Generating Utilities</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -101,29 +113,23 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../tutorial/">Tutorial</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">Base</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#usage">Usage</a></li>
-    
-
-    </ul>
+    <a class="" href="../../builtin-templates/tutorial/">Tutorial</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../sequelize/">Sequelize</a>
+    <a class="" href="../../builtin-templates/base/">Base</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../objection/">Objection</a>
+    <a class="" href="../../builtin-templates/sequelize/">Sequelize</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../schwifty/">Schwifty</a>
+    <a class="" href="../../builtin-templates/objection/">Objection</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../builtin-templates/schwifty/">Schwifty</a>
                 </li>
     </ul>
 	    </li>
@@ -171,14 +177,14 @@
     
       
         
-          <li>Builtin Templates &raquo;</li>
+          <li>Template &raquo;</li>
         
       
     
-    <li>Base</li>
+    <li>Utility</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/builtin-templates/base.md"
+        <a href="https://github.com/ozum/pg-generator.git/edit/master/docs/template/utility-functions.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -188,10 +194,45 @@
           <div role="main">
             <div class="section">
               
-                <p>This template may be used to create your own templates from scratch. It generates all necessary boilerplate files.</p>
-<h2 id="usage">Usage</h2>
-<pre><code>$ pgen template base -t base-template
-$ pgen exec base-template -d our_crm -u user -p tOpSeCrEt -t my-template
+                <h1 id="utility-funtions">Utility Funtions</h1>
+<p><code>pg-generator</code> provides some utility functions.</p>
+<h2 id="schema-generating-utilities">Schema Generating Utilities</h2>
+<p>Schema generating utilites generates schemas for common basic needs. If you need custom functionality, you should do it in template manuanlly.</p>
+<p>Signature of functions are as below:</p>
+<p><strong>schemaFunction(table, options)</strong></p>
+<ul>
+<li><code>table</code>: (Object) pg-structure table object</li>
+<li><code>options</code>: (Object) Options</li>
+<li><code>options.exclude</code>: (string[]) Array of column names to exclude</li>
+</ul>
+<h3 id="pgentablejsdocschema">pgen.tableJsDocSchema</h3>
+<p>Generates JSDoc documentation for given table.</p>
+<p>Example usage in template:</p>
+<pre><code class="nunjucks">/**
+ * {{ table.schema.name }}.{{ table.name }}
+{{ table.description | makeJsDoc }}
+{{ pgen.tableJsDocSchema(table) -}}
+ */
+</code></pre>
+
+<h3 id="pgentabletypescriptschema">pgen.tableTypeScriptSchema</h3>
+<p>Generates TypeScript types for given table.</p>
+<p>Example usage in template:</p>
+<pre><code class="nunjucks">class {{ table.name | classCase }} extends Model {
+  {{ pgen.tableTypeScriptSchema(table) }}
+}
+</code></pre>
+
+<h3 id="pgentablejoischema">pgen.tableJoiSchema</h3>
+<p>Generates <code>Joi</code> schema for given table.</p>
+<pre><code class="nunjucks">Joi.object({
+  {{ pgen.tableJoiSchema(table) | stringifyIfObject(raw = true) }}
+});
+</code></pre>
+
+<h3 id="pgentablejsonschema">pgen.tableJsonSchema</h3>
+<p>Generates JSON Schema for given table.</p>
+<pre><code class="nunjucks">{{ pgen.tableJsonSchema(table) | stringifyIfObject }};
 </code></pre>
               
             </div>
@@ -200,10 +241,10 @@ $ pgen exec base-template -d our_crm -u user -p tOpSeCrEt -t my-template
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../sequelize/" class="btn btn-neutral float-right" title="Sequelize">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../builtin-templates/tutorial/" class="btn btn-neutral float-right" title="Tutorial">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../tutorial/" class="btn btn-neutral" title="Tutorial"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../filters/" class="btn btn-neutral" title="Filters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -231,10 +272,10 @@ $ pgen exec base-template -d our_crm -u user -p tOpSeCrEt -t my-template
           <a href="https://github.com/ozum/pg-generator.git/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../tutorial/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../filters/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../sequelize/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../builtin-templates/tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

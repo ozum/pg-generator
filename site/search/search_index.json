@@ -211,6 +211,41 @@
             "title": "padRight(str, count, [char]) \u21d2 string"
         }, 
         {
+            "location": "/template/utility-functions/", 
+            "text": "Utility Funtions\n\n\npg-generator\n provides some utility functions.\n\n\nSchema Generating Utilities\n\n\nSchema generating utilites generates schemas for common basic needs. If you need custom functionality, you should do it in template manuanlly.\n\n\nSignature of functions are as below:\n\n\nschemaFunction(table, options)\n\n\n\n\ntable\n: (Object) pg-structure table object\n\n\noptions\n: (Object) Options\n\n\noptions.exclude\n: (string[]) Array of column names to exclude\n\n\n\n\npgen.tableJsDocSchema\n\n\nGenerates JSDoc documentation for given table.\n\n\nExample usage in template:\n\n\n/**\n * {{ table.schema.name }}.{{ table.name }}\n{{ table.description | makeJsDoc }}\n{{ pgen.tableJsDocSchema(table) -}}\n */\n\n\n\n\npgen.tableTypeScriptSchema\n\n\nGenerates TypeScript types for given table.\n\n\nExample usage in template:\n\n\nclass {{ table.name | classCase }} extends Model {\n  {{ pgen.tableTypeScriptSchema(table) }}\n}\n\n\n\n\npgen.tableJoiSchema\n\n\nGenerates \nJoi\n schema for given table.\n\n\nJoi.object({\n  {{ pgen.tableJoiSchema(table) | stringifyIfObject(raw = true) }}\n});\n\n\n\n\npgen.tableJsonSchema\n\n\nGenerates JSON Schema for given table.\n\n\n{{ pgen.tableJsonSchema(table) | stringifyIfObject }};", 
+            "title": "Utility"
+        }, 
+        {
+            "location": "/template/utility-functions/#utility-funtions", 
+            "text": "pg-generator  provides some utility functions.", 
+            "title": "Utility Funtions"
+        }, 
+        {
+            "location": "/template/utility-functions/#schema-generating-utilities", 
+            "text": "Schema generating utilites generates schemas for common basic needs. If you need custom functionality, you should do it in template manuanlly.  Signature of functions are as below:  schemaFunction(table, options)   table : (Object) pg-structure table object  options : (Object) Options  options.exclude : (string[]) Array of column names to exclude", 
+            "title": "Schema Generating Utilities"
+        }, 
+        {
+            "location": "/template/utility-functions/#pgentablejsdocschema", 
+            "text": "Generates JSDoc documentation for given table.  Example usage in template:  /**\n * {{ table.schema.name }}.{{ table.name }}\n{{ table.description | makeJsDoc }}\n{{ pgen.tableJsDocSchema(table) -}}\n */", 
+            "title": "pgen.tableJsDocSchema"
+        }, 
+        {
+            "location": "/template/utility-functions/#pgentabletypescriptschema", 
+            "text": "Generates TypeScript types for given table.  Example usage in template:  class {{ table.name | classCase }} extends Model {\n  {{ pgen.tableTypeScriptSchema(table) }}\n}", 
+            "title": "pgen.tableTypeScriptSchema"
+        }, 
+        {
+            "location": "/template/utility-functions/#pgentablejoischema", 
+            "text": "Generates  Joi  schema for given table.  Joi.object({\n  {{ pgen.tableJoiSchema(table) | stringifyIfObject(raw = true) }}\n});", 
+            "title": "pgen.tableJoiSchema"
+        }, 
+        {
+            "location": "/template/utility-functions/#pgentablejsonschema", 
+            "text": "Generates JSON Schema for given table.  {{ pgen.tableJsonSchema(table) | stringifyIfObject }};", 
+            "title": "pgen.tableJsonSchema"
+        }, 
+        {
             "location": "/builtin-templates/tutorial/", 
             "text": "This template may be used to learn basics of pg-generator templates. Files in this template are not complicated and provides an easy start.\n\n\nUsage\n\n\n$ pgen template tutorial -t tutorial-template\n$ pgen exec tutorial-template -d our_crm -u user -p tOpSeCrEt -t tutorial", 
             "title": "Tutorial"
