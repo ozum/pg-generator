@@ -10,12 +10,13 @@ Signature of functions are as below:
 
 **schemaFunction(table, options)**
 
-| Name                   | Type     | Default | Description                                           |
-| ---------------------- | -------- | ------- | ----------------------------------------------------- |
-| table                  | Object   |         | pg-structure table object                             |
-| [options]              | Object   |         | Options                                               |
-| [options.exclude]      | string[] |         | Array of column names to exclude                      |
-| [options.jsonAsString] | boolean  | `false` | Whether json and jsonb types are expected as a string |
+| Name                           | Type     | Default | Description                                           |
+| ------------------------------ | -------- | ------- | ----------------------------------------------------- |
+| table                          | Object   |         | pg-structure table object                             |
+| [options]                      | Object   |         | Options                                               |
+| [options.exclude]              | string[] |         | Array of column names to exclude                      |
+| [options.jsonAsString]         | boolean  | `false` | Whether json and jsonb types are expected as a string |
+| [options.defaultValueOptional] | boolean  | `false` | Whether to make columns with default values optional  |
 
 ### pgen.tableJsDocSchema
 
