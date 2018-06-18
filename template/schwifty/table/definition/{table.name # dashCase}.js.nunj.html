@@ -67,7 +67,7 @@ class {{ class }} extends Model {
               relation: Model.HasManyRelation,
               modelClass: {{ relation.targetTable.name | pascalCase }},
               join: {
-                  from: {{ columns(table.primaryKeyColumns.array) }},
+                  from: {{ columns(relation.constraint.referencedColumnsBy.array) }},
                   to: {{ columns(relation.constraint.columns.array) }}
               }
           }
@@ -87,13 +87,13 @@ class {{ class }} extends Model {
               relation: Model.ManyToManyRelation,
               modelClass: {{ relation.targetTable.name | pascalCase }},
               join: {
-                  from: {{ columns(table.primaryKeyColumns.array) }},
+                  from: {{ columns(relation.sourceConstraint.referencedColumnsBy.array) }},
                   through: {
                       modelClass: {{ relation.joinTable.name | pascalCase }},
                       from: {{ columns(relation.sourceConstraint.columns.array) }},
                       to: {{ columns(relation.targetConstraint.columns.array) }}
                   },
-                  to: {{ columns(relation.targetTable.primaryKeyColumns.array) }}
+                  to: {{ columns(relation.targetConstraint.referencedColumnsBy.array) }}
               }
           }
       {% endfor -%}

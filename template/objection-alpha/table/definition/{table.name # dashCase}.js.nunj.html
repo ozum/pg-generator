@@ -49,7 +49,7 @@ class {{ class }} extends Model {
             relation: Model.HasManyRelation,
             modelClass: {{ file(relation.targetTable) }},
             join: {
-                from: {{ columns(table.primaryKeyColumns.array) }},
+                from: {{ columns(relation.constraint.referencedColumnsBy.array) }},
                 to: {{ columns(relation.constraint.columns.array) }}
             }
         }
@@ -69,13 +69,13 @@ class {{ class }} extends Model {
             relation: Model.ManyToManyRelation,
             modelClass: {{ file(relation.targetTable) }},
             join: {
-                from: {{ columns(table.primaryKeyColumns.array) }},
+                from: {{ columns(relation.sourceConstraint.referencedColumnsBy.array) }},
                 through: {
                     modelClass: {{ file(relation.joinTable) }},
                     from: {{ columns(relation.sourceConstraint.columns.array) }},
                     to: {{ columns(relation.targetConstraint.columns.array) }}
                 },
-                to: {{ columns(relation.targetTable.primaryKeyColumns.array) }}
+                to: {{ columns(relation.targetConstraint.referencedColumnsBy.array) }}
             }
         }
     {% endfor -%}
