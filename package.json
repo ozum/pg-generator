@@ -17,7 +17,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "lab --timeout 7000 --globals @@any-promise/REGISTRATION,__core-js_shared__,SharedArrayBuffer,Atomics",
+    "test": "lab --timeout 7000 --globals @@any-promise/REGISTRATION,__core-js_shared__,SharedArrayBuffer,Atomics --leaks",
     "doc": "cat docs/index.md > README.md && mkdocs build --clean",
     "preversion": "npm test;",
     "postversion": "npm run remove && npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;",
@@ -66,7 +66,7 @@
     "eslint-plugin-react": "^7.x",
     "fs-extra": "^3.0.1",
     "knex": "^0",
-    "lab": "^14.x",
+    "lab": "^14.3.4",
     "mz": "^2.x",
     "objection": "^0",
     "pg-hstore": "^2",
