@@ -50,7 +50,7 @@
     "inquirer": "^0",
     "js-beautify": "^1.x",
     "klaw": "^1.x",
-    "lodash": "^4.x",
+    "lodash": "^4.17.11",
     "nunjucks": "^3.x",
     "pg": "^6.x",
     "pg-structure": "^4.1.3",
