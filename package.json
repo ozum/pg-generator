@@ -52,7 +52,7 @@
     "klaw": "^1.x",
     "lodash": "^4.17.11",
     "nunjucks": "^3.2.0",
-    "pg": "^6.x",
+    "pg": "^7.10.0",
     "pg-structure": "^4.2.2",
     "winston": "^2.4.4"
   },
@@ -71,6 +71,6 @@
     "objection": "^0.9.4",
     "pg-hstore": "^2",
     "pg-test-util": "^1.x",
-    "sequelize": "^4.43.2"
+    "sequelize": "^5.7.6"
   }
 }
