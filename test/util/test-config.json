@@ -1,9 +1,0 @@
-{
-    "development": {
-        "database": "pg-generator-test-7348G63",
-        "username": "user",
-        "password": "password",
-        "host": "localhost",
-        "port": 5432
-    }
-}

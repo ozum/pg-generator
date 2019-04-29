@@ -1,9 +1,0 @@
-{% for attributeName, attributeDetails in c.attributes -%} {# Extra attributes available in custom data but not in DB #}
-    {%- if not table.columns.has(attributeDetails.field or attributeName or '') -%}
-        ,{{ attributeName }}: {
-        {% for key, value in attributeDetails -%}
-            {{ key }}: {{ value }}{% if not loop.last %},{% endif %}
-        {% endfor -%}
-        }
-    {% endif -%}
-{% endfor -%}
