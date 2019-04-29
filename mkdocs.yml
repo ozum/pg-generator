@@ -1,29 +1,29 @@
 site_name: pg-generator
 theme: readthedocs
-site_url: 'http://www.pg-generator.com'
-repo_url: 'https://github.com/ozum/pg-generator.git'
+site_url: "http://www.pg-generator.com"
+repo_url: "https://github.com/ozum/pg-generator.git"
 site_description: Template Based Scaffolding Tool for PostgreSQL.
 site_author: Özüm Eldoğan
 google_analytics:
   - UA-45732546-5
   - auto
 docs_dir: docs
-pages:
+nav:
   - Home: index.md
   - Relation Names: relation-names.md
   - Migration: migration.md
   - Template:
-    - Template: template/template.md
-    - Directories & Files: template/directories-files.md
-    - Filters: template/filters.md
-    - Utility: template/utility-functions.md
+      - Template: template/template.md
+      - Directories & Files: template/directories-files.md
+      - Filters: template/filters.md
+      - Utility: template/utility-functions.md
   - Builtin Templates:
-    - Tutorial: builtin-templates/tutorial.md
-    - Base: builtin-templates/base.md
-    - Sequelize: builtin-templates/sequelize.md
-    - Objection: builtin-templates/objection.md
-    - Schwifty: builtin-templates/schwifty.md
+      - Tutorial: builtin-templates/tutorial.md
+      - Base: builtin-templates/base.md
+      - Sequelize: builtin-templates/sequelize.md
+      - Objection: builtin-templates/objection.md
+      - Schwifty: builtin-templates/schwifty.md
   - API:
-    - Template Module API: api/template-module-api.md
+      - Template Module API: api/template-module-api.md
   - History: history.md
   - License: license.md

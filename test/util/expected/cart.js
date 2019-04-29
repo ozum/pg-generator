@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Cart', {
   customDataString: 'String',
   customDataObject: {
     a: 1,
-    b: 'O\'Reilly',
+    b: "O'Reilly",
   },
 });
 
