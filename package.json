@@ -22,7 +22,9 @@
     "preversion": "npm test;",
     "postversion": "npm run remove && npm run doc && git add -A site && git add README.md mkdocs.yml && git commit -m 'Doc update' && git push && git push --tags && git subtree push --prefix site origin gh-pages && npm publish;",
     "generate": "node lib/bin/pgen.js template schwifty -t __sil-template --clear && rm -rf __sil-models && node lib/bin/pgen.js exec __sil-template --host localhost --port 5432 --user user --password password --schema public --target __sil-models --log info --extension nunj.html --indent 2",
-    "remove": "rm -rf __sil-models && rm -rf __sil-template"
+    "remove": "rm -rf __sil-models && rm -rf __sil-template",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -54,7 +56,8 @@
     "nunjucks": "^3.2.0",
     "pg": "^7.10.0",
     "pg-structure": "^4.2.2",
-    "winston": "^2.4.4"
+    "winston": "^2.4.4",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -72,5 +75,6 @@
     "pg-hstore": "^2",
     "pg-test-util": "^1.x",
     "sequelize": "^5.7.6"
-  }
+  },
+  "snyk": true
 }
