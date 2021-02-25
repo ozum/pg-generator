@@ -30,7 +30,9 @@
     "!dist/**/__test__",
     "module-files"
   ],
-  "bin": "dist/bin/pgen.js",
+  "bin": {
+    "pgen": "dist/bin/pgen.js"
+  },
   "homepage": "https://www.pg-generator.com",
   "bugs": "https://github.com/ozum/pg-generator/issues",
   "repository": "ozum/pg-generator",
