@@ -1,0 +1,3 @@
+{
+  "extends": "./module-files/configs/tsconfig.json"
+}

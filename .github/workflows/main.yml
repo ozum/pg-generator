@@ -1,0 +1,56 @@
+name: CI / CD
+"on":
+  push:
+    branches:
+      - master
+      - next
+      - next-major
+      - alpha
+      - beta
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{github.ref}}
+      - run: echo Condition met
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      - name: Begin CI...
+        uses: actions/checkout@v2
+      - name: Use Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache node modules (yarn)
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install project dependencies
+        run: yarn
+      - name: Run ESLint
+        run: yarn lint --no-fix
+      - name: Run Prettier
+        run: yarn format --no-write --check
+      - name: Test
+        run: yarn test --ci --maxWorkers=2
+        env:
+          CI: true
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
+      - name: Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
