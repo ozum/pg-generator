@@ -34,8 +34,11 @@ Template based scaffolding tool for PostgreSQL.
     - [log](#log)
     - [outDir](#outdir)
 - [Modules](#modules)
-- [Namespace: filterFunctions](#namespace-filterfunctions)
+- [Namespace: converters](#namespace-converters)
   - [Functions](#functions-1)
+    - [mermaidToSVG](#mermaidtosvg)
+- [Namespace: filterFunctions](#namespace-filterfunctions)
+  - [Functions](#functions-2)
     - [camelCase](#camelcase)
     - [classCase](#classcase)
     - [clearDefault](#cleardefault)
@@ -82,6 +85,7 @@ Template based scaffolding tool for PostgreSQL.
 
 ### Namespaces
 
+- [converters](#modulesconvertersmd)
 - [filterFunctions](#modulesfilterfunctionsmd)
 
 ### Classes
@@ -107,7 +111,7 @@ Context provided to render function.
 | `o`  | Db \| DbObject         |
 | `x`  | _Record_<string, any\> |
 
-Defined in: [types/index.ts:53](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L53)
+Defined in: [types/index.ts:53](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L53)
 
 ---
 
@@ -115,7 +119,7 @@ Defined in: [types/index.ts:53](https://github.com/ozum/pg-generator/blob/0f1e46
 
 Ƭ **Options**: [_GeneratorOptions_](#interfacesgeneratoroptionsmd) & ClientOptions
 
-Defined in: [types/index.ts:50](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L50)
+Defined in: [types/index.ts:50](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L50)
 
 ## Functions
 
@@ -141,7 +145,7 @@ generate(require.resolve("./local-generator"), options);
 
 **Returns:** _Promise_<void\>
 
-Defined in: [generate.ts:15](https://github.com/ozum/pg-generator/blob/0f1e464/src/generate.ts#L15)
+Defined in: [generate.ts:15](https://github.com/ozum/pg-generator/blob/1b8e16d/src/generate.ts#L15)
 
 ▸ **generate**(`generator`: _string_, `subGenerator?`: _string_, `options?`: [_Options_](#options)): _Promise_<void\>
 
@@ -164,7 +168,7 @@ generate(require.resolve("./local-generator"), "sub-generator", options);
 
 **Returns:** _Promise_<void\>
 
-Defined in: [generate.ts:27](https://github.com/ozum/pg-generator/blob/0f1e464/src/generate.ts#L27)
+Defined in: [generate.ts:27](https://github.com/ozum/pg-generator/blob/1b8e16d/src/generate.ts#L27)
 
 # Classes
 
@@ -205,7 +209,7 @@ Creates an instance of PgGenerator.
 
 **Returns:** [_PgGenerator_](#classespggeneratormd)<O\>
 
-Defined in: [pg-generator.ts:23](https://github.com/ozum/pg-generator/blob/0f1e464/src/pg-generator.ts#L23)
+Defined in: [pg-generator.ts:23](https://github.com/ozum/pg-generator/blob/1b8e16d/src/pg-generator.ts#L23)
 
 ## Methods
 
@@ -223,7 +227,7 @@ Additionally copies all files in `[rootDir]/files` to the output directory.
 
 **Returns:** _Promise_<void\>
 
-Defined in: [pg-generator.ts:47](https://github.com/ozum/pg-generator/blob/0f1e464/src/pg-generator.ts#L47)
+Defined in: [pg-generator.ts:47](https://github.com/ozum/pg-generator/blob/1b8e16d/src/pg-generator.ts#L47)
 
 # Interfaces
 
@@ -243,7 +247,7 @@ Options for generation and reverse engineering process. Options extends [pg-stru
 
 Whether to clear the destination directory before creating files.
 
-Defined in: [types/index.ts:7](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L7)
+Defined in: [types/index.ts:7](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L7)
 
 ---
 
@@ -253,7 +257,7 @@ Defined in: [types/index.ts:7](https://github.com/ozum/pg-generator/blob/0f1e464
 
 Extra context data. This data is merged with and overridden by data from context file.
 
-Defined in: [types/index.ts:13](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L13)
+Defined in: [types/index.ts:13](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L13)
 
 ---
 
@@ -263,7 +267,7 @@ Defined in: [types/index.ts:13](https://github.com/ozum/pg-generator/blob/0f1e46
 
 Path to a JSON or JS file providing extra context for templates.
 
-Defined in: [types/index.ts:11](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L11)
+Defined in: [types/index.ts:11](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L11)
 
 ---
 
@@ -273,7 +277,7 @@ Defined in: [types/index.ts:11](https://github.com/ozum/pg-generator/blob/0f1e46
 
 Whether to log output to console.
 
-Defined in: [types/index.ts:15](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L15)
+Defined in: [types/index.ts:15](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L15)
 
 ---
 
@@ -283,9 +287,33 @@ Defined in: [types/index.ts:15](https://github.com/ozum/pg-generator/blob/0f1e46
 
 Path of the output directory.
 
-Defined in: [types/index.ts:9](https://github.com/ozum/pg-generator/blob/0f1e464/src/types/index.ts#L9)
+Defined in: [types/index.ts:9](https://github.com/ozum/pg-generator/blob/1b8e16d/src/types/index.ts#L9)
 
 # Modules
+
+<a name="modulesconvertersmd"></a>
+
+[pg-generator](#readmemd) / converters
+
+# Namespace: converters
+
+## Functions
+
+### mermaidToSVG
+
+▸ **mermaidToSVG**(`data`: _string_, `options?`: { `link`: }): _string_
+
+#### Parameters:
+
+| Name           | Type     |
+| :------------- | :------- |
+| `data`         | _string_ |
+| `options`      | _object_ |
+| `options.link` | -        |
+
+**Returns:** _string_
+
+Defined in: converters/mermaid-to-svg.ts:8
 
 <a name="modulesfilterfunctionsmd"></a>
 
@@ -317,7 +345,7 @@ camelCase("user-name"); // userName
 
 string as camel case.
 
-Defined in: [utils/filter-functions.ts:48](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L48)
+Defined in: [utils/filter-functions.ts:48](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L48)
 
 ---
 
@@ -343,7 +371,7 @@ classCase("user-name"); // UserName
 
 string as class case.
 
-Defined in: [utils/filter-functions.ts:74](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L74)
+Defined in: [utils/filter-functions.ts:74](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L74)
 
 ---
 
@@ -373,7 +401,7 @@ clearDefaultValue("'No ''value'' given'"); // "No value 'given'"
 
 default value to be used in a template.
 
-Defined in: [utils/filter-functions.ts:26](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L26)
+Defined in: [utils/filter-functions.ts:26](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L26)
 
 ---
 
@@ -399,7 +427,7 @@ dashCase("User Name"); // user-name
 
 string as dash case.
 
-Defined in: [utils/filter-functions.ts:100](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L100)
+Defined in: [utils/filter-functions.ts:100](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L100)
 
 ---
 
@@ -418,7 +446,7 @@ Returns given the given database object name as a class name.
 
 **Returns:** _string_
 
-Defined in: [utils/filter-functions.ts:319](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L319)
+Defined in: [utils/filter-functions.ts:319](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L319)
 
 ---
 
@@ -445,7 +473,7 @@ columnTypeModifier(name); // (20)
 
 modifier string.
 
-Defined in: [utils/filter-functions.ts:333](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L333)
+Defined in: [utils/filter-functions.ts:333](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L333)
 
 ---
 
@@ -471,7 +499,7 @@ plural("User_name"); // User_name
 
 string with lower first case.
 
-Defined in: [utils/filter-functions.ts:139](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L139)
+Defined in: [utils/filter-functions.ts:139](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L139)
 
 ---
 
@@ -503,7 +531,7 @@ Text line 2
 
 **Returns:** _string_
 
-Defined in: [utils/filter-functions.ts:237](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L237)
+Defined in: [utils/filter-functions.ts:237](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L237)
 
 ---
 
@@ -525,7 +553,7 @@ Pads given string's end with given padding string to complete its length to coun
 
 the string padded with padding string.
 
-Defined in: [utils/filter-functions.ts:216](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L216)
+Defined in: [utils/filter-functions.ts:216](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L216)
 
 ---
 
@@ -551,7 +579,7 @@ pascalCase("user-name"); // UserName
 
 string as pascal case.
 
-Defined in: [utils/filter-functions.ts:61](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L61)
+Defined in: [utils/filter-functions.ts:61](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L61)
 
 ---
 
@@ -577,7 +605,7 @@ plural("user_name"); // user_names
 
 string in plural form.
 
-Defined in: [utils/filter-functions.ts:126](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L126)
+Defined in: [utils/filter-functions.ts:126](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L126)
 
 ---
 
@@ -603,7 +631,7 @@ plural("user_name"); // "user_name"
 
 string with quotes.
 
-Defined in: [utils/filter-functions.ts:152](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L152)
+Defined in: [utils/filter-functions.ts:152](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L152)
 
 ---
 
@@ -623,7 +651,7 @@ If given data is a multi line string replcaes new lines with escape characters. 
 
 the string with escape characters.
 
-Defined in: [utils/filter-functions.ts:293](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L293)
+Defined in: [utils/filter-functions.ts:293](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L293)
 
 ---
 
@@ -649,7 +677,7 @@ plural("Some 'example' text"); // 'some \'example\' text'
 
 string with quotes.
 
-Defined in: [utils/filter-functions.ts:165](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L165)
+Defined in: [utils/filter-functions.ts:165](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L165)
 
 ---
 
@@ -675,7 +703,7 @@ singular("user_names"); // user_name
 
 string in singular form.
 
-Defined in: [utils/filter-functions.ts:113](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L113)
+Defined in: [utils/filter-functions.ts:113](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L113)
 
 ---
 
@@ -701,7 +729,7 @@ snakeCase("userName"); // user_name
 
 string as snake case.
 
-Defined in: [utils/filter-functions.ts:87](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L87)
+Defined in: [utils/filter-functions.ts:87](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L87)
 
 ---
 
@@ -727,7 +755,7 @@ If given data is object or array, converts it to string.
 
 converted value.
 
-Defined in: [utils/filter-functions.ts:270](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L270)
+Defined in: [utils/filter-functions.ts:270](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L270)
 
 ---
 
@@ -748,7 +776,7 @@ Vairadic function which strips all of the given strings or database object's nam
 
 converted string.
 
-Defined in: [utils/filter-functions.ts:202](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L202)
+Defined in: [utils/filter-functions.ts:202](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L202)
 
 ---
 
@@ -769,7 +797,7 @@ Vairadic function which strips all of the given strings or database object's nam
 
 converted string.
 
-Defined in: [utils/filter-functions.ts:176](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L176)
+Defined in: [utils/filter-functions.ts:176](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L176)
 
 ---
 
@@ -790,7 +818,7 @@ Vairadic function which strips all of the given strings or database object's nam
 
 converted string.
 
-Defined in: [utils/filter-functions.ts:189](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L189)
+Defined in: [utils/filter-functions.ts:189](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L189)
 
 ---
 
@@ -816,4 +844,4 @@ Returns given array with unique elements by eliminating duplicate values.
 
 the array with unique values.
 
-Defined in: [utils/filter-functions.ts:303](https://github.com/ozum/pg-generator/blob/0f1e464/src/utils/filter-functions.ts#L303)
+Defined in: [utils/filter-functions.ts:303](https://github.com/ozum/pg-generator/blob/1b8e16d/src/utils/filter-functions.ts#L303)
