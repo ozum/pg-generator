@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { EOL } from "os";
 import { chalk } from "meow-helper";
 import getCLI from "./meow";
