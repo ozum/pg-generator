@@ -1,9 +1,8 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax */
+import { dirname, join, isAbsolute, resolve, parse, format } from "path";
 import { promises as fs } from "fs";
-import { join, isAbsolute, resolve, parse, format } from "path";
 import type { Db } from "pg-structure";
 import { ignoreCode } from "ignor";
-import resolvePkg from "resolve-pkg";
 import type { GeneratorOptions } from "../types";
 import { PgenError } from "./pgen-error";
 
@@ -30,13 +29,13 @@ function getAlternativeId(id?: string, prefix?: string): string | undefined {
  * Resolves path.
  * - If path is an absolute path, returns it as it is.
  * - If path is a relative path, resolves it relative to cwd.
- * - If path is a bare name (like e module name), returns it after resolving it using require rules.
+ * - If path is a bare name (like e module name), returns dir path of the `require.resolve()`.
  *
  * @param id is the path to resolve.
  * @returns resolved absolute path.
  *
  * @example
- * resolveModule("my-module"); // Root of package, not main entry: /path/to/project/node_modules/my-module
+ * resolveModule("my-module"); // /path/to/project/node_modules/my-module/dist
  * resolveModule("/path/to/my-module"); // /path/to/my-module
  * resolveModule("./my-module"); // /path/to/my-module
  */
@@ -46,7 +45,9 @@ function resolvePath(id?: string, prefix?: string): string | undefined {
   if (isAbsolute(id)) return id;
 
   const alternativeId = getAlternativeId(id, prefix);
-  return resolvePkg(id) ?? (alternativeId !== undefined ? resolvePkg(alternativeId) : undefined);
+  let result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(id));
+  if (result === undefined && alternativeId !== undefined) result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(alternativeId));
+  return result !== undefined ? dirname(result) : undefined;
 }
 
 /**

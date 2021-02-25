@@ -70,8 +70,7 @@
     "lodash.merge": "^4.6.2",
     "meow": "^9.0.0",
     "meow-helper": "^1.6.0",
-    "pg-structure": "^7.7.0",
-    "resolve-pkg": "^2.0.0"
+    "pg-structure": "^7.7.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

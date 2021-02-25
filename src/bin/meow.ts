@@ -71,19 +71,21 @@ const groups = {
 };
 
 const examples = [
-  "pgen my-generator --outDir models",
-  "pgen my-generator:subgenerator --outDir models",
-  "pgen my-generator --outDir models --contextFile './context.js'",
-  "pgen my-generator --outDir models --relationNameFunctions './custom-naming.js'",
+  "npm install -g pg-generator-example",
+  "",
+  "pgen example --outDir models",
+  "pgen example:md --outDir models",
+  "pgen example --outDir models --contextFile './context.js'",
+  "pgen example --outDir models --relationNameFunctions './custom-naming.js'",
   "",
   chalk.dim("Including & Excluding Schemas"),
-  "pgen my-generator -i user%",
-  "pgen my-generator -i user_meta -i user_main",
-  "pgen my-generator -e private%",
-  "pgen my-generator -e private_meta -e private_main",
+  "pgen example -i user%",
+  "pgen example -i user_meta -i user_main",
+  "pgen example -e private%",
+  "pgen example -e private_meta -e private_main",
   "",
   chalk.dim("Providing Connection Details"),
-  "pgen my-generator --outDir models --user user --password password --database database",
+  "pgen example --outDir models --user user --password password --database database",
 ];
 
 export default function getCLI(): meow.Result<typeof flags> {
