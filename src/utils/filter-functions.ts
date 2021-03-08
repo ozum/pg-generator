@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import type { DbObject } from "pg-structure";
 import { EOL } from "os";
 import { inspect } from "util";
-import inflection from "inflection";
 import { Column } from "pg-structure";
+import type { DbObject } from "pg-structure";
+import wordWrapper from "wordwrap";
+import inflection from "inflection";
 
 //
 // ──────────────────────────────────────────────────────────────────── I ──────────
@@ -45,7 +46,7 @@ export function clearDefault(input?: string): string | undefined {
  * @example
  * camelCase("user-name"); // userName
  */
-export function camelCase(input: string): string {
+export function camelCase(input = ""): string {
   return inflection.camelize(input.replace("-", "_"), true);
 }
 
@@ -58,7 +59,7 @@ export function camelCase(input: string): string {
  * @example
  * pascalCase("user-name"); // UserName
  */
-export function pascalCase(input: string): string {
+export function pascalCase(input = ""): string {
   return inflection.camelize(input.replace("-", "_"), false);
 }
 
@@ -71,7 +72,7 @@ export function pascalCase(input: string): string {
  * @example
  * classCase("user-name"); // UserName
  */
-export function classCase(input: string): string {
+export function classCase(input = ""): string {
   return inflection.classify(input.replace("-", "_"));
 }
 
@@ -84,7 +85,7 @@ export function classCase(input: string): string {
  * @example
  * snakeCase("userName"); // user_name
  */
-export function snakeCase(input: string): string {
+export function snakeCase(input = ""): string {
   return inflection.underscore(input.replace("-", "_"));
 }
 
@@ -97,8 +98,21 @@ export function snakeCase(input: string): string {
  * @example
  * dashCase("User Name"); // user-name
  */
-export function dashCase(input: string): string {
+export function dashCase(input = ""): string {
   return inflection.transform(input, ["underscore", "dasherize"]);
+}
+
+/**
+ * Converts the given input to the title case.
+ *
+ * @param input is the input string to convert.
+ * @returns string as title case.
+ *
+ * @example
+ * titleCase("user_name"); // User Name
+ */
+export function titleCase(input = ""): string {
+  return inflection.titleize(input);
 }
 
 /**
@@ -110,7 +124,7 @@ export function dashCase(input: string): string {
  * @example
  * singular("user_names"); // user_name
  */
-export function singular(input: string): string {
+export function singular(input = ""): string {
   return inflection.singularize(input);
 }
 
@@ -123,8 +137,23 @@ export function singular(input: string): string {
  * @example
  * plural("user_name"); // user_names
  */
-export function plural(input: string): string {
+export function plural(input = ""): string {
   return inflection.pluralize(input);
+}
+
+/**
+ * Converts text to natural language.
+ *
+ * @param input is the input string to convert.
+ * @param lowFirstLetter is whther to use small letter in first word.
+ * @returns string in human readable form.
+ *
+ * @example
+ * human("message_properties"); // "Message properties"
+ * human("message_properties", true); // "message properties"
+ */
+export function human(input = "", lowFirstLetter?: boolean): string {
+  return inflection.humanize(input, lowFirstLetter);
 }
 
 /**
@@ -136,7 +165,7 @@ export function plural(input: string): string {
  * @example
  * plural("User_name"); // User_name
  */
-export function lcFirst(input: string): string {
+export function lcFirst(input = ""): string {
   return input[0].toLowerCase() + input.slice(1);
 }
 
@@ -149,21 +178,34 @@ export function lcFirst(input: string): string {
  * @example
  * plural("user_name"); // "user_name"
  */
-export function quote(input: string): string {
-  return JSON.stringify(input);
+export function quote(input?: string): string {
+  return input !== undefined ? JSON.stringify(input) : "";
 }
 
 /**
  * Wraps the given string with single quotes.
  *
- * @param input is the input string to wrap with quotes.
+ * @param input is the input string to wrap with single quotes.
  * @returns string with quotes.
  *
  * @example
  * plural("Some 'example' text"); // 'some \'example\' text'
  */
-export function singleQuote(input: string): string {
-  return `'${input.replace(/'/g, "\\'")}'`;
+export function singleQuote(input?: string): string {
+  return input !== undefined ? `'${input.replace(/'/g, "\\'")}'` : "";
+}
+
+/**
+ * Wraps the given string with double quotes.
+ *
+ * @param input is the input string to wrap with double quotes.
+ * @returns string with quotes.
+ *
+ * @example
+ * plural("Some "example" text"); // "some \"example\" text"
+ */
+export function doubleQuote(input?: string): string {
+  return input !== undefined ? `"${input.replace(/"/g, '\\"')}"` : "";
 }
 
 /**
@@ -173,7 +215,8 @@ export function singleQuote(input: string): string {
  * @param removeList is the list of strings or objects to remove from input.
  * @returns converted string.
  */
-export function stripPrefix(input: string, ...removeList: Array<string | { name: string }>): string {
+export function stripPrefix(input: string | undefined, ...removeList: Array<string | { name: string }>): string {
+  if (input === undefined) return "";
   return removeList
     .map((item) => (typeof item === "object" ? item.name : item))
     .reduce((result, item) => result.replace(new RegExp(`^${item}[_\\s-]*`), ""), input);
@@ -186,7 +229,8 @@ export function stripPrefix(input: string, ...removeList: Array<string | { name:
  * @param removeList is the list of strings or objects to remove from input.
  * @returns converted string.
  */
-export function stripSuffix(input: string, ...removeList: Array<string | { name: string }>): string {
+export function stripSuffix(input: string | undefined, ...removeList: Array<string | { name: string }>): string {
+  if (input === undefined) return "";
   return removeList
     .map((item) => (typeof item === "object" ? item.name : item))
     .reduce((result, item) => result.replace(new RegExp(`[_\\s-]*${item}$`), ""), input);
@@ -199,7 +243,8 @@ export function stripSuffix(input: string, ...removeList: Array<string | { name:
  * @param removeList is the list of strings or objects to remove from input.
  * @returns converted string.
  */
-export function strip(input: string, ...removeList: Array<string | { name: string }>): string {
+export function strip(input: string | undefined, ...removeList: Array<string | { name: string }>): string {
+  if (input === undefined) return "";
   return removeList
     .map((item) => (typeof item === "object" ? item.name : item))
     .reduce((result, item) => result.replace(new RegExp(`${item}[_\\s-]*`), ""), input);
@@ -213,30 +258,105 @@ export function strip(input: string, ...removeList: Array<string | { name: strin
  * @param paddingString is the string to pad with.
  * @returns the string padded with padding string.
  */
-export function padRight(input: string, totalLength: number, paddingString = " "): string {
-  if (input === undefined || paddingString === undefined || input.length >= totalLength) return input;
+export function padRight(input: string | undefined, totalLength: number, paddingString = " "): string {
+  if (input === undefined) return "";
+  if (paddingString === undefined || input.length >= totalLength) return input;
   const count = Math.floor((totalLength - input.length) / paddingString.length);
   return input + paddingString.repeat(count);
 }
 
 /**
- * Converts given string to JSOC lines by adding "*" at the start of each line.
+ * Cuts the text after given number of characters.
  *
- * @param input is the input string to convert.
+ * @param input is the text to shorten.
+ * @param length is the maximum length allowed.
+ * @returns cut text
+ *
+ * @example
+ * maxLength("some example text", 7); // "some ex...";
+ */
+export function maxLength(input = "", length = 50): string {
+  return input.substring(0, length).replace(/\n/g, " ") + (input.length > length ? "..." : "");
+}
+
+/**
+ * Completes given input's length using with given character (by default space). It may be used to align
+ * strings in JSDoc etc.
+ *
+ * @param input is the input to complete length of.
+ * @param length is the length of the finel string.
+ * @param char is the character to be used for filling.
+ *
+ * @example
+ * completeWithChar("member", "10"); // "member    "
+ * completeWithChar("member", "10", "-"); // "member----"
+ */
+export function fill(input = "", length = 20, char = " "): string {
+  const fillString = char.repeat(Math.max(0, length - input.length));
+  return `${input}${fillString}`;
+}
+
+/**
+ * Wraps given text with start and end characters. By default it wraps with curly braces.
+ *
+ * @param input is the text to warp.
+ * @param start is the starting string.
+ * @param end is the ending string.
+ * @returns wrapped text.
+ *
+ * @example
+ * wrap("hello"); // "{hello}"
+ * wrap("hello", "~"); // "~hello~"
+ * wrap("hello", "[]"); // "[hello]"
+ */
+export function wrap(input?: string, wrapper = "{}"): string {
+  if (input === undefined) return "";
+  const start = wrapper.length === 1 ? wrapper : wrapper.substring(0, wrapper.length / 2);
+  const end = wrapper.length === 1 ? wrapper : wrapper.slice(-(wrapper.length / 2));
+  return `${start}${input}${end}`;
+}
+
+/**
+ * Wraps given text with start and end characters if given condition is truthy.
+ * By default it wraps with curly braces.
+ *
+ * @param input is the text to warp.
+ * @param start is the starting string.
+ * @param end is the ending string.
+ * @param condition is the condition or value to test.
+ * @returns wrapped text.
+ *
+ * @example
+ * wrapIf("hello", "x"); // "{hello}"
+ * wrapIf("hello", true); // "{hello}"
+ * wrapIf("hello", false); // "hello"
+ * wrapIf("hello", true, "~"); // "~hello~"
+ * wrapIf("hello", true, "[]"); // "[hello]"
+ */
+export function wrapIf(input: string | undefined, condition: any, wrapper = "{}"): string {
+  if (input === undefined) return "";
+  return condition ? wrap(input, wrapper) : input;
+}
+
+/**
+ * Adds given prefix each of the lines of given text.
+ *
+ * @param input is the input string.
+ * @param prefix is the prefix to add each of the lines.
  * @returs the result string.
  *
  * @example
- * makeJsDoc(`
+ * linePrefix(`
  * Text line 1
  * Text line 2
- * `);
+ * `, "// ");
  *
- * // * Text line 1
- * // * Text line 1
+ * // Text line 1
+ * // Text line 2
  */
-export function makeJsDoc(input = ""): string {
-  const result = input.replace(new RegExp(`(\n|${EOL})`, "g"), "$1 * ");
-  return ` * ${result}`;
+export function linePrefix(input = "", prefix: string): string {
+  const result = input.replace(new RegExp(`(\n|${EOL})`, "g"), `$1${prefix}`);
+  return `${prefix}${result}`;
 }
 
 /**
@@ -263,20 +383,22 @@ function _convertNullToUndef<T extends string | Record<string, any> | any[]>(inp
  * 2. Uses `util.inspect()`;
  *
  * @param input is the input to convert.
- * @param raw if true, does not add quotes around values.
- * @param nullToUndef if true, converts all null values to undefined.
+ * @param options are the options.
+ * @param options.raw if true, does not add quotes around values.
+ * @param options.nullToUndef if true, converts all null values to undefined.
+ * @param options.indent is size of the indentation of each level.
  * @returns converted value.
  */
-export function stringify(input: any, options: { nullToUndef?: boolean; raw?: boolean } = {}): string {
+export function stringify(input: any, options: { nullToUndef?: boolean; raw?: boolean; indent?: number } = {}): string {
   const result = options.nullToUndef ? _convertNullToUndef(input) : input;
 
-  if (typeof result !== "object") return JSON.stringify(result) ?? "undefined";
+  if (typeof result !== "object") return JSON.stringify(result, undefined, options.indent) ?? "undefined";
 
   if (options.raw) {
     return Array.isArray(result)
       ? result.join(", ")
       : Object.entries(result)
-          .reduce((reducedResult, [key, value]) => `${reducedResult}${key}: ${value},\n`, "")
+          .reduce((reducedResult, [key, value]) => `${reducedResult}${key}: ${value},\n${" ".repeat(options.indent ?? 0)}`, "")
           .replace(/,\n$/, "");
   }
 
@@ -285,12 +407,12 @@ export function stringify(input: any, options: { nullToUndef?: boolean; raw?: bo
 }
 
 /**
- * If given data is a multi line string replcaes new lines with escape characters. May be used to prevent JS multi line errors.
+ * If given data is a multi line string replaces new lines with escape characters. May be used to prevent JS multi line errors.
  *
  * @param input is the input to convert.
  * @returns the string with escape characters.
  */
-export function singleLine(input: string): string {
+export function singleLine(input = ""): string {
   return input.replace(/\r\n/g, "\\r\\n").replace(/\n/g, "\\n");
 }
 
@@ -300,8 +422,60 @@ export function singleLine(input: string): string {
  * @param input is the input array to eliminate duplicates from.
  * @returns the array with unique values.
  */
-export function uniqueArray<T extends any>(input: T[]): T[] {
+export function uniqueArray<T extends any>(input?: T[]): T[] {
   return [...new Set(input)];
+}
+
+/**
+ * Returns an attribute of each objects as a CSV (comma separated values)
+ *
+ * @param objects are the array of objects to get attribute of.
+ * @param attribute is the attribute to get for each object.
+ * @param options are the options.
+ * @param options.quote is whether to add quotes around attributes.
+ * @param options.join is the character to join list.
+ * @param options.wrap is the characters to wrap the list if length is greater than 1.
+ * @returns the list as a string.
+ *
+ * @example
+ * const objects = [{ name: "a" }, { name: "b" }, { name: "c" }]
+ *
+ * listAttribute(objects, "name"); // a, b, c
+ * listAttribute(objects, "name", { quote: "json" }); // "a", "b", "c"
+ * listAttribute(objects, "name", { quote: "single" }); // 'a', 'b', 'c'
+ * listAttribute(objects, "name", { quote: "json", wrap: "[]" }); // ["a", "b", "c"]
+ * listAttribute(objects, "name", { quote: "json", wrap: "[]" }); // "a"
+ */
+export function listAttribute<T extends any>(
+  objects: T[],
+  attribute: keyof T = "name" as any,
+  options: { quote?: "single" | "double" | "json"; join?: string; wrap?: string } = {}
+): string {
+  const quoters: Record<string, any> = { single: singleQuote, double: doubleQuote, json: JSON.stringify };
+  const quoter = quoters[options.quote as string];
+  const list = objects.map((o) => (quoter ? quoter(o[attribute] as any) : o[attribute])).join(options.join ?? ", ");
+  return options.wrap ? wrapIf(list, objects.length > 1, options.wrap) : list;
+}
+
+/**
+ * Word wraps given text.
+ *
+ * @param input is the text to word wrap.
+ * @param startOrStop is the start or the stop position of each line. (The stop position if this is single option.)
+ * @param stop is the stop position of each line.
+ * @return word wrapped text.
+ *
+ * @example
+ * wordWrap("The quick fox", 10); // "The quick\nfox"
+ * wordWrap("The quick fox", 2, 10); // "  The quick\n  fox"
+ */
+export function wordWrap(input?: string, startOrStop = 80, stop?: number): string {
+  if (input === undefined) return "";
+  return wordWrapper(startOrStop, stop as any)(input);
+}
+
+export function concat(input: Record<string, any>, ...objects: Record<string, any>[]): Record<string, any> {
+  return input.concat(...objects);
 }
 
 //
@@ -316,7 +490,8 @@ export function uniqueArray<T extends any>(input: T[]): T[] {
  * @param object is the object to get the name as a class name.
  * @param schema is whether to include schema name.
  */
-export function dboClassName(object: DbObject, schema = false): string {
+export function dboClassName(object?: DbObject, schema = false): string {
+  if (object === undefined) return "";
   return classCase(schema ? object.fullName.replace(".", "_") : object.name);
 }
 
@@ -330,7 +505,8 @@ export function dboClassName(object: DbObject, schema = false): string {
  * columnTypeModifier(price); // (10,4)
  * columnTypeModifier(name); // (20)
  */
-export function dboColumnTypeModifier(column: Column): string {
+export function dboColumnTypeModifier(column?: Column): string {
+  if (column === undefined) return "";
   if (column.length !== undefined) return `(${column.length})`;
   const result = [];
   if (column.precision !== undefined) result.push(column.precision);

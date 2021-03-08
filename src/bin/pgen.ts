@@ -1,26 +1,41 @@
 #!/usr/bin/env node
+
+/* eslint-disable no-console */
 import { EOL } from "os";
 import { chalk } from "meow-helper";
+import { PgenError } from "../utils/pgen-error";
 import getCLI from "./meow";
 import { generate } from "../generate";
+import { readGenerators } from "../utils";
 
-function logError(message: string, code = 1): void {
-  console.log(chalk.red(`${message}${EOL}`)); // eslint-disable-line no-console
+function showError(message: string, code = 1): any {
+  console.log(chalk.red(`${message}${EOL}`));
   process.exit(code);
+}
+
+function getSubGeneratorsMessage(generator: string, subGenerators?: string[]): string {
+  const available = subGenerators?.map((name: string) => `${generator}:${name}`).join(`${EOL}  ● `);
+  return available ? ` Available sub-generators of "${generator}" are:${EOL}  ● ${available}` : "";
+}
+
+async function logHelp(cli: any, generator: string): Promise<void> {
+  const subGenerators = (await readGenerators(generator))?.generators;
+  console.log(cli.help);
+  console.log(getSubGeneratorsMessage(generator, subGenerators), EOL);
 }
 
 async function executeCommand(): Promise<any> {
   const cli = getCLI();
-  if (cli.input[0] === undefined) logError("GENERATOR is required.");
+  if (cli.input[0] === undefined) showError("GENERATOR is required.");
   const [generator, subGenerator] = cli.input[0].split(":");
+  if (cli.flags.help) return logHelp(cli, generator);
+
   try {
     return await generate(generator, subGenerator, cli.flags);
   } catch (error) {
-    const available = error?.subGenerators?.map((name: string) => `${generator}:${name}`).join(`${EOL}  ● `);
-    const availableLog = available ? ` Available sub-generators are:${EOL}  ● ${available}` : "";
-
-    return logError(`${error.message}${availableLog}`);
+    if (!(error instanceof PgenError)) throw error;
+    return showError(`${error.message}${getSubGeneratorsMessage(generator, error?.subGenerators)}`);
   }
 }
 
-executeCommand();
+executeCommand().catch(console.log);

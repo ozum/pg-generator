@@ -1,12 +1,13 @@
 /* eslint-disable class-methods-use-this */
-import { extname, join, relative, dirname, resolve } from "path";
+import { extname, join, dirname, resolve } from "path";
 import { promises as fs } from "fs";
 import { chalk } from "meow-helper";
-import { fdir as Fdir } from "fdir";
 import merge from "lodash.merge";
 import JSON5 from "json5";
+import prettier from "prettier";
+import { PgenError } from "./utils/pgen-error";
 import type { Context, GeneratorOptions, InternalOptions } from "./types/index";
-import { getDbObjects, getTemplatePaths, resolvePath, augmentContext, composeWith } from "./utils";
+import { getDbObjects, resolvePath, augmentContext, composeWith, parseTemplatePath, scanTemplateDir } from "./utils";
 
 const COLORS: Record<string, keyof typeof chalk> = {
   default: "green",
@@ -29,7 +30,10 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * @param internalOptions are added by `pg-generator` functions and not for user.
    */
   public constructor(options: O, internalOptions: InternalOptions) {
-    if (options.clear && !options.outDir) throw new Error("As a precaution, 'clear' option cannot be used without 'outDir' option.");
+    if (options.clear && !options.outDir) throw new PgenError("As a precaution, 'clear' option cannot be used without 'outDir' option.");
+    const collisions = internalOptions.db.relationNameCollisions;
+    if (collisions) throw PgenError.collisionError(collisions);
+
     this.options = { envPrefix: "DB", copy: true, context: {}, ...options };
     this.#internalOptions = internalOptions;
     this.#destinationRoot = resolve(internalOptions.cwd, this.options.outDir || "");
@@ -46,22 +50,24 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    */
   public async generate(): Promise<void> {
     if (this.options.clear) await this.clear();
+    await this.init();
 
-    const templatePaths = await getTemplatePaths(this.#internalOptions.templateDir);
+    const { templates, files } = await scanTemplateDir(this.#internalOptions.templateDir);
     const context = await this.fetchContext();
 
     // Generate templates. Provide absolute outdir. Don't copy files, because you should use Yeoman's `mem-fs-editor` API.
-    await Promise.all(
-      templatePaths.flatMap((path) =>
-        getDbObjects(this.#internalOptions.db, path).map(async (dbObject) => {
-          const destinationPath = resolvePath(path, dbObject); // e.g. {name#dashcase}.js -> member-option.js
-          const content = await this.render(path, augmentContext(dbObject, context));
+    const processTemplates = Promise.all(
+      templates.flatMap((path) => {
+        const { className, accessor, targetPath } = parseTemplatePath(path);
+        return getDbObjects(this.#internalOptions.db, className, accessor, path).map(async (dbObject) => {
+          const destinationPath = resolvePath(targetPath, dbObject); // e.g. {name#dashcase}.js -> member-option.js
+          const content = await this.format(destinationPath, await this.render(path, augmentContext(dbObject, context)));
           if (content !== undefined && content.replace(/\s/g, "") !== "") await this.process(destinationPath, content);
-        })
-      )
+        });
+      })
     );
-
-    await this.copyDir("files");
+    const copyFiles = Promise.all(files.map((file) => this.copyTemplate(file, file)));
+    await Promise.all([processTemplates, copyFiles]);
   }
 
   //
@@ -71,15 +77,22 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   //
   // Methods below are lifecycle methods and most probably would be extended
   // by child classes for custom behavior. Providing `render` is mandatory.
-  // Flow: clear -> context -> render -> process
+  // Flow: clear -> init --> context -> render -> format -> process
 
   /**
    * If clear option is true, this method is called. It deletes destination path.
    * User may override this method to tailor clear operation according to generator's
    * purposes.
    */
-  protected async clear(): Promise<void> {
+  protected async clear(): Promise<any> {
     await this.deleteDestination();
+  }
+
+  /**
+   * Executed after clear operation.
+   */
+  protected init(): Promise<any> | any {
+    return undefined;
   }
 
   /**
@@ -99,7 +112,22 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * @param context is the data to be used for generating content.
    * @returns generated content.
    */
-  protected abstract render(templatePath: string, context: Context): Promise<void | string> | void | string;
+  protected render(templatePath: string, context: Context): Promise<undefined | string> | undefined | string {
+    const stub = templatePath ?? context; // eslint-disable-line @typescript-eslint/no-unused-vars
+    return undefined;
+  }
+
+  /**
+   * Formats given content. By default `prettier` is used. Plase note that at this stage file is not written to disk yet.
+   *
+   * @param destination is the path of the destination file to be created.
+   * @param content is the content to format.
+   * @returns formatted code.
+   */
+  protected format(destination: string, content?: string): Promise<undefined | string> | undefined | string {
+    if (content === undefined || content === null || content === "") return content;
+    return prettier.format(content, { filepath: destination });
+  }
 
   /**
    * Writes generated content from [[render]] to the destination file.
@@ -181,7 +209,9 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    */
   protected async composeWith(generator: string, options?: GeneratorOptions): Promise<void>;
   /**
-   * Executes a sub-generator from a generator. If options are provided, they are combined with current options.
+   * Executes a sub-generator from a generator. If options are provided, they are merged with current options. Also some of the options
+   * are changed to sensible default values for sub-generators (e.g. `clear` is changed to `false`), but they can be overridden by
+   * newly provided options.
    *
    * @param generator is the name or path of the generator. If it is a local path, use `require.resolve` or provide an absolute path.
    * @param subGeneratorName is the name of the sub-generator to be executed.
@@ -195,8 +225,9 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    */
   protected async composeWith(generator: string, subGeneratorName?: string, options?: GeneratorOptions): Promise<void>;
   protected async composeWith(generator: string, subOrOptions?: string | GeneratorOptions, maybeOptions?: GeneratorOptions): Promise<void> {
-    const [options = {}, generatorName = "app"] = typeof subOrOptions === "string" ? [maybeOptions, subOrOptions] : [maybeOptions];
-    return composeWith(generator, generatorName, { ...this.options, ...options }, this.#internalOptions.db, this.#destinationRoot);
+    const [options = {}, generatorName] = typeof subOrOptions === "string" ? [maybeOptions, subOrOptions] : [maybeOptions];
+    const newOptions = { ...this.options, clear: false, ...options };
+    return composeWith(generator, generatorName, newOptions, this.#internalOptions.db, this.#internalOptions.cwd);
   }
 
   /**
@@ -225,19 +256,6 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   }
 
   /**
-   * If source directory exists, copies all files recursively from the source directory to the destination directory.
-   * Also creates the destination directory if it does not exist.
-   *
-   * @param source is the source directory to copy files from.
-   * @param destination is the destination directory to copy files to.
-   */
-  private async copyDir(source = "", destination = ""): Promise<any[]> {
-    const absSource = this.templatePath(source);
-    const paths = ((await new Fdir().withBasePath().crawl(absSource).withPromise()) as string[]).map((p) => relative(absSource, p));
-    return Promise.all(paths.map((path) => this.copyTemplate(join(source, path), join(destination, path))));
-  }
-
-  /**
    * Removes file or directory (and it's contents() from destination. If destination is equal to `cwd()`
    * it throws error and aborts operation for a safety measure. Most probably `cwd()` contains other files too.
    *
@@ -246,7 +264,7 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   private async deleteDestination(path = ""): Promise<void> {
     const destination = this.destinationPath(path);
     const isRoot = resolve(this.#internalOptions.cwd) === resolve(destination);
-    if (isRoot) throw new Error("Root is not deleted, because it may be a mistake. Probably it would contain other files.");
+    if (isRoot) throw new PgenError("Root is not deleted, because it may be a mistake. Probably it would contain other files.");
 
     try {
       await fs.rmdir(this.destinationPath(path), { recursive: true });

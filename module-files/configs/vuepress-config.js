@@ -5,7 +5,7 @@ const packageData = require("../../package.json");
 const GOOGLE_ANALYTICS_ID = packageData.vuepress && packageData.vuepress["google-analytics-id"];
 
 const { nav, sidebar } = getVuePressBars(join(__dirname, "../../docs"), { addReadMeToFirstGroup: false });
-const plugins = ["@vuepress/active-header-links", "@vuepress/pwa"];
+const plugins = ["@vuepress/active-header-links", "@vuepress/pwa", "vuepress-plugin-mermaidjs"];
 
 if (GOOGLE_ANALYTICS_ID) plugins.push(["@vuepress/google-analytics", { ga: GOOGLE_ANALYTICS_ID }]);
 

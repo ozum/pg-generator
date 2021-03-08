@@ -7,6 +7,7 @@ import type { GeneratorOptions } from "../types";
 import { PgenError } from "./pgen-error";
 
 const SUBDIRS = ["generators", "dist/generators", "lib/generators", "dist", "lib", "."];
+const SPECIAL_DIRS = ["partials", "utils"];
 
 /**
  * Checks whether given path exists.
@@ -19,6 +20,17 @@ async function exists(path?: string): Promise<boolean> {
   return (await fs.lstat(path).catch(ignoreCode("ENOENT"))) !== undefined;
 }
 
+/**
+ * If  given id does not have prefix, adds prefix to it.
+ *
+ * @param id is the id to add prefix.
+ * @param prefix is the prefix to add.
+ * @returns id with prefix.
+ *
+ * @example
+ * getAlternativeId("example", "pg-generator"); // "pg-generator-example"
+ * getAlternativeId("@user/example", "pg-generator"); // "@user/pg-generator-example"
+ */
 function getAlternativeId(id?: string, prefix?: string): string | undefined {
   if (!id || !prefix) return undefined;
   const { dir, name, ext } = parse(id);
@@ -40,43 +52,17 @@ function getAlternativeId(id?: string, prefix?: string): string | undefined {
  * resolveModule("./my-module"); // /path/to/my-module
  */
 function resolvePath(id?: string, prefix?: string): string | undefined {
+  let result: string | undefined;
   if (id === undefined) return undefined;
-  if (/^\.\.?[\\/]/.test(id)) return resolve(id); // Test relative path. Matches "./",  "../",  "..\",  "..\"
-  if (isAbsolute(id)) return id;
-
   const alternativeId = getAlternativeId(id, prefix);
-  let result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(id));
+  // Test relative path. Matches "./",  "../",  "..\",  "..\"
+  if (/^\.\.?[\\/]/.test(id)) result = resolve(id);
+  else if (isAbsolute(id)) result = id;
+  else result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(id));
+
   if (result === undefined && alternativeId !== undefined) result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(alternativeId));
   return result !== undefined ? dirname(result) : undefined;
 }
-
-/**
- * Gets absolute path of a module. If module is an npm package returns it's root directory (not path of the file written in `package.main`).
- * If module name is given without a prefix, also searches for prefixed module name.
- *
- * @param moduleName is the module to get path of.
- * @param prefix is the string added at the beginning of the module name.
- * @return path of the module.
- *
- * @throws error if module cannot be found.
- *
- * @example
- * getModulePath("my-module", "pg-generator-"); // Tries to get `pg-generator-my-module`. If it is not available, tries to get `my-module`.
- */
-// async function getModulePath(id: string, prefix?: string): Promise<string> {
-//   const path = resolvePath(id);
-//   if (await exists(path)) return path as string;
-//   const { root, dir, name, ext } = parse(id);
-
-//   if (prefix && !name.startsWith(prefix)) {
-//     const alternativeId = format({ root, dir, name: `${prefix}-${name}`, ext });
-//     const alternativePath = resolvePath(alternativeId);
-//     if (await exists(alternativePath)) return alternativePath as string;
-//     console.log(path, alternativePath);
-//   }
-
-//   throw new Error(`Cannot find generator: '${id}'`);
-// }
 
 /**
  * Reads directories of first available sub-plugin path.
@@ -94,18 +80,19 @@ function resolvePath(id?: string, prefix?: string): string | undefined {
 export async function readGenerators(id: string): Promise<{ path: string; generatorsPath: string; generators: string[] } | undefined> {
   const path = await resolvePath(id, "pg-generator");
   if (path === undefined || !(await exists(path))) return undefined;
-
   for (const generatorsPath of SUBDIRS) {
     const fullPath = join(path, generatorsPath);
+
     if ((await Promise.all([exists(join(fullPath, "index.js")), exists(join(fullPath, "templates"))])).every((result) => result))
       return { path, generatorsPath, generators: [""] };
 
     const entries = await fs.readdir(fullPath, { withFileTypes: true }).catch(ignoreCode(["ENOTDIR", "ENOENT"]));
-    const generators = entries && entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
+    const generators =
+      entries && entries.filter((entry) => entry.isDirectory() && !SPECIAL_DIRS.includes(entry.name)).map((entry) => entry.name);
     if (generators !== undefined) return { path, generatorsPath, generators };
   }
 
-  throw new PgenError("NOEXP", id);
+  throw PgenError.composerError("NOEXP", id);
 }
 
 /**
@@ -131,18 +118,18 @@ export async function composeWith<O extends GeneratorOptions>(
   cwd: string
 ): Promise<void> {
   const module = await readGenerators(generator);
-  if (module === undefined) throw new PgenError("NOGEN", generator, subGenerator);
-
+  if (module === undefined) throw PgenError.composerError("NOGEN", generator, subGenerator);
   subGenerator = subGenerator ?? module.generators.find((g) => g === "" || g === "app"); // eslint-disable-line no-param-reassign
 
   if (subGenerator === undefined || !module.generators.includes(subGenerator))
-    throw new PgenError("NOSUB", generator, subGenerator, module.generators);
+    throw PgenError.composerError("NOSUB", generator, subGenerator, module.generators);
 
   const generatorPath = join(module.path, module.generatorsPath, subGenerator);
   const GeneratorModule = await import(generatorPath);
   const Generator = GeneratorModule.default ?? GeneratorModule[subGenerator];
 
-  if (!(typeof Generator?.prototype.generate === "function")) throw new PgenError("NOTAGEN", generator, subGenerator, module.generators);
+  if (!(typeof Generator?.prototype.generate === "function"))
+    throw PgenError.composerError("NOTAGEN", generator, subGenerator, module.generators);
 
   const internalOptions = { templateDir: join(generatorPath, "templates"), cwd, db };
 

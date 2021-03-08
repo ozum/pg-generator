@@ -1,6 +1,7 @@
-import { sep, extname } from "path";
+import { extname } from "path";
 import type { Db, DbObject } from "pg-structure";
 import get from "lodash.get";
+import { PgenError } from "./pgen-error";
 import * as filterFunctions from "./filter-functions";
 
 type LowerCaseName = string;
@@ -27,7 +28,7 @@ Object.entries(filterFunctions).forEach(([name, fn]) => (LC_FILTER_FUNCTIONS[nam
  */
 function applyFilter(input: string, filterName: string, templatePath: string): string {
   const filterFunction = LC_FILTER_FUNCTIONS[filterFunctions.camelCase(filterName).toLowerCase()];
-  if (!filterFunction) throw new Error(`There is no '${filterName}' filter: ${templatePath}`);
+  if (!filterFunction) throw new PgenError(`There is no '${filterName}' filter: ${templatePath}`);
   return filterFunction(input);
 }
 
@@ -57,21 +58,35 @@ function applyFilters(input: string, filterNames: string[], templatePath: string
  *
  * @hidden
  * @example
- * resolvePath("table/my-{schema.name}{name#dash-case#plural}.js.njk", table); // my-public-member-options.js
+ * resolvePath("x/y/my-{schema.name}{name#dash-case#plural}.js.njk", table); // x/y/my-public-member-options.js
  */
 export function resolvePath(path: string, dbObject: Db | DbObject): string {
-  const pattern = /\{(.+?)\}/g; // Match text between curly braces e.g. 'table/{name#dash-case}' captures 'name#dash-case'.
-  const sepIndex = path.indexOf(sep); // get first '/' position.
+  const pattern = /\{\s*(.+?)\s*\}/g; // Match text between curly braces e.g. 'table/{name#dash-case}' captures 'name#dash-case'.
 
   return path
-    .substring(sepIndex + 1) // remove db object part: "table/{name#dash-case}.js.njk" -> "{name#dash-case}.js.njk"
     .replace(extname(path), "") // remove extension: "{name#dash-case}.js.njk" -> "{name#dash-case}.js"
     .replace(pattern, (_, p) => {
       // resolve variables: "{name#dash-case}.js" -> "member-option.js"
       const [templateVar, ...filterNames] = p.split(/\s*#\s*/);
       const value = get(dbObject, templateVar);
       if (value === undefined || value === null)
-        throw new Error(`'${templateVar}' cannot be found or is undefined in '${dbObject.constructor.name}'. Path is '${path}'.`);
+        throw new PgenError(`'${templateVar}' cannot be found or is undefined in '${dbObject.constructor.name}'. Path is '${path}'.`);
       return applyFilters(value, filterNames, path);
     });
 }
+// export function resolvePath(path: string, dbObject: Db | DbObject): string {
+//   const pattern = /\{\s*(.+?)\s*\}/g; // Match text between curly braces e.g. 'table/{name#dash-case}' captures 'name#dash-case'.
+//   const sepIndex = path.indexOf(sep); // get first '/' position.
+
+//   return path
+//     .substring(sepIndex + 1) // remove db object part: "table/{name#dash-case}.js.njk" -> "{name#dash-case}.js.njk"
+//     .replace(extname(path), "") // remove extension: "{name#dash-case}.js.njk" -> "{name#dash-case}.js"
+//     .replace(pattern, (_, p) => {
+//       // resolve variables: "{name#dash-case}.js" -> "member-option.js"
+//       const [templateVar, ...filterNames] = p.split(/\s*#\s*/);
+//       const value = get(dbObject, templateVar);
+//       if (value === undefined || value === null)
+//         throw new PgenError(`'${templateVar}' cannot be found or is undefined in '${dbObject.constructor.name}'. Path is '${path}'.`);
+//       return applyFilters(value, filterNames, path);
+//     });
+// }

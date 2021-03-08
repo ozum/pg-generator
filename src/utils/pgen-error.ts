@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-type ErrorCode = "NOGEN" | "NOSUB" | "NOTAGEN" | "NOEXP";
+import { EOL } from "os";
+import { inspect } from "util";
+import type { CollisionsByTable } from "pg-structure";
 
 const messages: Record<string, (n: string, s?: string) => string> = {
   NOGEN: (n = "") => `You don't seem to have a generator with the name '${n}' installed.`,
@@ -8,12 +10,34 @@ const messages: Record<string, (n: string, s?: string) => string> = {
   NOEXP: (n = "") => `${n} exists, but does not have any sub-generators.`,
 };
 
+type ErrorCode = keyof typeof messages | "RELCOL" | "GENERAL";
+
 export class PgenError extends Error {
   public code: ErrorCode;
   public subGenerators?: string[];
-  public constructor(code: ErrorCode, name: string, subGenerator?: string, subGenerators?: string[]) {
-    super(messages[code](name, subGenerator === "" || subGenerator === undefined ? "index.js or app" : subGenerator));
-    this.code = code;
-    this.subGenerators = subGenerators;
+
+  public constructor(message: string) {
+    super(message);
+    this.code = "GENERAL";
+  }
+
+  public static withCode(code: ErrorCode, message: string): PgenError {
+    const error = new PgenError(message);
+    error.code = code;
+    return error;
+  }
+
+  public static collisionError(reportObject: CollisionsByTable): PgenError {
+    const report = inspect(reportObject, { depth: null });
+    const message = `Some relations have same names. Use '{ relationNameFunctions: "descriptive" }' option or proivde your own naming functions.${EOL}${report}`;
+    const error = this.withCode("RELCOL", message);
+    return error;
+  }
+
+  public static composerError(code: ErrorCode, id: string, subGenerator?: string, subGenerators?: string[]): PgenError {
+    const message = messages[code](id, subGenerator === "" || subGenerator === undefined ? "index.js or app" : subGenerator);
+    const error = this.withCode(code, message);
+    error.subGenerators = subGenerators;
+    return error;
   }
 }

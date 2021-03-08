@@ -6,4 +6,4 @@ export * as filterFunctions from "./utils/filter-functions";
 export * as converters from "./converters";
 
 // Types
-export type { Context, GeneratorOptions, Options } from "./types/index";
+export type { Context, GeneratorOptions, ClientOptions, Options } from "./types/index";

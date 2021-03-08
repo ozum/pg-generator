@@ -50,4 +50,4 @@ export interface InternalOptions {
 export type Options = GeneratorOptions & ClientOptions;
 
 /** Context provided to render function. */
-export type Context = { o: Db | DbObject; x: Record<string, any> };
+export type Context = { o: Db | DbObject; c: Record<string, any> };

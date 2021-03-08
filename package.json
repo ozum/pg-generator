@@ -1,6 +1,6 @@
 {
   "name": "pg-generator",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Template based scaffolding tool for PostgreSQL.",
   "author": {
     "name": "Özüm Eldoğan",
@@ -20,7 +20,7 @@
     "scaffold"
   ],
   "engines": {
-    "node": ">= 12.0.0"
+    "node": ">= 14.0.0"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -55,7 +55,9 @@
     "postpublish": "pinst --enable",
     "tsmod": "node module-files/scripts/tsmod.js",
     "yo:update": "yo tsmod:uninstall --no-install --force && yo 'tsmod' '--vuepress' '--no-coverage'",
-    "local-link": "ln -s ../../pg-generator-example-sequelize node_modules/pg-generator-example-sequelize"
+    "local-link": "ln -s ../../pg-generator-example node_modules/pg-generator-example",
+    "local-link-x": "ln -s ../../pg-generator-example node_modules/pg-generator-example && ln -s ../../pg-structure node_modules/pg-structure",
+    "pgen": "./dist/bin/pgen.js example:schwifty5 --out-dir ../sil/models --clear --relation-name-functions optimal"
   },
   "vuepress": {
     "google-analytics-id": ""
@@ -70,12 +72,14 @@
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2",
     "meow": "^9.0.0",
-    "meow-helper": "^1.6.0",
-    "pg-structure": "^7.7.0"
+    "meow-helper": "^1.6.2",
+    "pg-structure": "^7.12.1",
+    "prettier": "^2.2.1",
+    "wordwrap": "^1.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
     "@ozum/pinst": "^2.1.4",
     "@types/inflection": "^1.5.28",
     "@types/jest": "^26.0.20",
@@ -83,6 +87,7 @@
     "@types/lodash.merge": "^4.6.6",
     "@types/node": "^14.14.31",
     "@types/pg": "^7.14.10",
+    "@types/wordwrap": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "@vuepress/plugin-active-header-links": "^1.8.2",
@@ -92,7 +97,7 @@
     "concat-md": "^0.3.5",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.1.5",
     "eslint-plugin-prettier": "^3.3.1",
@@ -106,14 +111,15 @@
     "readmeasy": "^0.2.7",
     "ts-jest": "^26.5.1",
     "ts-node-dev": "^1.1.1",
-    "typedoc": "^0.20.27",
+    "typedoc": "^0.20.28",
     "typedoc-neo-theme": "^1.1.0",
     "typedoc-plugin-example-tag": "^1.0.2",
-    "typedoc-plugin-markdown": "^3.5.0",
+    "typedoc-plugin-markdown": "^3.6.0",
     "typedoc-plugin-param-names": "^2.0.0",
     "typescript": "^4.1.5",
     "vuepress": "^1.8.2",
     "vuepress-bar": "^0.3.5",
+    "vuepress-plugin-mermaidjs": "^1.8.1",
     "walkdir": "^0.4.1"
   }
 }

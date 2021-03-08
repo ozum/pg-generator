@@ -1,6 +1,6 @@
 // This is user editable config.
-const baseCOnfig = require("../../module-files/configs/vuepress-config.js");
+const baseConfig = require("../../module-files/configs/vuepress-config.js");
 
 module.exports = {
-  ...baseCOnfig,
+  ...baseConfig,
 };

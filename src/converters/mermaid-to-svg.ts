@@ -42,26 +42,3 @@ export function mermaidToSVG(data: string, { link = false } = {}): string {
 
   return changeMd;
 }
-
-// export function SVGToMermaid(data: string): string {
-//   const matchData = data.match(/\[?!\[\]\(https:\/\/mermaid\.ink\/svg\/(.|\n)*?\)\n/gm);
-//   if (matchData === null) return data;
-//   const encodedURIs = matchData.map((item: string) => {
-//     item = item.replace("[![](https://mermaid.ink/img/", "");
-//     // return item.substr(0, item.indexOf(")](https://mermaid-js.github.io/mermaid-live-editor/#/"));
-//     return item.substr(0, item.indexOf(")]"));
-//   });
-
-//   let originMd = data;
-
-//   matchData.forEach((item: any, index: string | number) => {
-//     // Workaround for classdiagram about assignment let
-//     let { code } = JSON.parse(Base64.decode(encodedURIs[index as any]));
-//     // Workaround for classdiagram
-//     if (code.startsWith("class") || code.startsWith("gantt") || code.startsWith("erDiagram") || code.startsWith("journey"))
-//       code = `\n${code}`;
-//     originMd = originMd.replace(item, `\`\`\`mermaid${code}\`\`\`\n`);
-//   });
-
-//   return originMd;
-// }

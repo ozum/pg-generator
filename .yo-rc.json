@@ -1,5 +1,18 @@
 {
   "generator-tsmod": {
+    "addedFilesSafe": {
+      ".eslintrc.js": "661c7c22fbe2a894f22ac1e32568d3faa6f760c3",
+      "docs/.vuepress/config.js": "6a5e033facba2a2688eec8e64682b1d1848a711e",
+      "docs/.vuepress/public/images/hero.png": "f7d092f830ac982576d2db89dcbd434dc43a519d",
+      "docs/README.md": "2a4ea15be4beb2585a479cb28d653e0d0b824cec",
+      "docs/nav.01.guide/README.md": "436ec15d007cdd6899ec19dc1036bc01df6b3b9b",
+      "docs/nav.01.guide/guide--nc/usage.md": "436ec15d007cdd6899ec19dc1036bc01df6b3b9b",
+      "docs/nav.02.api/01.typedoc-iframe.md": "de3fe9eeebedcc31abeef79c3e2eb9ad8b19ac5b",
+      "jest.config.js": "0bd134f06add10c42a03e4b115aef2a323e4b136",
+      "lint-staged.config.js": "cbb09ecb17251589a793f69fea1a59c20f82a2c5",
+      "prettier.config.js": "2339672f6e5b8d3aeebe63b98613dca158b8b650",
+      "tsconfig.json": "86c1ebbd8975dcf218636f0a737b1bb310c2fd9a"
+    },
     "createdDirs": ["module-files", ".github", ".husky"],
     "addedData": {
       "package.json": {
@@ -8,7 +21,7 @@
           "author.name": "Özüm Eldoğan",
           "author.url": "https://www.ozum.net/",
           "bugs": "https://github.com/ozum/pg-generator/issues",
-          "engines.node": ">= 12.0.0",
+          "engines.node": ">= 14.0.0",
           "files": ["dist", "!dist/**/@(*.spec|*.test)*", "!dist/**/__test__", "module-files"],
           "repository": "ozum/pg-generator",
           "scripts.build": "tsc",
@@ -32,8 +45,8 @@
           "vuepress.google-analytics-id": ""
         },
         "normal": {
-          "devDependencies.@commitlint/cli": "^11.0.0",
-          "devDependencies.@commitlint/config-conventional": "^11.0.0",
+          "devDependencies.@commitlint/cli": "^12.0.1",
+          "devDependencies.@commitlint/config-conventional": "^12.0.1",
           "devDependencies.@ozum/pinst": "^2.1.4",
           "devDependencies.@types/jest": "^26.0.20",
           "devDependencies.@types/node": "^14.14.31",
@@ -46,7 +59,7 @@
           "devDependencies.concat-md": "^0.3.5",
           "devDependencies.eslint": "^7.20.0",
           "devDependencies.eslint-config-airbnb-base": "^14.1.0",
-          "devDependencies.eslint-config-prettier": "^7.2.0",
+          "devDependencies.eslint-config-prettier": "^8.1.0",
           "devDependencies.eslint-plugin-import": "^2.22.0",
           "devDependencies.eslint-plugin-jest": "^24.1.5",
           "devDependencies.eslint-plugin-prettier": "^3.3.1",
@@ -60,30 +73,18 @@
           "devDependencies.readmeasy": "^0.2.7",
           "devDependencies.ts-jest": "^26.5.1",
           "devDependencies.ts-node-dev": "^1.1.1",
-          "devDependencies.typedoc": "^0.20.27",
+          "devDependencies.typedoc": "^0.20.28",
           "devDependencies.typedoc-neo-theme": "^1.1.0",
           "devDependencies.typedoc-plugin-example-tag": "^1.0.2",
-          "devDependencies.typedoc-plugin-markdown": "^3.5.0",
+          "devDependencies.typedoc-plugin-markdown": "^3.6.0",
           "devDependencies.typedoc-plugin-param-names": "^2.0.0",
           "devDependencies.typescript": "^4.1.5",
           "devDependencies.vuepress": "^1.8.2",
           "devDependencies.vuepress-bar": "^0.3.5",
+          "devDependencies.vuepress-plugin-mermaidjs": "^1.8.1",
           "devDependencies.walkdir": "^0.4.1"
         }
       }
-    },
-    "addedFilesSafe": {
-      ".eslintrc.js": "661c7c22fbe2a894f22ac1e32568d3faa6f760c3",
-      "docs/.vuepress/config.js": "88d80937f65fd1a32bda8b35ca3a5101cbaf4f8c",
-      "docs/.vuepress/public/images/hero.png": "f7d092f830ac982576d2db89dcbd434dc43a519d",
-      "docs/README.md": "2a4ea15be4beb2585a479cb28d653e0d0b824cec",
-      "docs/nav.01.guide/README.md": "436ec15d007cdd6899ec19dc1036bc01df6b3b9b",
-      "docs/nav.01.guide/guide--nc/usage.md": "436ec15d007cdd6899ec19dc1036bc01df6b3b9b",
-      "docs/nav.02.api/01.typedoc-iframe.md": "de3fe9eeebedcc31abeef79c3e2eb9ad8b19ac5b",
-      "jest.config.js": "0bd134f06add10c42a03e4b115aef2a323e4b136",
-      "lint-staged.config.js": "cbb09ecb17251589a793f69fea1a59c20f82a2c5",
-      "prettier.config.js": "2339672f6e5b8d3aeebe63b98613dca158b8b650",
-      "tsconfig.json": "86c1ebbd8975dcf218636f0a737b1bb310c2fd9a"
     },
     "addedFiles": [
       ".commitlintrc",

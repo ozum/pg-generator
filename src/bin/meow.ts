@@ -89,5 +89,6 @@ const examples = [
 ];
 
 export default function getCLI(): meow.Result<typeof flags> {
-  return meow(getHelp({ flags, args, pkg, groups, examples, command }), { flags, pkg, allowUnknownFlags: false });
+  const help = getHelp({ lineLength: 140, flags, args, pkg, groups, examples, command });
+  return meow(help, { flags, pkg, allowUnknownFlags: false });
 }
