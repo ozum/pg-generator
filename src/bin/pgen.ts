@@ -3,8 +3,7 @@
 /* eslint-disable no-console */
 import { EOL } from "os";
 import { chalk } from "meow-helper";
-import { PgenError } from "../utils/pgen-error";
-import getCLI from "./meow";
+import getCLI from "./meow-pgen";
 import { generate } from "../generate";
 import { readGenerators } from "../utils";
 
@@ -33,7 +32,7 @@ async function executeCommand(): Promise<any> {
   try {
     return await generate(generator, subGenerator, cli.flags);
   } catch (error) {
-    if (!(error instanceof PgenError)) throw error;
+    if (error?.type !== "PgenError") throw error;
     return showError(`${error.message}${getSubGeneratorsMessage(generator, error?.subGenerators)}`);
   }
 }

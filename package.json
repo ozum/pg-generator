@@ -31,7 +31,8 @@
     "module-files"
   ],
   "bin": {
-    "pgen": "dist/bin/pgen.js"
+    "pgen": "dist/bin/pgen.js",
+    "pgen-scaffold": "dist/bin/pgen-scaffold.js"
   },
   "homepage": "https://www.pg-generator.com",
   "bugs": "https://github.com/ozum/pg-generator/issues",
@@ -57,7 +58,7 @@
     "yo:update": "yo tsmod:uninstall --no-install --force && yo 'tsmod' '--vuepress' '--no-coverage'",
     "local-link": "ln -s ../../pg-generator-example node_modules/pg-generator-example",
     "local-link-x": "ln -s ../../pg-generator-example node_modules/pg-generator-example && ln -s ../../pg-structure node_modules/pg-structure",
-    "pgen": "./dist/bin/pgen.js example:schwifty5 --out-dir ../sil/models --clear --relation-name-functions optimal"
+    "pgen": "./dist/bin/pgen.js example --out-dir ../sil/models --clear --relation-name-functions optimal"
   },
   "vuepress": {
     "google-analytics-id": ""
@@ -111,14 +112,14 @@
     "readmeasy": "^0.2.7",
     "ts-jest": "^26.5.1",
     "ts-node-dev": "^1.1.1",
-    "typedoc": "^0.20.28",
+    "typedoc": "^0.20.30",
     "typedoc-neo-theme": "^1.1.0",
     "typedoc-plugin-example-tag": "^1.0.2",
     "typedoc-plugin-markdown": "^3.6.0",
     "typedoc-plugin-param-names": "^2.0.0",
     "typescript": "^4.1.5",
     "vuepress": "^1.8.2",
-    "vuepress-bar": "^0.3.5",
+    "vuepress-bar": "^0.3.6",
     "vuepress-plugin-mermaidjs": "^1.8.1",
     "walkdir": "^0.4.1"
   }

@@ -7,7 +7,7 @@ import JSON5 from "json5";
 import prettier from "prettier";
 import { PgenError } from "./utils/pgen-error";
 import type { Context, GeneratorOptions, InternalOptions } from "./types/index";
-import { getDbObjects, resolvePath, augmentContext, composeWith, parseTemplatePath, scanTemplateDir } from "./utils";
+import { getDbObjects, resolvePath, augmentContext, composeWith, parseTemplatePath, scanTemplateDir, copyFile } from "./utils";
 
 const COLORS: Record<string, keyof typeof chalk> = {
   default: "green",
@@ -20,7 +20,6 @@ const COLORS: Record<string, keyof typeof chalk> = {
 export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions> {
   #destinationRoot: string;
   #internalOptions: InternalOptions;
-  protected fs: any;
   protected options: O & { envPrefix: string; context: Record<string, any> };
 
   /**
@@ -49,8 +48,8 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * Additionally copies all files in `[rootDir]/files` to the output directory.
    */
   public async generate(): Promise<void> {
-    if (this.options.clear) await this.clear();
     await this.init();
+    if (this.options.clear) await this.clear();
 
     const { templates, files } = await scanTemplateDir(this.#internalOptions.templateDir);
     const context = await this.fetchContext();
@@ -77,7 +76,14 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   //
   // Methods below are lifecycle methods and most probably would be extended
   // by child classes for custom behavior. Providing `render` is mandatory.
-  // Flow: clear -> init --> context -> render -> format -> process
+  // Flow: init -> clear -> context -> render -> format -> process
+
+  /**
+   * Executed before clear operation.
+   */
+  protected init(): Promise<any> | any {
+    return undefined;
+  }
 
   /**
    * If clear option is true, this method is called. It deletes destination path.
@@ -86,13 +92,6 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    */
   protected async clear(): Promise<any> {
     await this.deleteDestination();
-  }
-
-  /**
-   * Executed after clear operation.
-   */
-  protected init(): Promise<any> | any {
-    return undefined;
   }
 
   /**
@@ -148,11 +147,15 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   // Protected methods below are utility methods to be used by child classes.
 
   /**
-   * Logs given messsage if `options.log` is true.
+   * Logs given messsage if `options.log` is true. Also outputs colorized paths for
+   * source and destination.
    *
    * @param title is the title of the log.
    * @param message is the nessage to log.
    * @param options are options.
+   * @param options.message is the message to log.
+   * @param options.source is the source path to log.
+   * @param options.destination is the destination path to log.
    */
   protected log(title: string, { message, source, destination }: { message?: string; source?: string; destination?: string }): void {
     if (!this.options.log) return;
@@ -250,8 +253,7 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * @param destination is the destination file to be created.
    */
   private async copyTemplate(source: string, destination: string): Promise<void> {
-    await fs.mkdir(dirname(this.destinationPath(destination)), { recursive: true });
-    await fs.copyFile(this.templatePath(source), this.destinationPath(destination));
+    await copyFile(this.templatePath(source), this.destinationPath(destination));
     this.log("create", { destination });
   }
 

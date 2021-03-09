@@ -6,7 +6,7 @@ Generators are pg-generator plugins developed as Node.js modules. pg-generator c
 
 ## What is a Sub-Generator
 
-Sub generators are JavaScript files exporting a default class that extend [PgGenerator Class](http://localhost:8080/nav.02.api/classes/pggenerator.html) and have templates folder. You should put your sub-generators in their sub-folder in `lib`, `dist`, or `generators` folder.
+Sub generators are JavaScript files exporting a default class that extend [PgGenerator Class](/nav.02.api/classes/pggenerator.html) and have templates folder. You should put your sub-generators in their sub-folder in `lib`, `dist`, or `generators` folder.
 
 The required default sub-generator name is `app`. When you execute `pgen name` command or `generate("name")` function without providing a sub-generator name, the `app` sub-generator is executed, which is located in the `app` sub-directory. You may add additional sub-generators and name them as you wish. The folder name is the name of the sub-generator.
 
@@ -29,7 +29,7 @@ Below is an example of a generator that has 3 sub-generators: `app`, `md`, and `
 
 ## Templates
 
-Template files are located in the `templates` folder of a sub-generator. Any templating engine can be used. Generated files are created by processing the templates. pg-generator decides how to process a template and what to pass as context data using the template's file name. Please see [adding templates section](/nav.03.creating-generators/02.adding-templates) for details.
+Template files are located in the `templates` folder of a sub-generator. Any templating engine can be used. Generated files are created by processing the templates. pg-generator decides how to process a template and what to pass as context data using the template's file name. Please see [templates section](/nav.03.creating-generators/02.templates) for details.
 
 Templates related to the database objects are processed for each database object they are related to. Other files in the templates folder are copied to the destination without any processing.
 

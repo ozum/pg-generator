@@ -13,13 +13,9 @@ const messages: Record<string, (n: string, s?: string) => string> = {
 type ErrorCode = keyof typeof messages | "RELCOL" | "GENERAL";
 
 export class PgenError extends Error {
-  public code: ErrorCode;
+  public code: ErrorCode = "GENERAL";
+  public readonly type = "PgenError";
   public subGenerators?: string[];
-
-  public constructor(message: string) {
-    super(message);
-    this.code = "GENERAL";
-  }
 
   public static withCode(code: ErrorCode, message: string): PgenError {
     const error = new PgenError(message);
@@ -29,7 +25,7 @@ export class PgenError extends Error {
 
   public static collisionError(reportObject: CollisionsByTable): PgenError {
     const report = inspect(reportObject, { depth: null });
-    const message = `Some relations have same names. Use '{ relationNameFunctions: "descriptive" }' option or proivde your own naming functions.${EOL}${report}`;
+    const message = `Some relations have same names. Use "optimal" or "descriptive" for "relationNameFunctions" option or proivde your own naming functions.${EOL}${report}`;
     const error = this.withCode("RELCOL", message);
     return error;
   }

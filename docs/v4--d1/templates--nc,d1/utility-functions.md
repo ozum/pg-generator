@@ -24,7 +24,7 @@ Generates JSDoc documentation for given table.
 
 Example usage in template:
 
-```nunjucks
+```jinja2
 /**
  * {{ table.schema.name }}.{{ table.name }}
 {{ table.description | makeJsDoc }}
@@ -38,7 +38,7 @@ Generates TypeScript types for given table.
 
 Example usage in template:
 
-```nunjucks
+```jinja2
 class {{ table.name | classCase }} extends Model {
   {{ pgen.tableTypeScriptSchema(table) }}
 }
@@ -48,7 +48,7 @@ class {{ table.name | classCase }} extends Model {
 
 Generates `Joi` schema for given table.
 
-```nunjucks
+```jinja2
 Joi.object({
   {{ pgen.tableJoiSchema(table) | stringifyIfObject(raw = true) }}
 });
@@ -58,6 +58,6 @@ Joi.object({
 
 Generates JSON Schema for given table.
 
-```nunjucks
+```jinja2
 {{ pgen.tableJsonSchema(table) | stringifyIfObject }};
 ```

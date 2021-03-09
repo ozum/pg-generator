@@ -1,4 +1,4 @@
-# History & Release Notes
+# History
 
 **Note**: Version history for minimal documentation updates are not listed here to prevent cluttering.
 

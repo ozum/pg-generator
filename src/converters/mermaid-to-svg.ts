@@ -5,9 +5,18 @@
 /* eslint-disable no-param-reassign */
 import Base64 from "js-base64";
 
-export function mermaidToSVG(data: string, { link = false } = {}): string {
-  const matchData = data.match(/```mermaid(.|\n)*?```/gm);
-  if (matchData === null) return data;
+/**
+ * Converts given content's mermaid sections into SVG.
+ *
+ * @param input is the content to convert mermaid parts to svg.
+ * @returns converted content.
+ *
+ * @see https://github.com/superj80820/mermaid-js-converter
+ */
+export function mermaidToSVG(input: string): string {
+  const link = false;
+  const matchData = input.match(/```mermaid(.|\n)*?```/gm);
+  if (matchData === null) return input;
 
   const jsonStrings = matchData
     .map((item: string) => item.replace("```mermaid", "").replace("```", ""))
@@ -35,7 +44,7 @@ export function mermaidToSVG(data: string, { link = false } = {}): string {
         : `![](https://mermaid.ink/svg/${jsonString})`;
     });
 
-  let changeMd = data;
+  let changeMd = input;
   matchData.forEach((item: any, index: string | number) => {
     changeMd = changeMd.replace(item, jsonStrings[index as any] as string);
   });

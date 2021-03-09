@@ -42,7 +42,7 @@ const flags: ExtendedAnyFlags = {
   relationNameFunctions: {
     type: "string",
     desc:
-      "Optional module that exports functions to generate names for relationships. 'pg-generator' also provides builtin modules 'short' & 'descriptive'",
+      "Optional module that exports functions to generate names for relations. 'pg-generator' also provides builtin modules 'short', 'optimal' & 'descriptive'",
   },
 
   // Client options

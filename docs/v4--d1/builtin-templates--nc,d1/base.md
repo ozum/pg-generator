@@ -1,3 +1,5 @@
+# Base
+
 This template may be used to create your own templates from scratch. It generates all necessary boilerplate files.
 
 ## Usage

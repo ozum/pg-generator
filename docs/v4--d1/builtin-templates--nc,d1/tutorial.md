@@ -1,3 +1,5 @@
+# Tutorial
+
 This template may be used to learn basics of pg-generator templates. Files in this template are not complicated and provides an easy start.
 
 ## Usage

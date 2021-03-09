@@ -1,3 +1,5 @@
+# Sequelize
+
 This template is successor of [sequelize-pg-generator](https://www.npmjs.com/package/sequelize-pg-generator) module which is used for creating [sequelize](http://docs.sequelizejs.com) models from existing PostgreSQL database.
 
 ## Usage
@@ -123,7 +125,7 @@ This template uses table names or schema table names for model naming. For relat
 | belongsTo      | singular, classCase, relationName      | Foreign key column name. If name ends with 'id' or '\_id' it will be stripped. Otherwise 'related' is added at the beginning to prevent it from clashing with column name. |
 | belongsToMany  | plural, classCase, relationName('')    | Join table name + foreign key in join table which refers to other table. If name ends with 'id' or '\_id' it will be stripped.                                             |
 
-![Example Schema](../images/schema.png "Example Schema")
+![Example Schema](/images/v4-schema.png "Example Schema")
 
 As an example for the schema above aliases are created as follows. Please note names of foreign keys in **cart_line_item** table: **product_id** and **cart**. To demonstrate different naming rules 'product*id' contains \_id* suffix while 'cart' not.
 

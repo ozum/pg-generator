@@ -1,0 +1,33 @@
+{
+  "name": "pg-generator-...",
+  "version": "1.0.0",
+  "description": "pg-generator plugin that generates ...",
+  "author": "",
+  "keywords": [
+    "pg-generator",
+    "plugin"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "",
+  "bugs": "",
+  "repository": "",
+  "license": "MIT",
+  "dependencies": {
+    "nunjucks": "^3",
+    "pg-generator": "^5"
+  },
+  "devDependencies": {
+    "@types/node": "^14",
+    "@types/nunjucks": "^3",
+    "pg-structure": "^7",
+    "typescript": "^4"
+  }
+}

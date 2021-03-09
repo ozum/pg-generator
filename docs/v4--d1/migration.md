@@ -1,4 +1,4 @@
-# Migration from v2 to v3
+# Migration
 
 If you use builtin templates without modification, just regenerate them and use `pgen` as usual.
 

@@ -73,14 +73,14 @@
           "devDependencies.readmeasy": "^0.2.7",
           "devDependencies.ts-jest": "^26.5.1",
           "devDependencies.ts-node-dev": "^1.1.1",
-          "devDependencies.typedoc": "^0.20.28",
+          "devDependencies.typedoc": "^0.20.30",
           "devDependencies.typedoc-neo-theme": "^1.1.0",
           "devDependencies.typedoc-plugin-example-tag": "^1.0.2",
           "devDependencies.typedoc-plugin-markdown": "^3.6.0",
           "devDependencies.typedoc-plugin-param-names": "^2.0.0",
           "devDependencies.typescript": "^4.1.5",
           "devDependencies.vuepress": "^1.8.2",
-          "devDependencies.vuepress-bar": "^0.3.5",
+          "devDependencies.vuepress-bar": "^0.3.6",
           "devDependencies.vuepress-plugin-mermaidjs": "^1.8.1",
           "devDependencies.walkdir": "^0.4.1"
         }

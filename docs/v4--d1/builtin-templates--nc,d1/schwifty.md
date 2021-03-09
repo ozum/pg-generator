@@ -1,4 +1,4 @@
-# ALPHA STAGE
+# Schwifty
 
 This template is in alpha stage. Feedback needed.
 

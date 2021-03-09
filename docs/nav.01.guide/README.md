@@ -15,9 +15,10 @@ We create lots of files, such as ORM models, reports, documentation based on the
 - Zero-config. The file tree of template files determines the final result.
 - Provides CLI and API.
 - Uses [pg-structure](https://www.pg-structure.com) under the hood, so every feature of the [pg-structure](https://www.pg-structure.com) is available in templates.
-- Generators are template engine agnostic. You can use your favorite templating engine.
+- Generators are template engine agnostic. You can use your favorite template engine.
 - Easy to share generators using npm.
 - Supports most of the PostgreSQL objects. Every [class](https://www.pg-structure.com/nav.02.api/) of the pg-structure is available.
+- Unlimited customization for relation names using [relation name functions](/nav.01.guide/02.advanced.html#relation-names)
 
 ## How It Works?
 

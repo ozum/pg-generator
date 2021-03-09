@@ -66,7 +66,6 @@ async function md({ out, singleFile = false }) {
     "typedoc-plugin-example-tag,typedoc-plugin-markdown,typedoc-plugin-param-names",
     "--excludeExternals",
     "--excludePrivate",
-    "--excludeProtected",
     "--exclude",
     "'src/bin/**/*'",
     "--hideInPageTOC",

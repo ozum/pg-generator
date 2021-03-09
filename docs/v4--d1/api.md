@@ -1,3 +1,5 @@
+# API
+
 ## Functions
 
 <dl>

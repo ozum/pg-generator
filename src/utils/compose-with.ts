@@ -5,20 +5,10 @@ import type { Db } from "pg-structure";
 import { ignoreCode } from "ignor";
 import type { GeneratorOptions } from "../types";
 import { PgenError } from "./pgen-error";
+import { exists } from "./exists";
 
 const SUBDIRS = ["generators", "dist/generators", "lib/generators", "dist", "lib", "."];
 const SPECIAL_DIRS = ["partials", "utils"];
-
-/**
- * Checks whether given path exists.
- *
- * @param path is tha path to check.
- * @returns existence of the path.
- */
-async function exists(path?: string): Promise<boolean> {
-  if (path === undefined) return false;
-  return (await fs.lstat(path).catch(ignoreCode("ENOENT"))) !== undefined;
-}
 
 /**
  * If  given id does not have prefix, adds prefix to it.
@@ -127,11 +117,9 @@ export async function composeWith<O extends GeneratorOptions>(
   const generatorPath = join(module.path, module.generatorsPath, subGenerator);
   const GeneratorModule = await import(generatorPath);
   const Generator = GeneratorModule.default ?? GeneratorModule[subGenerator];
-
   if (!(typeof Generator?.prototype.generate === "function"))
     throw PgenError.composerError("NOTAGEN", generator, subGenerator, module.generators);
 
   const internalOptions = { templateDir: join(generatorPath, "templates"), cwd, db };
-
   return new Generator(options, internalOptions).generate();
 }
