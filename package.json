@@ -59,7 +59,7 @@
     "yo:update": "yo tsmod:uninstall --no-install --force && yo 'tsmod' '--vuepress' '--github-workflow' 'pg'",
     "local-link": "ln -s ../../pg-generator-example node_modules/pg-generator-example",
     "local-link-x": "ln -s ../../pg-generator-example node_modules/pg-generator-example && ln -s ../../pg-structure node_modules/pg-structure",
-    "pgen": "./dist/bin/pgen.js example:d --out-dir ../sil/models --clear --relation-name-functions optimal"
+    "pgen": "./dist/bin/pgen.js example --out-dir ../sil/models --clear --relation-name-functions optimal"
   },
   "vuepress": {
     "google-analytics-id": ""
