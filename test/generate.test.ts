@@ -15,7 +15,10 @@ const CLIENT_OPTIONS = { database: "pg-generator-test", user: "user", password: 
 // WORKAROUND: Jest does not output error of dynamic import in (src/utils/compose-with.ts). This function rethrows error.
 async function g(subGenerator = "app", options?: Options, { argLength = 3, cwd = "" } = {}): ReturnType<typeof load> {
   const oldCwd = process.cwd();
-  if (cwd) process.chdir(cwd);
+  if (cwd) {
+    await fs.mkdir(cwd, { recursive: true });
+    process.chdir(cwd);
+  }
 
   const mergedOptions = {
     clear: true,
@@ -91,8 +94,6 @@ describe("generate", () => {
   });
 
   it("should compose.", async () => {
-    // TODO: eslint yada prettier snapshot'ı formatlıyor olabilir mi. Normalde çalışan test release'de hata veriyor.
-    // lint-staged'den lint ve formatı kaldırınca hata olmuyor. test/__snapshots__ dizinini exclude et.
     expect(await g("composer")).toMatchSnapshot();
   });
 
@@ -115,7 +116,9 @@ describe("generate", () => {
   });
 
   it("should throw if generator cannot be found.", async () => {
-    await expect(() => generate("XYZ")).rejects.toThrow("You don't seem to have a generator with the name 'XYZ' installed.");
+    await expect(() => generate("XYZ", { ...CLIENT_OPTIONS })).rejects.toThrow(
+      "You don't seem to have a generator with the name 'XYZ' installed."
+    );
   });
 
   it("should throw if sub-generator cannot be found.", async () => {
