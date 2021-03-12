@@ -1,14 +1,17 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax */
 import { dirname, join, isAbsolute, resolve, parse, format } from "path";
-import { promises as fs } from "fs";
+import { Dirent, promises as fs } from "fs";
 import type { Db } from "pg-structure";
-import { ignoreCode } from "ignor";
+import { ignoreCode, ignoreMessage } from "ignor";
 import type { GeneratorOptions } from "../types";
 import { PgenError } from "./pgen-error";
 import { exists } from "./exists";
+import type { PgGenerator } from "../pg-generator";
 
-const SUBDIRS = ["generators", "dist/generators", "lib/generators", "dist", "lib", "."];
 const SPECIAL_DIRS = ["partials", "utils"];
+const PREFIX = "pg-generator";
+
+type Class<T = unknown, Arguments extends any[] = any[]> = new (...arguments_: Arguments) => T;
 
 /**
  * If  given id does not have prefix, adds prefix to it.
@@ -21,10 +24,9 @@ const SPECIAL_DIRS = ["partials", "utils"];
  * getAlternativeId("example", "pg-generator"); // "pg-generator-example"
  * getAlternativeId("@user/example", "pg-generator"); // "@user/pg-generator-example"
  */
-function getAlternativeId(id?: string, prefix?: string): string | undefined {
-  if (!id || !prefix) return undefined;
+function getAlternativeId(id: string): string | undefined {
   const { dir, name, ext } = parse(id);
-  return name.startsWith(prefix) ? undefined : format({ dir, name: `${prefix}-${name}`, ext });
+  return name.startsWith(PREFIX) ? undefined : format({ dir, name: `${PREFIX}-${name}`, ext });
 }
 
 /**
@@ -38,20 +40,66 @@ function getAlternativeId(id?: string, prefix?: string): string | undefined {
  *
  * @example
  * resolveModule("my-module"); // /path/to/project/node_modules/my-module/dist
+ * resolveModule("my-module", "pg-generator"); // /path/to/project/node_modules/my-module/dist or /path/to/project/node_modules/pg-generator-my-module/dist
  * resolveModule("/path/to/my-module"); // /path/to/my-module
  * resolveModule("./my-module"); // /path/to/my-module
  */
-function resolvePath(id?: string, prefix?: string): string | undefined {
+function resolvePath(id: string): string | undefined {
   let result: string | undefined;
-  if (id === undefined) return undefined;
-  const alternativeId = getAlternativeId(id, prefix);
   // Test relative path. Matches "./",  "../",  "..\",  "..\"
   if (/^\.\.?[\\/]/.test(id)) result = resolve(id);
   else if (isAbsolute(id)) result = id;
-  else result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(id));
+  else {
+    result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(id));
+    const alternativeId = getAlternativeId(id);
+    if (result === undefined && alternativeId !== undefined) result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(alternativeId));
+    /* istanbul ignore next */
+    return result === undefined ? undefined : dirname(result);
+  }
+  return result;
+}
 
-  if (result === undefined && alternativeId !== undefined) result = ignoreCode("MODULE_NOT_FOUND", () => require.resolve(alternativeId));
-  return result !== undefined ? dirname(result) : undefined;
+/**
+ * Imports generator from given path. If imported module is not a sub-class of PgGenerator returns undefined.
+ *
+ * @param path is the path to import generator.
+ * @param name is the name of the generator. To import named export instead of default.
+ * @returns generator class.
+ */
+async function importGeneratorFromPath(path: string, name: string): Promise<Class<PgGenerator> | undefined> {
+  const GeneratorModule = await import(path).catch(ignoreMessage(/Cannot find module/));
+  if (GeneratorModule === undefined) return undefined;
+  const Generator = GeneratorModule.default ?? GeneratorModule[name];
+  // instanceof PgGenerator is not used, because this PgGenerator may be different than PgGenerator from plugin's dependencies.
+  return typeof Generator?.prototype?.generate === "function" ? Generator : undefined;
+}
+
+/**
+ * Imports given generator or sub-generator from given path.
+ *
+ * @param path is the path to import generator or sub-generaor.
+ * @param generator is the generator to import.
+ * @param subGenerator is the sub-generator to import.
+ * @returns the generator class and it's path.
+ */
+export async function importGenerator(
+  path: string,
+  generator: string,
+  subGenerator?: string
+): Promise<[Class<PgGenerator> | undefined, string]> {
+  const name = subGenerator ?? generator;
+  let fullPath = join(path, subGenerator || "");
+  let Generator = await importGeneratorFromPath(fullPath, name);
+
+  if (!Generator && !subGenerator) {
+    fullPath = join(path, "app");
+    Generator = await importGeneratorFromPath(fullPath, name);
+  }
+
+  const isDirectory = (await fs.lstat(fullPath).catch(ignoreCode(["ENOENT", "ENOTDIR"])))?.isDirectory();
+  if (!isDirectory) fullPath = dirname(fullPath);
+
+  return [Generator, fullPath];
 }
 
 /**
@@ -62,27 +110,14 @@ function resolvePath(id?: string, prefix?: string): string | undefined {
  * @returns first available sub-plugin directory and sub-plugins (directories) in it. If dir is not found, returns undefined. If sub-dirs are not available, returns `[]`.
  *
  * @example
- * // Subdirs : ["geerators", "dist/generators", "lib/generators", "."]
- * await readSubGenerators("my-plugin"); // { path: "/path/to/module", generatorsPath: "dist/generators", generators: ["a", "b"] }
- * await readSubGenerators("/path/to/my-plugin/dist"); // { path: "/path/to/module", generatorsPath: "generators", generators: ["a", "b"] }
- * await readSubGenerators("./path/to/my-plugin/dist/generators"); // { path: "/path/to/module", generatorsPath: ".", generators: ["a", "b"] }
+ * await readSubGenerators("my-plugin"); // ["app", "objection"]
  */
-export async function readGenerators(id: string): Promise<{ path: string; generatorsPath: string; generators: string[] } | undefined> {
-  const path = await resolvePath(id, "pg-generator");
+export async function readGenerators(id: string): Promise<string[] | undefined> {
+  const path = resolvePath(id);
   if (path === undefined || !(await exists(path))) return undefined;
-  for (const generatorsPath of SUBDIRS) {
-    const fullPath = join(path, generatorsPath);
 
-    if ((await Promise.all([exists(join(fullPath, "index.js")), exists(join(fullPath, "templates"))])).every((result) => result))
-      return { path, generatorsPath, generators: [""] };
-
-    const entries = await fs.readdir(fullPath, { withFileTypes: true }).catch(ignoreCode(["ENOTDIR", "ENOENT"]));
-    const generators =
-      entries && entries.filter((entry) => entry.isDirectory() && !SPECIAL_DIRS.includes(entry.name)).map((entry) => entry.name);
-    if (generators !== undefined) return { path, generatorsPath, generators };
-  }
-
-  throw PgenError.composerError("NOEXP", id);
+  const entries: Dirent[] = await fs.readdir(path, { withFileTypes: true }).catch(ignoreCode(["ENOTDIR", "ENOENT"], []));
+  return entries.filter((entry) => entry.isDirectory() && !SPECIAL_DIRS.includes(entry.name)).map((entry) => entry.name);
 }
 
 /**
@@ -107,19 +142,11 @@ export async function composeWith<O extends GeneratorOptions>(
   db: Db,
   cwd: string
 ): Promise<void> {
-  const module = await readGenerators(generator);
-  if (module === undefined) throw PgenError.composerError("NOGEN", generator, subGenerator);
-  subGenerator = subGenerator ?? module.generators.find((g) => g === "" || g === "app"); // eslint-disable-line no-param-reassign
+  const path = resolvePath(generator);
+  if (path === undefined || !(await exists(path))) throw PgenError.composerError("NOGEN", generator, subGenerator);
 
-  if (subGenerator === undefined || !module.generators.includes(subGenerator))
-    throw PgenError.composerError("NOSUB", generator, subGenerator, module.generators);
-
-  const generatorPath = join(module.path, module.generatorsPath, subGenerator);
-  const GeneratorModule = await import(generatorPath);
-  const Generator = GeneratorModule.default ?? GeneratorModule[subGenerator];
-  if (!(typeof Generator?.prototype.generate === "function"))
-    throw PgenError.composerError("NOTAGEN", generator, subGenerator, module.generators);
-
-  const internalOptions = { templateDir: join(generatorPath, "templates"), cwd, db };
+  const [Generator, fullPath] = await importGenerator(path, generator, subGenerator);
+  if (Generator === undefined) throw PgenError.composerError("NOSUB", generator, subGenerator, await readGenerators(generator));
+  const internalOptions = { templateDir: join(fullPath, "templates"), cwd, db };
   return new Generator(options, internalOptions).generate();
 }

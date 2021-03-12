@@ -18,7 +18,8 @@ function getSubGeneratorsMessage(generator: string, subGenerators?: string[]): s
 }
 
 async function logHelp(cli: any, generator: string): Promise<void> {
-  const subGenerators = (await readGenerators(generator))?.generators;
+  // const subGenerators = (await readGenerators(generator))?.generators;
+  const subGenerators = await readGenerators(generator);
   console.log(cli.help);
   console.log(getSubGeneratorsMessage(generator, subGenerators), EOL);
 }

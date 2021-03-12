@@ -1,0 +1,4 @@
+{%- for table in db.tables %}
+const {{ table | dboClassName(addSchemaName) }} = "";
+{%- endfor %}
+

@@ -1,0 +1,514 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate should add context from context JSON file using options. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const PurchaseHistory = \\"\\";
+const Account = \\"\\";
+const Contact = \\"\\";
+const LineItem = \\"\\";
+const Product = \\"\\";
+const Purchase = \\"\\";
+const PurchaseHistory = \\"\\";
+const Region = \\"\\";
+const SystemOption = \\"\\";
+const SystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+}
+`;
+
+exports[`generate should add context from context module exporting function using options. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const PurchaseHistory = \\"\\";
+const Account = \\"\\";
+const Contact = \\"\\";
+const LineItem = \\"\\";
+const Product = \\"\\";
+const Purchase = \\"\\";
+const PurchaseHistory = \\"\\";
+const Region = \\"\\";
+const SystemOption = \\"\\";
+const SystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+}
+`;
+
+exports[`generate should add context from context module using options. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const PurchaseHistory = \\"\\";
+const Account = \\"\\";
+const Contact = \\"\\";
+const LineItem = \\"\\";
+const Product = \\"\\";
+const Purchase = \\"\\";
+const PurchaseHistory = \\"\\";
+const Region = \\"\\";
+const SystemOption = \\"\\";
+const SystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+}
+`;
+
+exports[`generate should compose. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const ArchivePurchaseHistory = \\"\\";
+const PublicAccount = \\"\\";
+const PublicContact = \\"\\";
+const PublicLineItem = \\"\\";
+const PublicProduct = \\"\\";
+const PublicPurchase = \\"\\";
+const PublicPurchaseHistory = \\"\\";
+const PublicRegion = \\"\\";
+const PublicSystemOption = \\"\\";
+const PublicSystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+  "useless.md": "# Useless
+",
+}
+`;
+
+exports[`generate should generate files if called with 2 arguments. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const ArchivePurchaseHistory = \\"\\";
+const PublicAccount = \\"\\";
+const PublicContact = \\"\\";
+const PublicLineItem = \\"\\";
+const PublicProduct = \\"\\";
+const PublicPurchase = \\"\\";
+const PublicPurchaseHistory = \\"\\";
+const PublicRegion = \\"\\";
+const PublicSystemOption = \\"\\";
+const PublicSystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+}
+`;
+
+exports[`generate should generate files. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const ArchivePurchaseHistory = \\"\\";
+const PublicAccount = \\"\\";
+const PublicContact = \\"\\";
+const PublicLineItem = \\"\\";
+const PublicProduct = \\"\\";
+const PublicPurchase = \\"\\";
+const PublicPurchaseHistory = \\"\\";
+const PublicRegion = \\"\\";
+const PublicSystemOption = \\"\\";
+const PublicSystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+}
+`;
+
+exports[`generate should not create files if render returns undefined. 1`] = `
+Object {
+  "useless.md": "# Useless
+",
+}
+`;
+
+exports[`generate should output cwd if no outDir is provided. 1`] = `
+Object {
+  "README.md": "# Hello!
+",
+  "archive.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "archive/archive.md": "# Schema:
+",
+  "index.js": "const ArchivePurchaseHistory = \\"\\";
+const PublicAccount = \\"\\";
+const PublicContact = \\"\\";
+const PublicLineItem = \\"\\";
+const PublicProduct = \\"\\";
+const PublicPurchase = \\"\\";
+const PublicPurchaseHistory = \\"\\";
+const PublicRegion = \\"\\";
+const PublicSystemOption = \\"\\";
+const PublicSystemOptionHistory = \\"\\";
+",
+  "public.account.js": "id;
+name;
+primary_contact_id;
+secondary_contact_id;
+",
+  "public.contact.js": "id;
+account_id;
+region_Id;
+name;
+surname;
+phone;
+preferred_languages;
+priority;
+",
+  "public.line-item.js": "purchase_id;
+product_id;
+quantity;
+unit_price;
+",
+  "public.product.js": "id;
+name;
+price;
+",
+  "public.purchase-history.js": "id;
+contact_id;
+purchased_at;
+total_amount;
+",
+  "public.purchase.js": "id;
+created_at;
+purchased_at;
+contact_id;
+",
+  "public.region.js": "id;
+name;
+parentid;
+",
+  "public.system-option-history.js": "id;
+system_option_key;
+system_option_sub_key;
+",
+  "public.system-option.js": "key;
+sub_key;
+value;
+",
+  "public/public.md": "# Schema:
+",
+}
+`;

@@ -4,17 +4,18 @@ import { readFileSync } from "fs";
 import meow from "meow";
 import getHelp, { commonFlags, ExtendedAnyFlags } from "meow-helper";
 
-const command = "pgen";
+const command = "pgen-scaffold";
 const pkg = JSON.parse(readFileSync(join(__dirname, "../../package.json"), { encoding: "utf8" }));
 
 const args = { "SCAFFOLD*": "The scaffold project to copy." };
 
 const flags: ExtendedAnyFlags = {
-  outDir: { type: "string", isRequired: true, desc: "Path of the output directory." },
+  name: { type: "string", desc: "Name of the project." },
+  outDir: { alias: "o", type: "string", isRequired: true, desc: "Path of the output directory." },
   ...commonFlags,
 };
 
-const examples = ["pgen-scaffold nunjucks --outDir pg-generator-my-generator"];
+const examples = ["pgen-scaffold nunjucks --outDir pg-generator-example"];
 
 export default function getCLI(): meow.Result<typeof flags> {
   const help = getHelp({ lineLength: 140, flags, args, pkg, examples, command });

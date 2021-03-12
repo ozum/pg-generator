@@ -19,5 +19,5 @@ export function getDbObjects(db: Db, className: string, accessor: string, templa
   if (className === "Db") return [db];
   if (isSchemaAttribute(db, accessor)) return db.schemas.flatMap((schema) => schema[accessor] as DbObject[]);
   if (isDbAttribute(db, accessor)) return db[accessor] as DbObject[];
-  throw new PgenError(`${className} is not a known database object type: ${templatePath}`);
+  throw new PgenError(`'${className}' is not a known database object type: ${templatePath}`);
 }

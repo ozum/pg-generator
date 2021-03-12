@@ -20,7 +20,8 @@ export async function scanTemplateDir(templateRoot: string): Promise<{ templates
 
   // Group template files and non-template files and convert to relative files.
   pathsWithBase.forEach((path) => {
-    const type = basename(path).startsWith("[") ? "templates" : "files";
+    const type = basename(path).match(/^\[([-\w]+?)\]/) ? "templates" : "files";
+
     filePaths[type].push(relative(templateRoot, path));
   });
 

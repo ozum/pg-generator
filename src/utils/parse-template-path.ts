@@ -16,6 +16,7 @@ import { classCase, plural, camelCase } from "./filter-functions";
 export function parseTemplatePath(templatePath: string): { className: string; accessor: string; targetPath: string } {
   // Capture characters between "[]" at the beginning and rest of the string. x/y/[table]{name}.js.njk -> ["[table]", "table", "{name}.js.njk"]
   const found = basename(templatePath).match(/^\[([-\w]+?)\] ?(.+)$/);
+  /* istanbul ignore if */
   if (!found) throw new PgenError("Template error. Template path does not contain a type.");
   return { className: classCase(found[1]), accessor: plural(camelCase(found[1])), targetPath: join(dirname(templatePath), found[2]) };
 }

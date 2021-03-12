@@ -24,9 +24,9 @@ import inflection from "inflection";
  * @example
  * clearDefaultValue("'No ''value'' given'"); // "No value 'given'"
  */
-export function clearDefault(input?: string): string | undefined {
+export function clearDefault(input?: string | null): string | undefined {
   // Does not support SQL functions. IMHO it is better to handle sql function default values in RDMS.
-  let result;
+  let result: any = input;
 
   if (input === null || input === undefined) return undefined;
   if (input === "") result = "";
@@ -125,7 +125,7 @@ export function titleCase(input = ""): string {
  * singular("user_names"); // user_name
  */
 export function singular(input = ""): string {
-  return inflection.singularize(input);
+  return input === "" ? "" : inflection.singularize(input);
 }
 
 /**
@@ -138,7 +138,7 @@ export function singular(input = ""): string {
  * plural("user_name"); // user_names
  */
 export function plural(input = ""): string {
-  return inflection.pluralize(input);
+  return input === "" ? "" : inflection.pluralize(input);
 }
 
 /**
@@ -153,7 +153,7 @@ export function plural(input = ""): string {
  * human("message_properties", true); // "message properties"
  */
 export function human(input = "", lowFirstLetter?: boolean): string {
-  return inflection.humanize(input, lowFirstLetter);
+  return inflection.humanize(snakeCase(input), lowFirstLetter);
 }
 
 /**
@@ -166,7 +166,20 @@ export function human(input = "", lowFirstLetter?: boolean): string {
  * plural("User_name"); // User_name
  */
 export function lcFirst(input = ""): string {
-  return input[0].toLowerCase() + input.slice(1);
+  return input === "" ? "" : input[0].toLowerCase() + input.slice(1);
+}
+
+/**
+ * Converts the given input's first letter to the upper case.
+ *
+ * @param input is the input string to convert.
+ * @returns string with upper first case.
+ *
+ * @example
+ * plural("user_name"); // User_name
+ */
+export function ucFirst(input = ""): string {
+  return input === "" ? "" : input[0].toUpperCase() + input.slice(1);
 }
 
 /**
@@ -258,9 +271,8 @@ export function strip(input: string | undefined, ...removeList: Array<string | {
  * @param paddingString is the string to pad with.
  * @returns the string padded with padding string.
  */
-export function padRight(input: string | undefined, totalLength: number, paddingString = " "): string {
-  if (input === undefined) return "";
-  if (paddingString === undefined || input.length >= totalLength) return input;
+export function padRight(input = "", totalLength = 20, paddingString = " "): string {
+  if (input.length >= totalLength) return input;
   const count = Math.floor((totalLength - input.length) / paddingString.length);
   return input + paddingString.repeat(count);
 }
@@ -399,11 +411,11 @@ export function stringify(input: any, options: { nullToUndef?: boolean; raw?: bo
       ? result.join(", ")
       : Object.entries(result)
           .reduce((reducedResult, [key, value]) => `${reducedResult}${key}: ${value},\n${" ".repeat(options.indent ?? 0)}`, "")
-          .replace(/,\n$/, "");
+          .replace(/,\n\s*$/, "");
   }
 
-  if (result === undefined || typeof result === "object") return inspect(result, { depth: null });
-  return result.toString();
+  /* istanbul ignore next */
+  return result === undefined || typeof result === "object" ? inspect(result, { depth: null }) : result.toString();
 }
 
 /**
@@ -474,10 +486,6 @@ export function wordWrap(input?: string, startOrStop = 80, stop?: number): strin
   return wordWrapper(startOrStop, stop as any)(input);
 }
 
-export function concat(input: Record<string, any>, ...objects: Record<string, any>[]): Record<string, any> {
-  return input.concat(...objects);
-}
-
 //
 // ──────────────────────────────────────────────────────────────────────── I ──────────
 //   :::::: D A T A B A S E   F I L T E R S : :  :   :    :     :        :          :
@@ -510,6 +518,6 @@ export function dboColumnTypeModifier(column?: Column): string {
   if (column.length !== undefined) return `(${column.length})`;
   const result = [];
   if (column.precision !== undefined) result.push(column.precision);
-  if (column.scale !== undefined) result.push(column.precision);
+  if (column.scale !== undefined) result.push(column.scale);
   return result.length > 0 ? `(${result.join(", ")})` : "";
 }

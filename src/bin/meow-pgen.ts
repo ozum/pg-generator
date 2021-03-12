@@ -12,7 +12,7 @@ const args = { "GENERATOR*": "The name or the path of the generator." };
 const flags: ExtendedAnyFlags = {
   // Generator Options
   clear: { type: "boolean", desc: "Whether to clear the destination directory before creating files." },
-  outDir: { type: "string", desc: "Path of the output directory." },
+  outDir: { alias: "o", type: "string", desc: "Path of the output directory." },
   contextFile: { type: "string", desc: "Path to a JSON or JS file providing extra context for templates." },
   log: { type: "boolean", default: true, desc: "Whether to log output to console." },
   ...commonFlags,

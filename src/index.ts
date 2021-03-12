@@ -1,5 +1,6 @@
 export { PgGenerator } from "./pg-generator";
 export { generate } from "./generate";
+export { scaffold } from "./scaffold";
 
 // Generator Helpers
 export * as filterFunctions from "./utils/filter-functions";

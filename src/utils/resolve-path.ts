@@ -74,19 +74,3 @@ export function resolvePath(path: string, dbObject: Db | DbObject): string {
       return applyFilters(value, filterNames, path);
     });
 }
-// export function resolvePath(path: string, dbObject: Db | DbObject): string {
-//   const pattern = /\{\s*(.+?)\s*\}/g; // Match text between curly braces e.g. 'table/{name#dash-case}' captures 'name#dash-case'.
-//   const sepIndex = path.indexOf(sep); // get first '/' position.
-
-//   return path
-//     .substring(sepIndex + 1) // remove db object part: "table/{name#dash-case}.js.njk" -> "{name#dash-case}.js.njk"
-//     .replace(extname(path), "") // remove extension: "{name#dash-case}.js.njk" -> "{name#dash-case}.js"
-//     .replace(pattern, (_, p) => {
-//       // resolve variables: "{name#dash-case}.js" -> "member-option.js"
-//       const [templateVar, ...filterNames] = p.split(/\s*#\s*/);
-//       const value = get(dbObject, templateVar);
-//       if (value === undefined || value === null)
-//         throw new PgenError(`'${templateVar}' cannot be found or is undefined in '${dbObject.constructor.name}'. Path is '${path}'.`);
-//       return applyFilters(value, filterNames, path);
-//     });
-// }

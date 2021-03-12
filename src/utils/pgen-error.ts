@@ -4,10 +4,10 @@ import { inspect } from "util";
 import type { CollisionsByTable } from "pg-structure";
 
 const messages: Record<string, (n: string, s?: string) => string> = {
-  NOGEN: (n = "") => `You don't seem to have a generator with the name '${n}' installed.`,
-  NOSUB: (n = "", s = "") => `'${n}' doesn't seem to have a sub-generator with the name '${s}'.`,
-  NOTAGEN: (n = "", s = "") => `'${n}' exports '${s}' but it is not a sub-generator.`,
-  NOEXP: (n = "") => `${n} exists, but does not have any sub-generators.`,
+  NOGEN: (n) => `You don't seem to have a generator with the name '${n}' installed.`,
+  NOSUB: (n, s) => `'${n}' doesn't seem to have a sub-generator with the name '${s}'.`,
+  // NOTAGEN: (n = "", s = "") => `'${n}' exports '${s}' but it is not a sub-generator.`,
+  // NOEXP: (n = "") => `${n} exists, but does not have any sub-generators.`,
 };
 
 type ErrorCode = keyof typeof messages | "RELCOL" | "GENERAL";

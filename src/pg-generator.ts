@@ -32,7 +32,6 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
     if (options.clear && !options.outDir) throw new PgenError("As a precaution, 'clear' option cannot be used without 'outDir' option.");
     const collisions = internalOptions.db.relationNameCollisions;
     if (collisions) throw PgenError.collisionError(collisions);
-
     this.options = { envPrefix: "DB", copy: true, context: {}, ...options };
     this.#internalOptions = internalOptions;
     this.#destinationRoot = resolve(internalOptions.cwd, this.options.outDir || "");
@@ -48,8 +47,8 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * Additionally copies all files in `[rootDir]/files` to the output directory.
    */
   public async generate(): Promise<void> {
-    await this.init();
     if (this.options.clear) await this.clear();
+    await this.init();
 
     const { templates, files } = await scanTemplateDir(this.#internalOptions.templateDir);
     const context = await this.fetchContext();
@@ -76,14 +75,7 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   //
   // Methods below are lifecycle methods and most probably would be extended
   // by child classes for custom behavior. Providing `render` is mandatory.
-  // Flow: init -> clear -> context -> render -> format -> process
-
-  /**
-   * Executed before clear operation.
-   */
-  protected init(): Promise<any> | any {
-    return undefined;
-  }
+  // Flow: clear --> init -> context -> render -> format -> process
 
   /**
    * If clear option is true, this method is called. It deletes destination path.
@@ -95,10 +87,24 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   }
 
   /**
+   * Executed after clear operation.
+   */
+  protected init(): Promise<any> | any {
+    return undefined;
+  }
+
+  /**
    * Provides generator specific extra context to templates. This data is deeply merged with
    * context provided by user.
    *
    * @returns generator spesific extra context data.
+   *
+   * @example
+   * export default class App extends PgGenerator {
+   *   protected context(): Record<string, any> {
+   *     return { global: { addSchemaName: true } };
+   *   }
+   * }
    */
   protected context(): Promise<Record<string, any>> | Record<string, any> {
     return {};
@@ -110,8 +116,18 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * @param templatePath is the path of the template file to generate content.
    * @param context is the data to be used for generating content.
    * @returns generated content.
+   *
+   * @example
+   * import engine from "my-favorite-template-engine";
+   *
+   * export default class Md extends PgGenerator {
+   *   protected async render(templatePath: string, context: Context): Promise<string> {
+   *     return engine.render(templatePath, context);
+   *   }
+   * }
    */
   protected render(templatePath: string, context: Context): Promise<undefined | string> | undefined | string {
+    /* istanbul ignore next */
     const stub = templatePath ?? context; // eslint-disable-line @typescript-eslint/no-unused-vars
     return undefined;
   }
@@ -156,7 +172,10 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    * @param options.message is the message to log.
    * @param options.source is the source path to log.
    * @param options.destination is the destination path to log.
+   *
+   * @hidden
    */
+  /* istanbul ignore next */
   protected log(title: string, { message, source, destination }: { message?: string; source?: string; destination?: string }): void {
     if (!this.options.log) return;
     const titleColor = COLORS[title] ?? COLORS.default;
@@ -266,11 +285,12 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
   private async deleteDestination(path = ""): Promise<void> {
     const destination = this.destinationPath(path);
     const isRoot = resolve(this.#internalOptions.cwd) === resolve(destination);
-    if (isRoot) throw new PgenError("Root is not deleted, because it may be a mistake. Probably it would contain other files.");
+    if (isRoot) throw new PgenError("CWD cannot be deleted, because it may be a mistake. Probably it would contain other files.");
 
     try {
       await fs.rmdir(this.destinationPath(path), { recursive: true });
     } catch (error) {
+      /* istanbul ignore next */
       if (error.code !== "ENOENT") throw error;
       else if (error.code === "ENOTDIR") await fs.unlink(this.destinationPath(path));
     }
@@ -291,7 +311,6 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
    */
   private async fetchContext(): Promise<Record<string, any>> {
     let contextFromFile = {};
-
     if (this.options.contextFile !== undefined) {
       const contextFile = resolve(this.options.contextFile);
       const fileContent =
@@ -303,6 +322,7 @@ export abstract class PgGenerator<O extends GeneratorOptions = GeneratorOptions>
       this.log("context", { destination: contextFile });
     }
 
-    return merge(await this.context(), contextFromFile, this.options.context);
+    // Don't mutate original data within merge. Otherwise if same data file (as module) is used in same application, it will receive mutated data.
+    return merge({}, await this.context(), contextFromFile, this.options.context);
   }
 }

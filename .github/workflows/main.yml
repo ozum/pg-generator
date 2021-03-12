@@ -17,6 +17,13 @@ jobs:
       - run: echo ${{github.ref}}
       - run: echo Condition met
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      - name: Start PostgreSQL on Ubuntu
+        run: |
+          sudo systemctl start postgresql.service
+          pg_isready
+      - name: Create additional user
+        run: |
+          sudo -u postgres psql --command="CREATE USER \"user\" PASSWORD 'password' SUPERUSER CREATEDB REPLICATION" --command="\du"
       - name: Begin CI...
         uses: actions/checkout@v2
       - name: Use Node 14
