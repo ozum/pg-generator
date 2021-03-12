@@ -24,14 +24,14 @@ jobs:
       - name: Create additional user
         run: |
           sudo -u postgres psql --command="CREATE USER \"user\" PASSWORD 'password' SUPERUSER CREATEDB REPLICATION" --command="\du"
+      - name: Begin CI...
+        uses: actions/checkout@v2
       - name: Set environment variables from file.
         shell: bash
         run: |-
           while read line; do
             echo "$line" >> $GITHUB_ENV
           done < .github/github.env
-      - name: Begin CI...
-        uses: actions/checkout@v2
       - name: Use Node 14
         uses: actions/setup-node@v2
         with:
