@@ -31,7 +31,7 @@ jobs:
         run: |-
           while read line; do
             echo "$line" >> $GITHUB_ENV
-          done < .github/github.env
+          done < github.env
       - name: Use Node 14
         uses: actions/setup-node@v2
         with:
