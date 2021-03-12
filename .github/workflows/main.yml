@@ -27,7 +27,7 @@ jobs:
       - name: Set environment variables from file
         uses: c-py/action-dotenv-to-setenv@v2
         with:
-          env-file: .github/github.env
+          env-file: ".github/github.env"
       - name: Begin CI...
         uses: actions/checkout@v2
       - name: Use Node 14
