@@ -15,7 +15,7 @@ features:
 footer: MIT Licensed | Copyright © 2019-present Özüm Eldoğan
 ---
 
-### v5 is at the Alpha Satge
+### v5 is at the Alpha Stage
 
 The new major version is at the alpha stage. Any feedback is appreciated.
 
