@@ -1,23 +1,19 @@
 import { join } from "path";
-import { promises as fs, existsSync } from "fs";
+import { promises as fs } from "fs";
 import { load } from "fs-structure";
-import { ignoreCode } from "ignor";
 import { tmpdir } from "os";
 import { generate, Options } from "../src/index";
 import App from "./test-helper/pg-generator-test/src/app/index";
 
-const TEST_ROOT = join(tmpdir(), "pgen");
-const outDir = join(TEST_ROOT, "out");
-const outDir2 = join(TEST_ROOT, "out2");
-const app = new App({ outDir }, { db: {}, templateDir: join(__dirname, "templates") } as any);
-
-// WORKAROUND: Jest does not output error of dynamic import in (src/utils/compose-with.ts). This function rethrows error.
-async function g(subGenerator = "app", options?: Options, { argLength = 3, cwd = "" } = {}): ReturnType<typeof load> {
+/**
+ * Helper function to execute generate and return file-structure as a result to compare with snapshots.
+ */
+async function g(subGenerator = "app", options?: Options, { argLength = 3, cwd = false } = {}): ReturnType<typeof load> {
   const oldCwd = process.cwd();
-  if (cwd) {
-    await fs.mkdir(cwd, { recursive: true });
-    process.chdir(cwd);
-  }
+  const tempDir = await fs.mkdtemp(join(tmpdir(), "pg-generator-"));
+  const outDir = join(tempDir, "out"); // For tests, directory should not be created yet.
+
+  if (!options?.clear) await fs.mkdir(outDir, { recursive: true }); // Create output directory to test "clear: false".
 
   const mergedOptions = {
     clear: true,
@@ -27,23 +23,25 @@ async function g(subGenerator = "app", options?: Options, { argLength = 3, cwd =
     ...options,
   };
 
+  if (cwd) {
+    await fs.mkdir(outDir, { recursive: true });
+    process.chdir(outDir);
+  }
+
   try {
-    // To test generate function with 2 paramerets and 3 parameters.
+    // To test generate function with 1,2 and 3 parameters.
     if (argLength === 3) await generate(join(__dirname, "test-helper/pg-generator-test/src"), subGenerator, mergedOptions);
     else if (argLength === 2) await generate(join(__dirname, "test-helper/pg-generator-test/src", subGenerator), mergedOptions);
     else if (argLength === 1) await generate(join(__dirname, "test-helper/pg-generator-test/src", subGenerator));
-    const structure = await load(mergedOptions.outDir ?? outDir);
-    process.chdir(oldCwd);
-    return structure;
+    return await load(mergedOptions.outDir ?? outDir);
   } catch (error) {
-    process.chdir(oldCwd);
+    // WORKAROUND: Jest does not output error of dynamic import in (src/utils/compose-with.ts). This function rethrows error.
     throw new Error(error.message);
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmdir(tempDir, { recursive: true });
   }
 }
-
-afterAll(async () => {
-  await fs.rmdir(TEST_ROOT, { recursive: true });
-});
 
 describe("generate", () => {
   it("should generate files.", async () => {
@@ -55,7 +53,7 @@ describe("generate", () => {
   });
 
   it("should generate files if called with 1 argument.", async () => {
-    await expect(() => g("app", {}, { argLength: 1, cwd: outDir })).rejects.toThrow(" have same names");
+    await expect(() => g("app", {}, { argLength: 1, cwd: true })).rejects.toThrow(" have same names");
   });
 
   it("should add context from context module using options.", async () => {
@@ -83,8 +81,7 @@ describe("generate", () => {
   });
 
   it("should not clear output directory if clear is false.", async () => {
-    await g("app", { clear: false, outDir: outDir2 });
-    expect(existsSync(outDir2)).toBe(true);
+    expect(await g("app", { clear: false })).toMatchSnapshot();
   });
 
   it("should throw if target is cwd and clear is true", async () => {
@@ -96,9 +93,7 @@ describe("generate", () => {
   });
 
   it("should output cwd if no outDir is provided.", async () => {
-    await fs.rmdir(outDir, { recursive: true }).catch(ignoreCode("ENOENT"));
-    await fs.mkdir(outDir);
-    expect(await g("app", { outDir: undefined, clear: false }, { cwd: outDir })).toMatchSnapshot();
+    expect(await g("app", { outDir: undefined, clear: false }, { cwd: true })).toMatchSnapshot();
   });
 
   it("should throw if a filter in file name cannot be found.", async () => {
@@ -123,8 +118,11 @@ describe("generate", () => {
 });
 
 describe("App", () => {
+  const appOutDir = join(tmpdir(), "pgen");
+  const app = new App({ outDir: appOutDir }, { db: {}, templateDir: join(__dirname, "templates") } as any);
+
   it("should return default destination path.", () => {
-    expect(app.defaultDestinationPath()).toBe(outDir);
+    expect(app.defaultDestinationPath()).toBe(appOutDir);
   });
 
   it("should return default template path.", () => {
