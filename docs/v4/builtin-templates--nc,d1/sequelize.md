@@ -6,8 +6,10 @@ This template is successor of [sequelize-pg-generator](https://www.npmjs.com/pac
 
 Create template and model files:
 
-    $ pgen template sequelize -t sequelize-template
-    $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
+```bash
+$ pgen template sequelize -t sequelize-template
+$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model
+```
 
 In your application, create a sequelize object and initialize models with it:
 
@@ -55,7 +57,9 @@ var model = require("./model/index.js"); // No init here, because it is initiali
 
 Templates have passed a variable called `util` which provides some useful utilities.
 
-    type: {{ util.sequelizeType(column) }}  -> type: DataTypes.INTEGER
+```
+type: {{ util.sequelizeType(column) }}  -> type: DataTypes.INTEGER
+```
 
 <a name="uniqueRelatedTables"></a>
 
@@ -85,8 +89,10 @@ Returns Sequelize ORM data type for given column.
 
 **Example**
 
-    {{ util.sequelizeType() }}        // DataTypes.INTEGER(3)
-    {{ sequelizeType('Sequelize') }}  // Sequelize.INTEGER(3)
+```jinja2
+{{ util.sequelizeType() }}        // DataTypes.INTEGER(3)
+{{ sequelizeType('Sequelize') }}  // Sequelize.INTEGER(3)
+```
 
 ## Relations
 
@@ -116,7 +122,9 @@ module.exports = {
 
 This template uses table names or schema table names for model naming. For relations it uses foreign key names and relation names from your database. (You are naming your relations in database meaningfully right?) Default template is based on camelCase naming. You can easily change it to use snake_case or PascalCase by using provided filters. Naming conventions are based on Sequelize module suggestions and generated explicitly with 'as' parameter. Aliases can be turned of by providing a custom options file and setting `generateAliases` false.
 
-     module.exports = { generateAliases: false };
+```js
+module.exports = { generateAliases: false };
+```
 
 | Type of Object | Filters                                | Default Naming & Alias Rule                                                                                                                                                |
 | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -144,9 +152,9 @@ As an example for the schema above aliases are created as follows. Please note n
 
 In your template;
 
-- Rename _'sequelize/table/definition/{table.name}.js.nunj.html'_ as _'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'_.
-- Change <span style="font-family:monospace">modelName macro</span> in _'sequelize/table/definition/{table.schema.name}-{table.name}.js.nunj.html'_ as `{{ (table.schema.name + table.name) | classCase }}`.
-- Add <span style="font-family:monospace">'{table.schema.name}-'</span> string to <span style="font-family:monospace">'sequelize.import'</span> and <span style="font-family:monospace">'require'</span> parts in _'sequelize/db/index.js.nunj.html'_ file to match new model file's names.
+- Rename _'sequelize/table/definition/\{table.name\}.js.nunj.html'_ as _'sequelize/table/definition/\{table.schema.name\}-\{table.name\}.js.nunj.html'_.
+- Change <span style="font-family:monospace">modelName macro</span> in _'sequelize/table/definition/\{table.schema.name\}-\{table.name\}.js.nunj.html'_ as `\{\{ (table.schema.name + table.name) | classCase \}\}`.
+- Add <span style="font-family:monospace">'\{table.schema.name\}-'</span> string to <span style="font-family:monospace">'sequelize.import'</span> and <span style="font-family:monospace">'require'</span> parts in _'sequelize/db/index.js.nunj.html'_ file to match new model file's names.
 
 #### I hate aliases that sequelize template generate. What can I do?
 
@@ -181,8 +189,10 @@ Account: {
 
 #### \*.nunj.html file extension is ugly.
 
-This is not a question. nunj.html extension is chosen because [nunjucks](https://mozilla.github.io/nunjucks/) command line tools expect files with extension **html**. However some IDE's struggle to auto complete/help/color [nunjucks](https://mozilla.github.io/nunjucks/), swig, twig, jinja files with html extension. We can define .nunj.html extension in IDE's to differentiate template files (_.nunj.html) and html (_.html) files correctly and make [nunjucks](https://mozilla.github.io/nunjucks/) command line tools happy.
+nunj.html extension is chosen because [nunjucks](https://mozilla.github.io/nunjucks/) command line tools expect files with extension **html**. However some IDE's struggle to auto complete/help/color [nunjucks](https://mozilla.github.io/nunjucks/), swig, twig, jinja files with html extension. We can define .nunj.html extension in IDE's to differentiate template files (_.nunj.html) and html (_.html) files correctly and make [nunjucks](https://mozilla.github.io/nunjucks/) command line tools happy.
 
 However if you really like to use another file extension in your templates create template filw tih your desired extension and use `--extension` option of `pgen`
 
-    $ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --extension html
+```bash
+$ pgen exec sequelize-template -d our_crm -u user -p tOpSeCrEt -t model --extension html
+```

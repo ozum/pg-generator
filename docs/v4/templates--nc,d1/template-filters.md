@@ -2,11 +2,15 @@
 
 Filters are essentially functions that can be applied to variables. They are called with a pipe operator (|) and can take arguments. [nunjucks](https://mozilla.github.io/nunjucks/) filters alter output of variables in place. You can use all available builtin [nunjucks filters](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
 
-    {{ table.name | lower }} -> Converts name to lower case. (i.e. Member -> member)
+```jinja2
+{{ table.name | lower }} -> Converts name to lower case. (i.e. Member -> member)
+```
 
 They can be chained:
 
-    {{ table.name | plural | camelCase }} -> Converts name to plural in camel case. (i.e. member_name -> memberNames)
+```jinja2
+{{ table.name | plural | camelCase }} -> Converts name to plural in camel case. (i.e. member_name -> memberNames)
+```
 
 #### pg-generator filters
 
@@ -34,6 +38,7 @@ pg-generator offfers additional filters suitable for database scaffolding. Some 
 
 **\*** Footnotes
 
+```jinja2
     *1 {{ 'cart_cart_id'    | stripPrefix('cart') }}        -> cart_id
        {{ 'cart_cart_id'    | stripPrefix(cart_table) }}    -> cart_id (Assuming cart_table.name equals cart)
        {{ 'a_b_c_table'     | stripPrefix('a', 'b') }}      -> c_table
@@ -41,6 +46,7 @@ pg-generator offfers additional filters suitable for database scaffolding. Some 
     *3 {{ 'cart_product_id' | strip('product') }}           -> cart_id
     *4 {{ 'member'          | padRight(10) }}               -> member    <- Space padded until here.
        {{ 'member'          | padRight(10, '_') }}          -> member____
+```
 
 ## API of Filter Functions
 
