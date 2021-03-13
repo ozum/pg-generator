@@ -10,7 +10,6 @@ const TEST_ROOT = join(tmpdir(), "pgen");
 const outDir = join(TEST_ROOT, "out");
 const outDir2 = join(TEST_ROOT, "out2");
 const app = new App({ outDir }, { db: {}, templateDir: join(__dirname, "templates") } as any);
-const CLIENT_OPTIONS = { database: "pg-generator-test", user: "user", password: "password" };
 
 // WORKAROUND: Jest does not output error of dynamic import in (src/utils/compose-with.ts). This function rethrows error.
 async function g(subGenerator = "app", options?: Options, { argLength = 3, cwd = "" } = {}): ReturnType<typeof load> {
@@ -25,7 +24,6 @@ async function g(subGenerator = "app", options?: Options, { argLength = 3, cwd =
     log: false,
     outDir,
     relationNameFunctions: "optimal",
-    ...CLIENT_OPTIONS,
     ...options,
   };
 
@@ -116,9 +114,7 @@ describe("generate", () => {
   });
 
   it("should throw if generator cannot be found.", async () => {
-    await expect(() => generate("XYZ", { ...CLIENT_OPTIONS })).rejects.toThrow(
-      "You don't seem to have a generator with the name 'XYZ' installed."
-    );
+    await expect(() => generate("XYZ")).rejects.toThrow("You don't seem to have a generator with the name 'XYZ' installed.");
   });
 
   it("should throw if sub-generator cannot be found.", async () => {
