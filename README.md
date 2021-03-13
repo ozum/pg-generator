@@ -6,6 +6,10 @@
   It generates files from your database structure using templates.
 </div>
 
+# v5 is at the Alpha Satge
+
+The new major version is at the alpha stage. Any feedback is appreciated.
+
 # Documentation
 
 Please see documenatation at [pg-generator.com](https://www.pg-generator.com)
@@ -13,7 +17,7 @@ Please see documenatation at [pg-generator.com](https://www.pg-generator.com)
 # Installation
 
 ```bash
-$ npm install -g pg-generator pg-generator-example
+$ npm install -g pg-generator@5.0.0-alpha.8 pg-generator-example
 ```
 
 # Generate Models & Files
