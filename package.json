@@ -48,7 +48,7 @@
     "fs-promise": "^2.x",
     "inflection": "^1.x",
     "inquirer": "^0",
-    "js-beautify": "^1.9.1",
+    "js-beautify": "^1.14.1",
     "klaw": "^1.x",
     "lodash": "^4.17.11",
     "nunjucks": "^3.2.0",
