@@ -54,7 +54,7 @@
     "nunjucks": "^3.2.0",
     "pg": "^7.10.0",
     "pg-structure": "^4.2.2",
-    "winston": "^2.4.4"
+    "winston": "^3.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
