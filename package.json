@@ -65,7 +65,7 @@
     "eslint-plugin-jsx-a11y": "^5.x",
     "eslint-plugin-react": "^7.12.4",
     "fs-extra": "^3.0.1",
-    "knex": "^0.19.5",
+    "knex": "^2.4.0",
     "lab": "^14.3.4",
     "mz": "^2.x",
     "objection": "^0.9.4",
