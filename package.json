@@ -47,13 +47,13 @@
     "eslint-fixer": "^0.1.5",
     "fs-promise": "^2.x",
     "inflection": "^1.x",
-    "inquirer": "^0",
-    "js-beautify": "^1.9.1",
+    "inquirer": "^8.0.0",
+    "js-beautify": "^1.14.9",
     "klaw": "^1.x",
     "lodash": "^4.17.11",
-    "nunjucks": "^3.2.0",
+    "nunjucks": "^3.2.1",
     "pg": "^7.10.0",
-    "pg-structure": "^4.2.2",
+    "pg-structure": "^5.1.0",
     "winston": "^2.4.4"
   },
   "devDependencies": {
